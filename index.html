@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#080b10" name="theme-color"/>
+<meta content="کارگاه تعاملی امنیت سایبری: مهندسی اجتماعی، OSINT، OPSEC، نشت داده، متادیتا، QR و دیپ‌فیک با پرونده‌های واقعی" name="description"/>
+<title>کارگاه امنیت سایبری | CYBER//AWARE</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body class="presentation-mode">
+<canvas aria-hidden="true" id="matrix"></canvas>
+<div aria-hidden="true" class="noise"></div>
+<div aria-hidden="true" class="ambient"></div>
+<header class="topbar">
+<button aria-label="رفتن به اسلاید اول" class="brand" id="homeBtn">
+<span class="brand-mark"><i></i></span>
+<span class="brand-copy"><b>CYBER//AWARE</b><small>کارگاه امنیت سایبری</small></span>
+</button>
+<div class="topbar-center">
+<span class="chapter-label" id="chapterLabel">شروع</span>
+<div class="mini-progress"><i id="progressBar"></i></div>
+<span class="slide-counter"><b id="slideNow">01</b>/<span id="slideTotal">129</span></span>
+</div>
+<div class="topbar-actions">
+<button class="top-btn" id="sourceBtn" title="منابع">منابع</button>
+<button class="top-btn" id="modeBtn" title="تغییر حالت نمایش">حالت مطالعه</button>
+<button aria-label="فهرست بخش‌ها" class="icon-btn" id="menuBtn">☰</button>
+</div>
+</header>
+<aside aria-hidden="true" class="drawer" id="drawer">
+<div class="drawer-head"><b>فهرست کارگاه</b><button aria-label="بستن" id="drawerClose">×</button></div>
+<nav id="chapterNav"></nav>
+<div class="drawer-help">
+<b>حالت ارائه</b>
+<span>Space / ↓ : بعدی</span>
+<span>↑ : قبلی</span>
+<span>P : تغییر حالت نمایش</span>
+<span>F : تمام‌صفحه</span>
+</div>
+</aside>
+<main id="deck">
+<!-- 01 -->
+<section class="slide active hero" data-short="START" data-title="شروع" id="start">
+<div class="slide-inner hero-grid">
+<div class="hero-copy">
+<span class="eyebrow"><i></i> امنیت سایبری از همان کارهای معمولی روز شروع می‌شود</span>
+<h1>یک روز عادی.<br/><em>ردپاهای غیرعادی.</em></h1>
+<p class="lead">صبح گوشی را باز می‌کنی، مسیرت را روی یک اپ ثبت می‌کنی، برای همکارت عکس می‌فرستی، ظهر یک QR را اسکن می‌کنی و عصر فایل PDF را برای کسی می‌فرستی. هیچ‌کدام عجیب نیست. مسئله اینجاست که همین کارهای معمولی، اگر کنار هم قرار بگیرند، می‌توانند چیزهایی درباره ما بگویند که اصلاً قصد گفتنشان را نداشتیم.</p>
+<p class="lead">این کارگاه قرار نیست تو را از اینترنت بترساند. قرار است نشان بدهد حمله سایبری فقط «هکر پشت لپ‌تاپ» نیست؛ گاهی یک تصمیم عجولانه، یک عکس بی‌اهمیت، یک رمز تکراری یا یک تنظیم پیش‌فرض، نقطه شروع ماجراست.</p>
+<div class="hero-actions"><button class="btn primary" data-next="">ورود به کارگاه <span>←</span></button></div>
+<div class="hero-pills"><span>Social Engineering</span><span>OSINT</span><span>OPSEC</span><span>Metadata</span><span>Data Breach</span><span>Deepfake</span></div>
+</div>
+<div aria-label="شبیه‌سازی رخداد" class="threat-console">
+<div class="terminal-head"><span></span><span></span><span></span><b>ordinary_day.log</b></div>
+<div class="terminal-body">
+<p><i>07:42</i> گوشی با اثر انگشت باز شد.</p>
+<p><i>08:11</i> مسیر دویدن روی اپ ورزشی ثبت شد.</p>
+<p><i>10:26</i> یک عکس از محل کار برای دوست ارسال شد.</p>
+<p><i>13:05</i> QR روی میز کافه اسکن شد.</p>
+<p><i>16:18</i> فایل PDF برای یک گروه فرستاده شد.</p>
+<p class="critical"><i>16:19</i> پنج کار معمولی؛ پنج نوع ردپای دیجیتال.</p>
+</div>
+<div class="terminal-foot"><span>موضوع کارگاه:</span><strong>دیدن چیزی که معمولاً نمی‌بینیم</strong></div>
+</div>
+</div>
+</section>
+<!-- 02 -->
+<!-- 03 -->
+<section class="slide" data-short="CONTEXT" data-title="امنیت سایبری در زندگی واقعی" id="opening-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">02</span><div><small>قبل از اصطلاحات</small><h2>امنیت سایبری یعنی محافظت از تصمیم‌ها، داده‌ها و دسترسی‌ها.</h2></div></div>
+<div class="definition-card big"><p>وقتی اسم امنیت سایبری می‌آید، خیلی‌ها اول یاد بدافزار، هکر و صفحه‌های پر از کد می‌افتند. آن بخش واقعاً وجود دارد، اما برای بیشتر آدم‌ها نقطه تماس روزمره با امنیت جای دیگری است: <strong>پیام، حساب کاربری، فایل، عکس، تلفن، وای‌فای و شبکه اجتماعی.</strong></p><p>فرض کن هیچ‌کس لپ‌تاپت را «هک» نکند، اما بتواند با یک تماس تو را قانع کند کد ورود را بخوانی؛ یا از سه پست اینستاگرامت بفهمد کجا کار می‌کنی و چه ساعتی معمولاً آنجایی. نتیجه امنیتی است، حتی اگر یک خط کد مخرب هم اجرا نشده باشد.</p><p>پس در این کارگاه، امنیت را فقط به‌عنوان مسئله فنی نمی‌بینیم. امنیت ترکیبی از فناوری، رفتار انسان، فرایند سازمان و اطلاعاتی است که بی‌دردسر در فضای عمومی پخش می‌شود.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>امنیت خوب از جایی شروع می‌شود که قبل از ابزار، بفهمیم چه چیزی واقعاً در معرض خطر است.</strong></div>
+</div></section><section class="slide" data-short="ROADMAP" data-title="مسیر کارگاه" id="workshop-route">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">03</span><div><small>نقشه راه</small><h2>از «فریب انسان» شروع می‌کنیم و به «ردپای داده» می‌رسیم.</h2></div></div>
+<div class="definition-card big"><p>اول می‌بینیم مهندسی اجتماعی چطور از اعتماد، عجله و اقتدار استفاده می‌کند. بعد سراغ OSINT و OPSEC می‌رویم تا ببینیم اطلاعات عمومی چطور کنار هم قرار می‌گیرند و چطور باید جلوی افشای ناخواسته را گرفت.</p><p>بعد به متادیتا، نشت داده و چند رخداد واقعی ایرانی و خارجی می‌رسیم. در ادامه QR، وای‌فای عمومی، نشست کاربری، SIM Swap و جعل صدا و تصویر را بررسی می‌کنیم.</p><p>هرجا پرونده واقعی می‌بینی، اول توضیح می‌دهیم اصلاً شرکت، فرد یا سرویس موردنظر چیست؛ بعد خود رخداد را قدم‌به‌قدم تعریف می‌کنیم. هدف این است که مخاطب وسط داستان گم نشود.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>قرار نیست اصطلاح حفظ کنیم؛ قرار است بفهمیم هر مفهوم در زندگی واقعی چه شکلی پیدا می‌کند.</strong></div>
+</div></section><section class="slide" data-short="ATTACK SURFACE" data-title="سطح حمله" id="attack-surface">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">04</span><div><small>یک مفهوم پایه</small><h2>سطح حمله یعنی همه جاهایی که ممکن است از آن‌ها به ما نزدیک شوند.</h2></div></div>
+<div class="definition-card big"><p>در امنیت به مجموعه نقاطی که می‌توان از آن‌ها به یک سیستم، حساب یا سازمان نزدیک شد <strong>Attack Surface</strong> می‌گویند. این نقاط فقط پورت شبکه و سرور نیستند. ایمیل یک کارمند، حساب قدیمی، گوشی شخصی، شرکت پیمانکار و حتی اطلاعات عمومی لینکدین هم می‌توانند بخشی از سطح حمله باشند.</p><p>هرچه دارایی‌ها، حساب‌ها و ارتباطات بیشتر شوند، مدیریت این سطح سخت‌تر می‌شود. برای همین یک حساب فراموش‌شده یا یک سرویس قدیمی که «فعلاً کاری باهاش نداریم» ممکن است بعدها تبدیل به همان دری شود که کسی از آن وارد می‌شود.</p><p>این مفهوم در تمام کارگاه همراه ماست: هر مثال واقعی را می‌توان با یک سؤال ساده دید؛ <strong>سطح حمله در این پرونده کجا بود؟</strong></p></div>
+<div class="takeaway"><b>نکته:</b> <strong>چیزی که استفاده‌اش نمی‌کنی ولی هنوز فعال است، لزوماً بی‌خطر نیست؛ ممکن است فقط از دید تو خارج شده باشد.</strong></div>
+</div></section><section class="slide" data-short="SOCIAL" data-title="مهندسی اجتماعی" id="social-definition">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no">05</span>
+<div><small>تعریف</small><h2>مهندسی اجتماعی یعنی هک‌کردن تصمیم انسان.</h2></div>
+</div>
+<div class="definition-grid">
+<article class="definition-card big">
+<span class="term">SOCIAL ENGINEERING</span>
+<p>به مجموعه روش‌هایی گفته می‌شود که در آن مهاجم به‌جای شکستن مستقیم یک سامانه، از <strong>اعتماد، عادت، ترس، اقتدار، کنجکاوی یا عجله</strong> استفاده می‌کند تا فرد کاری را انجام دهد که در حالت عادی انجام نمی‌داد.</p>
+<p>ممکن است قربانی رمز را خودش وارد کند، کد OTP را بخواند، فایل را باز کند، پرداخت را تأیید کند یا دسترسی لازم را به مهاجم بدهد. در این حمله، ما قرار نیست انسان را «مشکل» بنامیم؛ واقعیت این است که تصمیم‌های انسانی بخشی از سطح حمله‌اند و باید برایشان کنترل طراحی شود.</p>
+<p>نکته‌ای که حمله را خطرناک می‌کند این است که پیام معمولاً عجیب و غریب به نظر نمی‌رسد. برعکس، مهاجم سعی می‌کند دقیقاً از زبان و روال آشنای سازمان تقلید کند: نام مدیر، لحن پشتیبانی، عنوان پروژه، ساعت کاری و حتی اصطلاحات داخلی.</p>
+</article>
+<div class="trigger-grid">
+<div><b>اقتدار</b><span>«من مدیرم.»</span></div>
+<div><b>فوریت</b><span>«الان انجام بده.»</span></div>
+<div><b>ترس</b><span>«حسابت بسته می‌شود.»</span></div>
+<div><b>اعتماد</b><span>«این پیام از همکارت است.»</span></div>
+<div><b>کنجکاوی</b><span>«این فایل را دیدی؟»</span></div>
+<div><b>محرمانگی</b><span>«با کسی مطرح نکن.»</span></div>
+</div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>هر درخواست حساس که هم‌زمان فوری، محرمانه و غیرمعمول است باید سرعت شما را کم کند، نه زیاد.</strong></div>
+</div>
+</section><section class="slide" data-short="EVERYDAY" data-title="مهندسی اجتماعی در زندگی روزمره" id="social-everyday"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">06</span><div><small>از اداره تا زندگی شخصی</small><h2>مهندسی اجتماعی معمولاً خیلی معمولی شروع می‌شود.</h2></div></div><div class="story-grid"><article class="story-card"><div class="story-icon">☎</div><span>تماس تلفنی</span><h3>«از پشتیبانی تماس می‌گیرم.»</h3><p>تماس‌گیرنده اسم، شماره یا بخشی از اطلاعات واقعی تو را می‌داند. همین کافی است تا ذهنت بگوید «پس حتماً واقعی است». بعد درخواست می‌کند کدی را بخوانی یا برنامه‌ای نصب کنی.</p></article><article class="story-card"><div class="story-icon">✉</div><span>پیام</span><h3>«مرسوله‌ات مشکل دارد.»</h3><p>پیام دقیقاً زمانی می‌رسد که شاید واقعاً منتظر بسته‌ای باشی. مبلغ درخواستی هم آن‌قدر کم است که فرصت فکرکردن به خودت نمی‌دهی.</p></article><article class="story-card"><div class="story-icon">▣</div><span>محل کار</span><h3>«مدیر گفت فوری بفرست.»</h3><p>درخواست از نظر فنی عجیب نیست؛ فقط زمان، کانال یا محرمانگی‌اش غیرعادی است. مهاجم روی این حساب می‌کند که ما از به‌تعویق‌انداختن دستور مقام بالاتر خجالت می‌کشیم.</p></article></div><div class="question-pause">یک سؤال ساده: <b>آخرین بار که یک پیام تو را عجله‌ای کرد، قبل از اقدام چند ثانیه مکث کردی؟</b></div><div class="takeaway"><b>نکته:</b> <strong>نشانه اصلی همیشه غلط املایی و لینک عجیب نیست؛ گاهی نشانه اصلی همان حس «الان باید انجامش بدهم» است.</strong></div></div></section><section class="slide" data-short="RED FLAGS" data-title="نشانه‌های هشدار" id="social-redflags"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">07</span><div><small>شش علامت که باید سرعتت را کم کند</small><h2>قبل از کلیک، به «لحن» پیام نگاه کن.</h2></div></div><div class="trigger-grid"><div><b>فوری است</b><span>«فقط ۱۰ دقیقه وقت داری.»</span></div><div><b>تهدید می‌کند</b><span>«حساب مسدود می‌شود.»</span></div><div><b>محرمانه است</b><span>«به کسی نگو.»</span></div><div><b>روال عوض شده</b><span>«این بار به این شماره واریز کن.»</span></div><div><b>اطلاعات حساس می‌خواهد</b><span>OTP، رمز، فایل، موقعیت.</span></div><div><b>از اشتباه تو می‌ترساند</b><span>«اگر دیر شود مسئولیت با توست.»</span></div></div><div class="definition-card big"><p>هیچ‌کدام از این نشانه‌ها به‌تنهایی ثابت نمی‌کند پیام جعلی است. اما وقتی دو یا سه مورد با هم دیده می‌شوند، باید تصمیم را از حالت «واکنش سریع» بیرون بیاوری و وارد حالت <strong>راستی‌آزمایی مستقل</strong> شوی.</p><p>مهاجم حرفه‌ای معمولاً نمی‌خواهد تو چیزی عجیب ببینی؛ می‌خواهد همان چیزی را ببینی که انتظارش را داری، فقط کمی سریع‌تر.</p></div><div class="takeaway"><b>نکته:</b> <strong>هرچه پیام بیشتر تو را هل می‌دهد، بیشتر حق داری بایستی.</strong></div></div></section><section class="slide" data-short="HUMAN LAYER" data-title="لایه انسانی" id="human-layer">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">08</span><div><small>چرا انسان هدف می‌شود؟</small><h2>چون انسان می‌تواند کنترل‌هایی را باز کند که مهاجم از بیرون نمی‌تواند.</h2></div></div>
+<div class="definition-card big"><p>فرض کن یک سازمان فایروال خوب، MFA و مانیتورینگ دارد. مهاجم می‌تواند هفته‌ها دنبال نقص فنی بگردد؛ یا تلاش کند کسی را قانع کند خودش فرایند بازیابی رمز را انجام دهد. در حالت دوم، حمله به جای شکستن کنترل، از <strong>فرایند مجاز</strong> سوءاستفاده می‌کند.</p><p>مهندسی اجتماعی روی «احمق بودن قربانی» بنا نشده. روی رفتارهای کاملاً انسانی بنا شده: احترام به مقام بالاتر، کمک‌کردن به همکار، ترس از جا ماندن، نگرانی از مسدودشدن حساب و تمایل به تمام‌کردن سریع یک کار.</p><p>به همین دلیل دفاع خوب فقط آموزش کاربر نیست. باید فرایند طوری طراحی شود که یک تصمیم اشتباه نتواند به‌تنهایی خسارت بزرگی بسازد؛ مثلاً پرداخت مهم به تأیید نفر دوم نیاز داشته باشد.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>اگر یک تصمیم انسانی بتواند همه کنترل‌های فنی را دور بزند، مشکل فقط «کاربر» نیست؛ طراحی فرایند هم باید اصلاح شود.</strong></div>
+</div></section><section class="slide" data-short="ANATOMY" data-title="آناتومی فیشینگ" id="phishing-anatomy">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">09</span><div><small>یک پیام جعلی چطور ساخته می‌شود؟</small><h2>فیشینگ خوب شبیه کلاهبرداری بد نیست؛ شبیه یک پیام معمولیِ باورپذیر است.</h2></div></div>
+<div class="definition-card big"><p>مهاجم معمولاً چهار چیز را کنار هم می‌گذارد: <strong>هویت آشنا، دلیل قابل‌باور، فشار برای اقدام و مقصدی که شبیه مقصد واقعی است.</strong> ممکن است لوگو، نام سازمان، امضای ایمیل و حتی نام همکار را درست استفاده کند.</p><p>بعد یک «لحظه تصمیم» می‌سازد: روی لینک بزن، فایل را باز کن، این کد را بگو، حساب بانکی را عوض کن یا ورود را تأیید کن. اگر آن لحظه را رد کنی، خیلی از حملات عملاً متوقف می‌شوند.</p><p>پس موقع بررسی پیام، فقط دنبال غلط املایی نگرد. سؤال مهم‌تر این است: <strong>این پیام از من می‌خواهد چه کاری انجام دهم و چرا همین الان؟</strong></p></div>
+<div class="takeaway"><b>نکته:</b> <strong>در فیشینگ، متن پیام مهم است؛ اما «اقدامی که از تو می‌خواهد» مهم‌تر است.</strong></div>
+</div></section><section class="slide" data-short="PHISHING" data-title="فیشینگ" id="phishing-explained"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">10</span><div><small>تعریف ساده</small><h2>فیشینگ یعنی یک جای آشنا بسازند تا خودت کلید را تحویل بدهی.</h2></div></div><div class="definition-grid"><article class="definition-card big"><span class="term">PHISHING</span><p>فیشینگ معمولاً با یک پیام یا ایمیل شروع می‌شود که تو را به صفحه‌ای شبیه سرویس واقعی می‌برد. هدف ممکن است گرفتن نام کاربری و رمز، اطلاعات کارت، کد یک‌بارمصرف یا نصب یک فایل مخرب باشد.</p><p>نسخه خطرناک‌تر، <strong>Spear Phishing</strong> است: پیام عمومی نیست؛ برای خود تو ساخته شده. نام همکار، عنوان پروژه، شرکت، دانشگاه یا حتی جلسه‌ای که واقعاً داری در متن آمده است.</p><p>اینجا OSINT و مهندسی اجتماعی به هم می‌رسند: اطلاعات عمومی درباره تو، پیام جعلی را قابل‌باورتر می‌کند.</p></article><div class="attack-timeline"><div><span>01</span><b>اطلاعات جمع می‌شود</b><small>نام، سمت، پروژه</small></div><i>↓</i><div><span>02</span><b>پیام ساخته می‌شود</b><small>ظاهر آشنا</small></div><i>↓</i><div><span>03</span><b>تو وارد می‌شوی</b><small>credential / OTP</small></div><i>↓</i><div class="danger-node"><span>04</span><b>حساب واقعی</b><small>از داخل استفاده می‌شود</small></div></div></div><div class="takeaway"><b>نکته:</b> <strong>صفحه را از روی ظاهر تأیید نکن؛ آدرس را بخوان و سرویس را از مسیر همیشگی خودت باز کن.</strong></div></div></section><section class="slide" data-short="CALLER ID" data-title="جعل شماره تماس" id="caller-id-spoofing">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">11</span><div><small>تماس تلفنی چرا قابل‌باور می‌شود؟</small><h2>شماره‌ای که روی صفحه می‌بینی همیشه معادل هویت تماس‌گیرنده نیست.</h2></div></div>
+<div class="definition-card big"><p>در تماس‌های فریبنده، مهاجم گاهی از اطلاعات عمومی یا نشت‌های قبلی استفاده می‌کند تا مکالمه طبیعی‌تر شود. ممکن است نام کامل، آخرین خرید یا نام شرکت را بداند. این اطلاعات باعث می‌شود ذهن ما تماس را «تأییدشده» فرض کند.</p><p>اما دانستن اطلاعات شخصی، اثبات هویت نیست. شماره نمایش‌داده‌شده هم در برخی سناریوها می‌تواند جعل شود یا تماس از سامانه‌ای بیاید که تشخیص آن برای کاربر عادی ساده نیست.</p><p>برای همین در درخواست‌های حساس، بهترین حرکت این است که تماس را تمام کنی و خودت از شماره رسمی و از قبل شناخته‌شده دوباره تماس بگیری.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>اگر تماس‌گیرنده واقعاً بانک، پشتیبانی یا همکار تو باشد، راستی‌آزمایی مستقل نباید برایش مشکل باشد.</strong></div>
+</div></section><section class="slide" data-short="VISHING" data-title="فیشینگ تلفنی" id="vishing-explained"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">12</span><div><small>وقتی حمله پشت تلفن است</small><h2>ویشینگ: صدای مطمئن، دلیلِ مطمئن نیست.</h2></div></div><div class="case-layout"><div class="case-narrative"><span class="case-tag">VOICE + AUTHORITY + URGENCY</span><p><strong>Vishing</strong> همان مهندسی اجتماعی تلفنی است. تماس‌گیرنده ممکن است خودش را پشتیبانی بانک، واحد IT، اپراتور، همکار یا مدیر معرفی کند.</p><p>مزیت تماس برای مهاجم این است که فرصت بررسی را از تو می‌گیرد. سکوت چندثانیه‌ای هم ناراحت‌کننده می‌شود و قربانی برای ادامه طبیعی مکالمه، اطلاعات بیشتری می‌دهد.</p><p>قانون ساده: اگر تماس به رمز، OTP، نصب نرم‌افزار، انتقال پول یا تغییر تنظیمات حساب رسید، مکالمه را تمام کن و <strong>خودت از شماره رسمی تماس بگیر</strong>.</p></div><div class="phone-card"><div class="phone-top"><span>تماس ورودی</span><time>11:42</time></div><p>«از واحد امنیت تماس می‌گیرم. یک ورود مشکوک داشتید. کدی که الان آمد را بخوانید تا حساب قفل نشود.»</p><div class="fake-link">سؤال: چرا باید فردِ پشتیبانی کد ورود تو را بداند؟</div></div></div><div class="takeaway"><b>نکته:</b> <strong>شماره تماس، صدا و اطلاعاتی که طرف درباره تو می‌داند، هیچ‌کدام به‌تنهایی احراز هویت نیستند.</strong></div></div></section><section class="slide" data-short="BEC" data-title="BEC چیست؟" id="bec-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">13</span><div><small>ایمیل تجاریِ ظاهراً واقعی</small><h2>BEC بیشتر از اینکه «هک ایمیل» باشد، جعل فرایند کسب‌وکار است.</h2></div></div>
+<div class="definition-card big"><p><strong>Business Email Compromise</strong> یا BEC به حملاتی گفته می‌شود که مهاجم در آن خودش را مدیر، فروشنده، شریک تجاری یا حسابداری جا می‌زند و سعی می‌کند پول یا اطلاعات را به مسیر دیگری ببرد.</p><p>گاهی حساب ایمیل واقعی تصاحب شده، گاهی دامنه‌ای بسیار شبیه دامنه شرکت ساخته شده و گاهی فقط نام نمایشی فرستنده جعل می‌شود. چیزی که قربانی می‌بیند معمولاً یک درخواست «عادی اما فوری» است؛ مثلاً تغییر شماره حساب تأمین‌کننده.</p><p>این حمله برای سازمان‌ها خطرناک است چون با فرایند مالی واقعی قاطی می‌شود. یک ایمیل جعلی ممکن است از نظر ظاهر کاملاً با صدها ایمیل واقعی قبلی یکسان باشد.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>در تغییر حساب بانکی، دستور پرداخت یا ارسال سند حساس، ایمیل نباید تنها کانال تأیید باشد.</strong></div>
+</div></section><section class="slide" data-short="FBI CASE" data-title="یک پرونده واقعی BEC" id="bec-fbi-story">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">14</span><div><small>پرونده‌ای که FBI شرح داده</small><h2>یک تفاوت کوچک در دامنه، به انتقال صدها هزار دلار منجر شد.</h2></div></div>
+<div class="definition-card big"><p>FBI پرونده‌ای را شرح داده که در آن حسابدار شرکتی ایمیلی دریافت کرد که ظاهراً از مدیرعامل بود. مدیرعامل در سفر بود و پیام می‌گفت یک معامله محرمانه و فوری در جریان است. فرد دیگری هم در نقش وکیل وارد مکالمه شد تا داستان طبیعی‌تر شود.</p><p>حسابدار بیش از ۷۳۷ هزار دلار انتقال داد. بعداً مشخص شد مدیرعامل چنین درخواستی نداده بود. یکی از تفاوت‌ها این بود که دامنه ایمیل به‌جای پسوند اصلی، پسوندی بسیار شبیه داشت.</p><p>نکته مهم این نیست که «کارمند باید دامنه را بهتر می‌دید». نکته مهم‌تر این است که انتقال چنین مبلغی نباید فقط با یک رشته ایمیل قابل انجام باشد.</p><a class="source-link" href="https://www.fbi.gov/news/stories/business-e-mail-compromise" rel="noopener" target="_blank">FBI ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>کنترل فرایندی خوب باید حتی وقتی ایمیل جعلی خیلی حرفه‌ای است، جلوی پرداخت غیرعادی را بگیرد.</strong></div>
+</div></section><section class="slide" data-short="BEC" data-title="کلاهبرداری ایمیلی سازمانی" id="bec-explained"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">15</span><div><small>Business Email Compromise</small><h2>گاهی ایمیل جعلی نمی‌گوید «رمزت را بده»؛ می‌گوید «پول را اینجا بفرست».</h2></div></div><div class="definition-card big"><p>در <strong>BEC</strong> مهاجم خودش را جای مدیر، تأمین‌کننده، حسابدار یا شریک تجاری جا می‌زند و فرایند واقعی کسب‌وکار را دستکاری می‌کند. مثلاً شماره حساب فاکتور عوض می‌شود، پرداخت «فوری» می‌شود یا ایمیلی از دامنه‌ای بسیار شبیه دامنه اصلی می‌رسد.</p><p>خطر این حمله از همین‌جاست: کارمند ممکن است هیچ فایل مشکوکی باز نکند و هیچ رمز عبوری هم تحویل ندهد؛ فقط یک پرداخت کاملاً واقعی را به مقصد اشتباه بفرستد.</p><p>کنترل مؤثر فنی نیست فقط: تغییر شماره حساب یا پرداخت بزرگ باید با <strong>تأیید خارج از ایمیل</strong> و نفر دوم انجام شود.</p></div><div class="question-pause">اگر همین امروز تأمین‌کننده‌ای بگوید «حساب بانکی ما عوض شده»، <b>فرایند شما برای تأیید این تغییر چیست؟</b></div><div class="takeaway"><b>نکته:</b> <strong>تغییر مقصد پول، همیشه یک رویداد امنیتی است؛ حتی اگر ایمیل کاملاً واقعی به نظر برسد.</strong></div></div></section>
+<!-- Q-SOCIAL -->
+<section class="slide question-slide" data-short="ASK YOURSELF" data-title="سؤال مهندسی اجتماعی" id="social-questions">
+<div class="slide-inner narrow">
+<div class="slide-head"><span class="chapter-no red">16</span><div><small>این بخش را جواب نده؛ فقط فکر کن</small><h2>اگر همین الان کسی با لحن درست سراغت بیاید، از کجا می‌فهمی خودش است؟</h2></div></div>
+<div class="question-grid">
+<article><span>01</span><h3>آخرین بار که «پشتیبانی» با تو تماس گرفت، خودت شماره رسمی را چک کردی؟</h3></article>
+<article><span>02</span><h3>اگر مدیرت بگوید «فقط خودت انجام بده و به کسی نگو»، این جمله اعتماد تو را بیشتر می‌کند یا شک تو را؟</h3></article>
+<article><span>03</span><h3>اگر پیام، نام کامل تو و پروژه‌ای که واقعاً روی آن کار می‌کنی را بداند، آیا آن را معتبر فرض می‌کنی؟</h3></article>
+<article><span>04</span><h3>اگر فقط ۳۰ ثانیه برای تصمیم داشته باشی، کدام کنترل امنیتی را احتمالاً فراموش می‌کنی؟</h3></article>
+</div>
+<div class="question-pause">چند ثانیه مکث کن. <b>مهندسی اجتماعی دقیقاً روی همین پاسخ‌های خودکار حساب می‌کند.</b></div>
+</div>
+</section>
+<!-- 04 -->
+<section class="slide" data-short="CAESARS" data-title="Caesars Entertainment چیست؟" id="caesars-context"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">17</span><div><small>قبل از رخداد ۲۰۲۳</small><h2>یک شرکت بزرگ هتل و کازینو که برنامه وفاداری میلیون‌ها مشتری را هم اداره می‌کند.</h2></div></div><div class="definition-card big"><p>Caesars Entertainment در آمریکا مجموعه‌ای از هتل‌ها، کازینوها و برندهای سرگرمی را اداره می‌کند. مثل بسیاری از کسب‌وکارهای بزرگ، بخشی از پشتیبانی فناوری اطلاعاتش با شرکت‌های بیرونی انجام می‌شود.</p><p>در سپتامبر ۲۰۲۳ Caesars در گزارش رسمی به SEC گفت حمله با مهندسی اجتماعی علیه یک شرکت پشتیبانی IT برون‌سپاری‌شده شروع شده است. مهاجم بعداً به نسخه‌ای از پایگاه داده برنامه وفاداری مشتریان دسترسی پیدا کرد.</p><p>این توضیح مهم است چون پرونده Caesars را نباید با MGM قاطی کرد. هر دو در یک بازه زمانی خبرساز شدند، اما جزئیات رسمی رخداد و پیامدهایشان یکسان نبود.</p><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1590895/000119312523235015/d537840d8k.htm" rel="noopener" target="_blank">SEC ↗</a></div><div class="takeaway"><b>نکته:</b> <strong>در رخدادهای هم‌زمان و شبیه، اسم شرکت‌ها و شواهد را جدا نگه دار؛ شباهت زمانی به معنی یکسان بودن پرونده نیست.</strong></div></div></section><section class="slide" data-short="CAESARS" data-title="پرونده واقعی" id="social-real">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no red">18</span>
+<div><small>پرونده واقعی • ۲۰۲۳</small><h2>Caesars: وقتی نقطه ورود، شرکت پشتیبانی بود.</h2></div>
+</div>
+<div class="case-layout">
+<div class="case-narrative">
+<span class="case-tag">SOCIAL ENGINEERING → THIRD PARTY</span>
+<p>Caesars Entertainment در گزارش رسمی خود به کمیسیون بورس آمریکا اعلام کرد مهاجم از طریق <strong>مهندسی اجتماعی علیه یک شرکت پشتیبانی IT برون‌سپاری‌شده</strong> به شبکه دسترسی پیدا کرد.</p>
+<p>در ادامه، نسخه‌ای از پایگاه داده برنامه وفاداری مشتریان به دست مهاجم رسید؛ داده‌ای که برای تعداد قابل توجهی از اعضا شامل شماره گواهینامه رانندگی و/یا شماره تأمین اجتماعی بود.</p>
+<p>این پرونده یک نکته مهم دارد: ممکن است سازمان خودش کنترل‌های خوبی داشته باشد، اما <strong>اعتماد به پیمانکار، مرکز تماس یا پشتیبان بیرونی همان زنجیره امنیتی را ادامه می‌دهد.</strong></p>
+<a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1590895/000119312523235015/d537840d8k.htm" rel="noopener" target="_blank">سند رسمی SEC ↗</a>
+</div>
+<div class="attack-timeline">
+<div><span>01</span><b>هدف‌گیری انسانی</b><small>پشتیبان بیرونی</small></div>
+<i>↓</i>
+<div><span>02</span><b>دسترسی شبکه</b><small>ورود غیرمجاز</small></div>
+<i>↓</i>
+<div><span>03</span><b>داده مشتری</b><small>پایگاه وفاداری</small></div>
+<i>↓</i>
+<div class="danger-node"><span>04</span><b>پیامد حقوقی</b><small>شکایت و بررسی نهادها</small></div>
+</div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>امنیت سازمان فقط به امنیت کارکنان خودش محدود نیست؛ پیمانکار و پشتیبان هم بخشی از محیط اعتماد هستند.</strong></div>
+</div>
+</section><section class="slide" data-short="UBER" data-title="اوبر چیست؟" id="uber-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">19</span><div><small>قبل از رخداد ۲۰۲۲</small><h2>Uber یک پلتفرم بزرگ حمل‌ونقل و خدمات مبتنی بر اپ است؛ برای همین حساب‌های داخلی آن ارزش زیادی دارند.</h2></div></div>
+<div class="definition-card big"><p>اوبر میلیون‌ها کاربر، راننده و فرایند عملیاتی دارد. مثل هر شرکت بزرگ فناوری، کارمندانش از ابزارهای داخلی، سرویس‌های ابری، پیام‌رسان سازمانی و سامانه‌های دسترسی استفاده می‌کنند.</p><p>در رخداد ۲۰۲۲، تمرکز ما روی «هک اپ مسافر» نیست. داستان اصلی درباره دسترسی به محیط داخلی شرکت است؛ یعنی جایی که کارکنان و تیم‌های فنی کار می‌کنند.</p><p>این زمینه مهم است چون وقتی در اسلاید بعد می‌گوییم مهاجم به Slack و ابزارهای داخلی رسید، مخاطب می‌فهمد چرا این موضوع از یک حساب معمولی جدی‌تر است.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>برای فهم هر رخداد، اول باید بدانیم دارایی ارزشمند چه بوده؛ در Uber، مسئله اصلی دسترسی به محیط داخلی شرکت بود.</strong></div>
+</div></section><section class="slide visual-slide" data-short="UBER 2022" data-title="Uber 2022" id="uber-2022"><div class="slide-inner media-split"><figure class="evidence-frame"><img alt="پیام مهاجم در Slack اوبر در حادثه ۲۰۲۲" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://cdn.prod.website-files.com/62ab2498f52dbd4767cf7073/637da824eabf245365cbecad_uber-2.png"/><figcaption><b>تصویر منتشرشده از داخل Slack اوبر</b> — مهاجم بعد از دسترسی، حضورش را در کانال داخلی اعلام کرد.</figcaption></figure><div class="media-copy"><span class="case-tag">SOCIAL ENGINEERING + MFA PRESSURE</span><h2>Uber: وقتی کارمند فکر کرد با IT طرف است.</h2><p>در حادثه ۲۰۲۲، اوبر اعلام کرد در حال پاسخ به یک رخداد امنیتی است و بعضی ابزارهای داخلی را موقتاً از دسترس خارج کرد. گزارش‌های فنی بعدی این رخداد را با مهندسی اجتماعی و سوءاستفاده از فرایند احراز هویت مرتبط دانستند.</p><p>درس مهم برای کارگاه این نیست که مهاجم دقیقاً چه ابزارهایی دید؛ مهم این است که <strong>MFA اگر با فرایند انسانی ضعیف ترکیب شود، جادویی نیست.</strong> اگر کاربر بارها نوتیفیکیشن بگیرد و بعد کسی با عنوان «IT» تماس بگیرد، ممکن است همان تأییدی را بزند که مهاجم منتظرش است.</p><a class="source-link" href="https://www.uber.com/cr/es/newsroom/actualizacion-de-seguridad/" rel="noopener" target="_blank">به‌روزرسانی رسمی Uber ↗</a></div><div class="takeaway full"><b>نکته:</b> <strong>درخواست MFA که خودت شروع نکرده‌ای را رد کن؛ بعد رمز را عوض و رخداد را گزارش کن.</strong></div></div></section><section class="slide" data-short="TARGET" data-title="Target چیست؟" id="target-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">21</span><div><small>قبل از پرونده ۲۰۱۳</small><h2>Target یک خرده‌فروش بسیار بزرگ آمریکایی است؛ اما نقطه ورود حمله از بیرون خود فروشگاه آمد.</h2></div></div>
+<div class="definition-card big"><p>Target هزاران فروشگاه و شبکه پرداخت و عملیات گسترده دارد. در رخداد ۲۰۱۳، مهاجمان در نهایت به داده‌های کارت پرداخت و اطلاعات مشتریان دست پیدا کردند.</p><p>چیزی که پرونده را معروف کرد این بود که اعتبار دسترسی یک پیمانکار تهویه و سرمایش نقش نقطه ورود اولیه را داشت. یعنی سازمانی که خودش فروشگاه زنجیره‌ای بود، از مسیری ضربه خورد که در نگاه اول «سیستم اصلی کسب‌وکار» به نظر نمی‌رسید.</p><p>این دقیقاً مفهوم ریسک شخص ثالث است: وقتی به یک پیمانکار دسترسی می‌دهی، بخشی از امنیت او را هم وارد محیط خودت می‌کنی.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>پیمانکار کوچک می‌تواند به سازمان بزرگ وصل باشد؛ اندازه شرکت، اندازه ریسک دسترسی را تعیین نمی‌کند.</strong></div>
+</div></section><section class="slide" data-short="TARGET" data-title="Target و پیمانکار HVAC" id="target-third-party"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">22</span><div><small>پرونده واقعی • ۲۰۱۳</small><h2>Target: نقطه ورود، فروشگاه بزرگ نبود؛ یک پیمانکار تهویه بود.</h2></div></div><div class="case-layout"><div class="case-narrative"><span class="case-tag">THIRD-PARTY RISK</span><p>در رخداد مشهور Target، بررسی‌ها نشان داد اعتبار دسترسی یک پیمانکار سیستم‌های سرمایش و تهویه به سرقت رفته بود و از همان مسیر برای ورود به شبکه Target استفاده شد.</p><p>این پرونده هنوز هم مثال خوبی است چون نشان می‌دهد امنیت زنجیره‌ای است. سازمان بزرگ ممکن است بودجه امنیتی بالایی داشته باشد، اما اگر یک حساب پیمانکار به همان شبکه وصل باشد، سطح حمله تا لپ‌تاپ و ایمیل همان پیمانکار ادامه پیدا می‌کند.</p><p>برای کاربر عادی هم نسخه کوچک همین اتفاق وجود دارد: یک حساب فرعی، ایمیل قدیمی یا سرویس کم‌اهمیت می‌تواند درِ ورود به حساب اصلی شود.</p><a class="source-link" href="https://krebsonsecurity.com/2014/02/target-hackers-broke-in-via-hvac-company/" rel="noopener" target="_blank">KrebsOnSecurity ↗</a></div><div class="attack-timeline"><div><span>01</span><b>پیمانکار</b><small>credential سرقت می‌شود</small></div><i>↓</i><div><span>02</span><b>ورود به شبکه</b><small>اعتماد زنجیره‌ای</small></div><i>↓</i><div><span>03</span><b>گسترش دسترسی</b><small>سیستم‌های داخلی</small></div><i>↓</i><div class="danger-node"><span>04</span><b>داده مشتری</b><small>پیامد گسترده</small></div></div></div><div class="takeaway"><b>نکته:</b> <strong>«طرف قرارداد ماست» یک دلیل تجاری است، نه کنترل امنیتی.</strong></div></div></section><section class="slide" data-short="PATTERN" data-title="الگوی مشترک حملات" id="social-patterns"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">23</span><div><small>Caesars، Twitter، Reddit، Uber</small><h2>چهار پرونده متفاوت؛ یک الگوی آشنا.</h2></div></div><div class="protocol-grid"><div><span>01</span><b>اطلاعات اولیه</b><p>مهاجم می‌فهمد چه کسی، در چه نقشی، با چه سامانه‌ای کار می‌کند.</p></div><div><span>02</span><b>هویت قابل‌باور</b><p>خودش را پشتیبانی، مدیر یا سرویس واقعی جا می‌زند.</p></div><div><span>03</span><b>فشار</b><p>زمان، تهدید، محرمانگی یا مشکل فوری می‌سازد.</p></div><div><span>04</span><b>یک تصمیم انسانی</b><p>کلیک، تأیید، OTP، تماس یا تغییر تنظیمات.</p></div><div><span>05</span><b>استفاده از دسترسی</b><p>از حساب واقعی برای رفتن به مرحله بعد استفاده می‌شود.</p></div><div><span>06</span><b>گسترش پیامد</b><p>داده، پول، سیستم یا اعتماد عمومی آسیب می‌بیند.</p></div><div><span>07</span><b>ردپای دیرهنگام</b><p>اغلب زمانی دیده می‌شود که رفتار غیرعادی شروع شده.</p></div></div><div class="takeaway"><b>نکته:</b> <strong>تمرکز دفاعی را از «پیام جعلی چه شکلی است» به «درخواست حساس چطور باید تأیید شود» منتقل کن.</strong></div></div></section><section class="slide question-slide" data-short="MFA?" data-title="خستگی MFA" id="mfa-fatigue"><div class="slide-inner narrow"><div class="slide-head"><span class="chapter-no red">24</span><div><small>MFA Fatigue</small><h2>اگر ده بار پشت‌سرهم پیام تأیید ورود بگیری، بار یازدهم چه می‌کنی؟</h2></div></div><div class="question-stack"><p>آیا فکر می‌کنی «حتماً باگ شده» و فقط برای تمام‌شدن اعلان‌ها <strong>Approve</strong> می‌زنی؟</p><p>اگر بلافاصله کسی با عنوان IT تماس بگیرد و بگوید «این بار تأیید کن تا مشکل حل شود»، چقدر قابل‌باور می‌شود؟</p><p>اگر اعلان ورود را خودت شروع نکرده‌ای، چرا باید آن را تأیید کنی؟</p></div><div class="question-pause">قاعده ساده: <b>ورودی که خودت شروع نکرده‌ای، متعلق به تو نیست.</b></div></div></section><section class="slide" data-short="CALLBACK" data-title="قانون تماس برگشتی" id="callback-rule"><div class="slide-inner"><div class="slide-head"><span class="chapter-no green">25</span><div><small>یک کنترل ساده با اثر زیاد</small><h2>تماس را قطع کن؛ خودت برگرد.</h2></div></div><div class="definition-grid"><article class="definition-card big"><p>درخواست حساس از راه تلفن، پیام‌رسان یا ایمیل رسید؟ به‌جای ادامه همان کانال، ارتباط را تمام کن و <strong>از شماره، اپ یا آدرسی که از قبل می‌شناسی</strong> دوباره ارتباط بگیر.</p><p>این کار یک مزیت مهم دارد: مهاجم کنترل کانال ارتباطی را از دست می‌دهد. اگر خودش شماره، لینک یا مسیر جایگزین را به تو بدهد، هنوز در زمین او بازی می‌کنی.</p><p>برای سازمان‌ها بهتر است این کار تبدیل به قاعده شود: تغییر حساب بانکی، درخواست فایل حساس، reset MFA، پرداخت بزرگ و تغییر دسترسی بدون callback یا تأیید نفر دوم انجام نشود.</p></article><div class="verification-box"><b>نمونه</b><span>«از بانک تماس گرفتند» → تماس را قطع کن → شماره پشت کارت یا اپ رسمی را باز کن → خودت تماس بگیر.</span></div></div><div class="takeaway"><b>نکته:</b> <strong>راستی‌آزمایی واقعی یعنی کنترل مسیر تأیید دست خودت باشد.</strong></div></div></section>
+<!-- SOCIAL CASE: TWITTER -->
+<section class="slide" data-short="TWITTER" data-title="توییتر در پرونده ۲۰۲۰" id="twitter-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">26</span><div><small>اول بفهمیم چه چیزی هک شد</small><h2>ماجرا فقط هک چند حساب مشهور نبود؛ دسترسی به ابزارهای داخلی شرکت بود.</h2></div></div>
+<div class="definition-card big"><p>توییتر ـ که امروز با نام X شناخته می‌شود ـ شبکه اجتماعی بزرگی بود که حساب افراد مشهور، شرکت‌ها و مقام‌های عمومی را میزبانی می‌کرد. در پشت صحنه، کارکنان برای پشتیبانی و مدیریت حساب‌ها ابزارهای داخلی داشتند.</p><p>در ژوئیه ۲۰۲۰ مهاجمان با مهندسی اجتماعی برخی کارکنان به بخشی از این ابزارها دسترسی پیدا کردند. بعد از آن توانستند کنترل تعدادی از حساب‌های پرمخاطب را در دست بگیرند.</p><p>برای مخاطب کارگاه مهم است تفاوت را ببیند: مهاجم لزوماً رمز شخص مشهور را حدس نزد؛ از مسیر داخلی شرکت به حساب‌ها رسید.</p><a class="source-link" href="https://www.justice.gov/archives/opa/pr/three-individuals-charged-alleged-roles-twitter-hack" rel="noopener" target="_blank">DOJ ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>وقتی ابزار پشتیبانی به حساب‌های حساس دسترسی دارد، خود آن ابزار و کارکنانی که با آن کار می‌کنند دارایی حیاتی‌اند.</strong></div>
+</div></section><section class="slide" data-short="TIMELINE" data-title="روند حمله توییتر ۲۰۲۰" id="twitter-timeline">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">27</span><div><small>پرونده را مرحله‌به‌مرحله ببینیم</small><h2>یک حمله انسانی، بعد تبدیل به حمله روی پلتفرم شد.</h2></div></div>
+<div class="definition-card big"><p>مرحله اول، پیدا کردن کارکنانی بود که دسترسی مناسب داشتند. مرحله دوم، فریب یا مهندسی اجتماعی برای گرفتن دسترسی به سامانه‌های داخلی. مرحله سوم، استفاده از همان ابزارهای معتبر برای تغییر یا کنترل حساب‌ها.</p><p>بعد پیام‌های کلاهبرداری بیت‌کوینی از حساب‌های واقعی منتشر شد. همین نکته باعث می‌شد پیام برای خیلی‌ها قابل‌اعتمادتر به نظر برسد: فرستنده واقعاً همان حساب تأییدشده بود، فقط کنترلش دست فرد دیگری افتاده بود.</p><p>این پرونده نشان می‌دهد «اصالت کانال» و «اصالت درخواست» یک چیز نیستند. ممکن است پیام از حساب واقعی بیاید اما درخواست واقعی نباشد.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>حتی وقتی فرستنده واقعی است، درخواست غیرعادی را مستقل بررسی کن.</strong></div>
+</div></section><section class="slide visual-slide" data-short="TWITTER" data-title="Twitter 2020" id="twitter-2020">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no red">28</span><div><small>پرونده واقعی • ۲۰۲۰</small><h2>Twitter: مهاجم اول سراغ کارکنان رفت، بعد سراغ حساب‌ها.</h2></div></div>
+<div class="case-layout">
+<div class="case-narrative">
+<span class="case-tag">SOCIAL ENGINEERING → INTERNAL TOOLS</span>
+<p>در حمله مشهور ژوئیه ۲۰۲۰، مهاجمان با مهندسی اجتماعی کارکنان توییتر به ابزارهای داخلی دسترسی پیدا کردند. بعد از آن، تعدادی از حساب‌های پرمخاطب تصاحب شد و پیام کلاهبرداری بیت‌کوینی از همان حساب‌های واقعی منتشر شد.</p>
+<p>نکته آموزشی این پرونده، خودِ بیت‌کوین نیست. مسئله این است که وقتی مهاجم به ابزار مورد اعتماد سازمان دسترسی پیدا کند، <strong>نشانه‌های معمول تشخیص جعل هم از بین می‌روند:</strong> حساب واقعی است، نام واقعی است و پیام از همان جایی آمده که همیشه می‌آمد.</p>
+<a class="source-link" href="https://www.justice.gov/archives/opa/pr/three-individuals-charged-alleged-roles-twitter-hack" rel="noopener" target="_blank">وزارت دادگستری آمریکا ↗</a>
+</div>
+<div class="real-image-grid two">
+<figure><img alt="نمونه واقعی توییت کلاهبرداری در هک توییتر ۲۰۲۰" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://i.insider.com/5f0f67af988ee32168143887?auto=webp&amp;format=jpeg&amp;width=600"/><figcaption>نمونه واقعی پیام کلاهبرداری منتشرشده از یک حساب تصاحب‌شده در حادثه ۲۰۲۰.</figcaption></figure>
+<figure><img alt="نمونه دوم از پیام منتشرشده در هک توییتر ۲۰۲۰" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://i.insider.com/5f0f7c141918241bbc105b46?width=700"/><figcaption>نمونه دیگری از پیام‌های همان موج حمله؛ تصویر آرشیوی گزارش رسانه‌ای.</figcaption></figure>
+</div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>«از حساب واقعی آمده» به‌تنهایی دلیل کافی برای اعتماد به یک درخواست غیرعادی نیست.</strong></div>
+</div>
+</section>
+<!-- SOCIAL CASE: REDDIT -->
+<section class="slide" data-short="REDDIT" data-title="Reddit چیست؟" id="reddit-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">29</span><div><small>قبل از رخداد ۲۰۲۳</small><h2>Reddit یک شبکه بزرگ از انجمن‌های موضوعی است؛ رخداد ۲۰۲۳ به محیط داخلی شرکت مربوط بود.</h2></div></div>
+<div class="definition-card big"><p>Reddit میزبان هزاران جامعه یا subreddit است و تیم‌های داخلی آن برای مدیریت محصول، کد و عملیات از سامانه‌های سازمانی استفاده می‌کنند.</p><p>در فوریه ۲۰۲۳ شرکت توضیح داد کارکنانش هدف یک کمپین فیشینگ هدفمند قرار گرفته‌اند. صفحه جعلی، ظاهر و رفتار درگاه داخلی Reddit را تقلید می‌کرد.</p><p>این زمینه کمک می‌کند بفهمیم چرا واردکردن credential در یک صفحه جعلی فقط «لو رفتن یک رمز» نبود؛ آن credential به بخشی از محیط کاری شرکت وصل بود.</p><a class="source-link" href="https://redditinc.com/news/sharing-our-findings-around-a-data-security-incident" rel="noopener" target="_blank">Reddit ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>ارزش یک رمز به این بستگی دارد که پشت آن چه دسترسی‌ای قرار گرفته است.</strong></div>
+</div></section><section class="slide" data-short="TIMELINE" data-title="Reddit 2023 قدم‌به‌قدم" id="reddit-timeline">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">30</span><div><small>اشتباه مهم بود؛ گزارش سریع مهم‌تر</small><h2>این پرونده یک درس متفاوت دارد: بعد از خطا چه اتفاقی می‌افتد؟</h2></div></div>
+<div class="definition-card big"><p>کارمند روی صفحه جعلی رفت و اطلاعات ورود و عامل دوم را وارد کرد. مهاجم توانست به بخشی از داده‌های داخلی دسترسی پیدا کند.</p><p>اما کارمند بعد از مدتی به موضوع مشکوک شد و سریع آن را گزارش کرد. تیم امنیت شرکت توانست رخداد را بررسی و دسترسی مهاجم را محدود کند.</p><p>در بسیاری از سازمان‌ها ترس از سرزنش باعث می‌شود افراد اشتباه را پنهان کنند. همین چند ساعت تأخیر می‌تواند تفاوت بزرگی در دامنه حادثه ایجاد کند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>فرهنگ امنیتی خوب به کارمند اجازه می‌دهد اشتباه را سریع گزارش کند؛ بدون اینکه اول نگران تحقیر شدن باشد.</strong></div>
+</div></section><section class="slide" data-short="REDDIT" data-title="Reddit 2023" id="reddit-2023">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no red">31</span><div><small>پرونده واقعی • ۲۰۲۳</small><h2>Reddit: صفحه ورود تقریباً همان چیزی بود که کارمند انتظار داشت ببیند.</h2></div></div>
+<div class="definition-grid">
+<article class="definition-card big">
+<span class="case-tag">TARGETED PHISHING</span>
+<p>Reddit اعلام کرد مهاجمان برای کارکنان پیام‌هایی فرستادند که آن‌ها را به سایتی هدایت می‌کرد که رفتار درگاه داخلی شرکت را تقلید می‌کرد. یک کارمند اطلاعات ورود و توکن احراز هویت دومرحله‌ای را وارد کرد.</p>
+<p>مهاجم به بخشی از اسناد داخلی، کد و سامانه‌های تجاری دسترسی پیدا کرد. اما قسمت مهم روایت، چند دقیقه بعد است: <strong>کارمند به اشتباه خود مشکوک شد و سریع گزارش داد.</strong> تیم امنیت دسترسی مهاجم را قطع کرد.</p>
+<p>این پرونده نشان می‌دهد فرهنگ امنیتی فقط «هرگز اشتباه نکن» نیست. یک سازمان باید کاری کند که فرد بعد از اشتباه، از ترس سرزنش پنهان‌کاری نکند.</p>
+<a class="source-link" href="https://redditinc.com/news/sharing-our-findings-around-a-data-security-incident" rel="noopener" target="_blank">گزارش رسمی Reddit ↗</a>
+</article>
+<div class="source-excerpt">
+<span>OFFICIAL INCIDENT NOTE</span>
+<b>یک کارمند هدف فیشینگ قرار گرفت.</b>
+<p>ورود جعلی → سرقت credential و second-factor token → دسترسی محدود به سامانه‌های داخلی → گزارش سریع کارمند → قطع دسترسی.</p>
+<small>بازسازی آموزشی بر اساس گزارش رسمی؛ این کادر تصویر صفحه فیشینگ واقعی نیست.</small>
+</div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>گزارش سریع اشتباه یک کنترل امنیتی است؛ چند دقیقه می‌تواند محدوده حادثه را تغییر دهد.</strong></div>
+</div>
+</section>
+<!-- SOCIAL CASE: MGM -->
+<section class="slide" data-short="MGM" data-title="MGM Resorts چیست؟" id="mgm-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">32</span><div><small>قبل از رخداد ۲۰۲۳</small><h2>MGM فقط یک سایت نیست؛ مجموعه‌ای از هتل، کازینو و عملیات فیزیکی است.</h2></div></div>
+<div class="definition-card big"><p>MGM Resorts یک شرکت بزرگ حوزه هتل‌داری و سرگرمی است و تعداد زیادی ملک و سرویس حضوری دارد. بنابراین وقتی سامانه‌های IT آن دچار اختلال می‌شوند، اثر فقط روی یک صفحه وب دیده نمی‌شود.</p><p>در رخداد سپتامبر ۲۰۲۳، شرکت برای مهار دسترسی غیرمجاز بخشی از سامانه‌ها را از دسترس خارج کرد. پیامد آن در نقاطی مثل پذیرش، خدمات مهمان و عملیات روزمره دیده شد.</p><p>این پرونده برای توضیح «پیامد فیزیکی حادثه سایبری» عالی است: گاهی مشکل دیجیتال، جلوی بازشدن یک اتاق، انجام یک پرداخت یا ارائه سرویس حضوری را می‌گیرد.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>امنیت سایبری بخشی از تداوم کسب‌وکار است؛ چون اختلال دیجیتال می‌تواند عملیات واقعی را متوقف کند.</strong></div>
+</div></section><section class="slide visual-slide" data-short="MGM" data-title="MGM 2023" id="mgm-2023">
+<div class="slide-inner media-split">
+<figure class="evidence-frame">
+<img alt="تابلوی اختلال سیستم‌ها در یکی از کازینوهای MGM در حمله سایبری ۲۰۲۳" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://www.lavanguardia.com/files/og_thumbnail/uploads/2023/09/18/650817e78054f.jpeg"/>
+<figcaption><b>تصویر واقعی پیامد حادثه</b> — تابلوی اختلال سامانه‌ها در یکی از املاک MGM در لاس‌وگاس. تصویر خبری.</figcaption>
+</figure>
+<div class="media-copy">
+<span class="case-tag">CYBER INCIDENT → BUSINESS DISRUPTION</span>
+<h2>وقتی حادثه سایبری از مانیتور بیرون می‌آید.</h2>
+<p>MGM Resorts در پرونده‌های رسمی خود اعلام کرد در سپتامبر ۲۰۲۳ دسترسی غیرمجاز به برخی سامانه‌های آمریکا باعث شد شرکت برای مهار خطر بعضی سیستم‌ها را خاموش کند؛ نتیجه، اختلال عملیاتی در املاک شرکت بود.</p>
+<p>بعداً شرکت اعلام کرد برای بعضی مشتریان، اطلاعاتی مانند نام، اطلاعات تماس، تاریخ تولد و شماره گواهینامه رانندگی در دسترس مهاجمان قرار گرفته و برای تعداد محدودی نیز شماره تأمین اجتماعی یا گذرنامه تحت تأثیر بوده است.</p>
+<p>گزارش‌های امنیتی عمومی، مسیر اولیه را به مهندسی اجتماعی نسبت داده‌اند؛ اما سند SEC بیشتر روی <strong>دسترسی غیرمجاز، داده‌های متاثر و پیامد عملیاتی</strong> تمرکز دارد. این تفکیک مهم است: هر بخش از روایت باید به منبع خودش متصل باشد.</p>
+<a class="source-link" href="https://www.sec.gov/Archives/edgar/data/789570/000078957024000005/mgm-20231231.htm" rel="noopener" target="_blank">گزارش رسمی MGM نزد SEC ↗</a>
+</div>
+<div class="takeaway full"><b>نکته:</b> <strong>حادثه سایبری می‌تواند صف پذیرش، کارت اتاق، دستگاه خودپرداز و عملیات واقعی کسب‌وکار را مختل کند؛ مسئله فقط «اطلاعات داخل کامپیوتر» نیست.</strong></div>
+</div>
+</section>
+<!-- 05 -->
+<section class="slide" data-short="OSINT" data-title="ورود به OSINT" id="osint-transition">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">34</span><div><small>از فریب به اطلاعات عمومی</small><h2>تا اینجا دیدیم مهاجم چطور آدم را فریب می‌دهد؛ حالا ببینیم اطلاعات اولیه را از کجا می‌آورد.</h2></div></div>
+<div class="definition-card big"><p>یک پیام فیشینگ وقتی باورپذیرتر می‌شود که نام مدیر، محل کار، پروژه یا علایق تو را بداند. بخش زیادی از این اطلاعات ممکن است اصلاً سرقت نشده باشد؛ شاید خودمان قبلاً آن را عمومی کرده‌ایم.</p><p>OSINT دقیقاً در همین نقطه وارد می‌شود: جمع‌آوری و تحلیل اطلاعاتی که از منابع عمومی یا قابل‌دسترسی قانونی به دست می‌آید.</p><p>اما تفاوت بزرگی بین «پیدا کردن یک داده» و «ساختن اطلاعات قابل استفاده» وجود دارد. بخش بعدی همین تفاوت را روشن می‌کند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>OSINT معمولاً از داده‌های کوچک و پراکنده شروع می‌شود؛ ارزش واقعی در کنار هم گذاشتن و راستی‌آزمایی آن‌هاست.</strong></div>
+</div></section><section class="slide" data-short="DATA → INTEL" data-title="داده، اطلاعات، اطلاعات قابل استفاده" id="data-information-intelligence">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">35</span><div><small>سه کلمه شبیه، سه معنی متفاوت</small><h2>یک عکس به‌تنهایی «داده» است؛ وقتی زمان و مکانش را بفهمی، تبدیل به اطلاعات می‌شود.</h2></div></div>
+<div class="definition-card big"><p>فرض کن یک عکس از خیابانی ناشناس داریم. خود فایل، پیکسل‌ها و شاید متادیتا فقط داده‌اند. وقتی تابلو، معماری و زمان ثبت را بررسی می‌کنیم و می‌فهمیم عکس کجا گرفته شده، داده تبدیل به اطلاعات می‌شود.</p><p>اگر این اطلاعات را با چند مشاهده دیگر کنار هم بگذاریم و از آن نتیجه بگیریم یک فرد یا وسیله در چه مسیری حرکت کرده، به چیزی نزدیک می‌شویم که در ادبیات اطلاعاتی به «intelligence» گفته می‌شود: نتیجه‌ای که برای تصمیم‌گیری ارزش دارد.</p><p>پس OSINT فقط سرچ‌کردن نیست. <strong>جمع‌آوری، ارزیابی منبع، تطبیق و تحلیل</strong> بخش اصلی کارند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>اطلاعات عمومی وقتی ارزش عملی پیدا می‌کند که منبع، زمان و ارتباطش با داده‌های دیگر بررسی شود.</strong></div>
+</div></section><section class="slide" data-short="BOUNDARIES" data-title="مرز OSINT" id="osint-boundaries">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">36</span><div><small>OSINT با سرک‌کشیدن بی‌قاعده فرق دارد</small><h2>عمومی بودن یک داده به این معنی نیست که هر استفاده‌ای از آن اخلاقی یا مجاز است.</h2></div></div>
+<div class="definition-card big"><p>در کار حرفه‌ای، OSINT باید با قوانین حریم خصوصی، شرایط سرویس‌ها، هدف مشروع و حداقل‌گرایی در جمع‌آوری داده هماهنگ باشد. پیدا کردن اطلاعات حساس درباره افراد عادی برای آزار، تعقیب یا سوءاستفاده، «تحقیق جذاب» نیست؛ می‌تواند آسیب‌زا و غیرقانونی باشد.</p><p>برای کارگاه ما، OSINT را از زاویه دفاعی می‌بینیم: چه چیزهایی درباره خودمان عمومی است؟ یک مهاجم چه سرنخ‌هایی ممکن است ببیند؟ و چطور انتشار ناخواسته را کمتر کنیم؟</p><p>همین نگاه باعث می‌شود مثال‌ها آموزشی بمانند و تبدیل به دستورالعمل سوءاستفاده از افراد نشوند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>هدف OSINT دفاعی این است که ردپای خودت و سازمانت را بشناسی، نه اینکه حریم خصوصی دیگران را بشکنی.</strong></div>
+</div></section><section class="slide" data-short="OSINT" data-title="OSINT" id="osint-definition">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no">37</span>
+<div><small>تعریف + زندگی روزمره</small><h2>OSINT: وقتی اطلاعات عمومی، کنار هم خصوصی می‌شوند.</h2></div>
+</div>
+<div class="osint-intro">
+<article class="definition-card">
+<span class="term">OPEN SOURCE INTELLIGENCE</span>
+<p><strong>OSINT</strong> یعنی جمع‌آوری و تحلیل اطلاعاتی که به‌صورت قانونی از منابع عمومی قابل دسترس‌اند؛ مثل وب‌سایت‌ها، شبکه‌های اجتماعی، نقشه‌ها، تصاویر، اسناد عمومی، آگهی‌ها و پایگاه‌های داده باز.</p>
+<p>نکته اصلی «جست‌وجو» نیست؛ <strong>وصل‌کردن تکه‌های پراکنده و راستی‌آزمایی آن‌ها</strong> است. یک تحلیلگر خوب بین «آنچه دیده»، «آنچه از آن استنباط کرده» و «آنچه هنوز نمی‌داند» تفاوت می‌گذارد.</p>
+<p>در زندگی روزمره، منابع OSINT می‌توانند کاملاً معمولی باشند: بیوی شبکه اجتماعی، آگهی فروش، مسیر ورزشی، عکس جشن، صفحه شرکت، نام کاربری قدیمی، نظر ثبت‌شده زیر یک محصول یا حتی زمان انتشار پست‌ها.</p>
+</article>
+<div class="everyday-chain">
+<div><span>پست اول</span><b>عکس محل کار</b><small>لوگوی شرکت در پس‌زمینه</small></div>
+<div><span>پست دوم</span><b>مسیر دویدن</b><small>هر روز از یک نقطه شروع می‌شود</small></div>
+<div><span>پست سوم</span><b>استوری سفر</b><small>«یک هفته نیستم»</small></div>
+<div class="result"><span>ترکیب</span><b>شغل + محدوده خانه + زمان نبودن</b><small>هیچ‌کدام به‌تنهایی این را نگفته بودند.</small></div>
+</div>
+</div>
+<div class="everyday-examples">
+<div><b>نام کاربری تکراری</b><span>یک username در چند سرویس، هویت‌های جدا را به هم وصل می‌کند.</span></div>
+<div><b>عکس ساده</b><span>تابلو، انعکاس، معماری یا کارت روی میز می‌تواند سرنخ باشد.</span></div>
+<div><b>برنامه ورزشی</b><span>تکرار مسیرها می‌تواند الگوی رفت‌وآمد بسازد.</span></div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>OSINT اغلب از یک «راز بزرگ» شروع نمی‌شود؛ از چند جزئیات کوچک و عمومی شروع می‌شود.</strong></div>
+</div>
+</section><section class="slide" data-short="SOURCES" data-title="منابع OSINT" id="osint-sources"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">38</span><div><small>OSINT فقط گوگل نیست</small><h2>اطلاعات عمومی، شکل‌های خیلی متفاوتی دارد.</h2></div></div><div class="opsec-cards"><div><b>شبکه اجتماعی</b><span>پست، تگ، دنبال‌کننده، زمان انتشار، bio.</span></div><div><b>تصویر و ویدئو</b><span>تابلو، معماری، انعکاس، آب‌وهوا، سایه.</span></div><div><b>نقشه</b><span>Street View، تصاویر ماهواره‌ای، مسیرها و POIها.</span></div><div><b>اسناد عمومی</b><span>گزارش شرکت، مناقصه، PDF، خبر، آرشیو.</span></div><div><b>داده فنی</b><span>دامنه، گواهی TLS، DNS و سرویس‌های عمومی.</span></div><div><b>ردپای انسانی</b><span>نام کاربری، آگهی، رزومه، انجمن و نظر قدیمی.</span></div></div><div class="definition-card big"><p>نکته حرفه‌ای در OSINT این نیست که «اطلاعات زیادی» پیدا کنیم؛ این است که بدانیم کدام بخش <strong>واقعیت مشاهده‌شده</strong> است، کدام بخش <strong>استنباط</strong> و کدام بخش هنوز فقط <strong>فرضیه</strong> است.</p></div><div class="takeaway"><b>نکته:</b> <strong>OSINT خوب، قبل از هیجان‌زده‌شدن درباره نتیجه، دنبال شاهد دوم می‌گردد.</strong></div></div></section><section class="slide question-slide" data-short="YOUR POSTS" data-title="سه پست آخر" id="osint-three-posts"><div class="slide-inner narrow"><div class="slide-head"><span class="chapter-no red">39</span><div><small>تمرین ۶۰ ثانیه‌ای</small><h2>سه پست آخر اینستاگرامت را در ذهنت مرور کن.</h2></div></div><div class="question-stack"><p>در پس‌زمینه یکی از آن‌ها <strong>نام محل، پلاک، لوگو، کارت، مانیتور یا مسیر ثابت</strong> دیده می‌شود؟</p><p>از زمان انتشار می‌شود فهمید چه ساعت‌هایی سر کار یا بیرون از خانه‌ای؟</p><p>در کامنت‌ها کسی اسم واقعی، نسبت خانوادگی یا محل دقیق را نوشته؟</p><p>اگر سه پست تو با سه پست دوستت کنار هم گذاشته شوند، <strong>اطلاعات جدیدی ساخته می‌شود؟</strong></p></div><div class="question-pause">ترس واقعی اینجا نیست که «همه تو را می‌پایند». ترس واقعی این است که <b>ما اغلب نمی‌دانیم چه الگویی ساخته‌ایم.</b></div></div></section><section class="slide" data-short="USERNAME" data-title="نام کاربری تکراری" id="username-reuse"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">40</span><div><small>یک سرنخ کوچک</small><h2>یک username می‌تواند چند زندگی آنلاین را به هم بدوزد.</h2></div></div><div class="definition-grid"><article class="definition-card big"><p>فرض کن سال‌هاست از یک نام کاربری خاص استفاده می‌کنی. همان نام در اینستاگرام، GitHub، یک فروم قدیمی، سایت بازی و شاید یک آگهی دیده می‌شود. هیچ‌کدام به‌تنهایی اطلاعات زیادی ندارند؛ اما کنار هم می‌توانند شغل، شهر، علایق و سابقه فعالیت را روشن کنند.</p><p>این موضوع به‌خصوص وقتی مهم می‌شود که یک حساب را «شخصی» و حساب دیگر را «حرفه‌ای» می‌دانی، اما نام کاربری مشترک بین آن‌ها پل می‌زند.</p></article><div class="everyday-chain"><div><span>اکانت ۱</span><b>عکس و دوستان</b><small>شبکه اجتماعی</small></div><div><span>اکانت ۲</span><b>شغل و کد</b><small>پلتفرم فنی</small></div><div><span>اکانت ۳</span><b>شهر و شماره</b><small>آگهی قدیمی</small></div><div class="result"><span>ترکیب</span><b>یک پروفایل کامل‌تر</b><small>فقط از اطلاعات عمومی</small></div></div></div><div class="takeaway"><b>نکته:</b> <strong>اگر واقعاً می‌خواهی دو هویت آنلاین جدا بمانند، نام کاربری مشترک ساده‌ترین پل بین آن‌هاست.</strong></div></div></section><section class="slide" data-short="GEOLOCATION" data-title="مکان‌یابی از روی تصویر" id="geolocation-basics">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">41</span><div><small>وقتی GPS نداریم</small><h2>گاهی عکس هیچ مختصاتی ندارد، اما خود صحنه پر از نشانه است.</h2></div></div>
+<div class="definition-card big"><p>تابلو خیابان، زبان نوشته‌ها، شکل خط‌کشی جاده، معماری، مدل تیر برق، کوه‌های پس‌زمینه، جهت سایه و حتی نام یک فروشگاه می‌توانند محدوده مکان را کوچک کنند.</p><p>تحلیلگر حرفه‌ای معمولاً از یک نشانه نتیجه قطعی نمی‌گیرد. چند نشانه مستقل را کنار هم می‌گذارد و بعد با نقشه، تصاویر ماهواره‌ای یا عکس‌های خیابانی تطبیق می‌دهد.</p><p>نکته مهم همین «تطبیق» است. اینکه یک ساختمان شبیه عکس باشد کافی نیست؛ باید چند ویژگی هم‌زمان با هم جور دربیایند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>در مکان‌یابی تصویری، شباهت یک نشانه فرضیه می‌سازد؛ تطبیق چند نشانه مستقل اعتماد به نتیجه را بالا می‌برد.</strong></div>
+</div></section><section class="slide" data-short="REVERSE IMAGE" data-title="جست‌وجوی معکوس تصویر" id="reverse-image-search">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">42</span><div><small>این عکس قبلاً کجا دیده شده؟</small><h2>گاهی سؤال اصلی این نیست که عکس کجاست؛ این است که اصلاً جدید است یا نه.</h2></div></div>
+<div class="definition-card big"><p>جست‌وجوی معکوس تصویر کمک می‌کند نسخه‌های قدیمی‌تر یک عکس، گزارش‌های قبلی یا زمینه اصلی انتشار آن پیدا شود. این روش برای راستی‌آزمایی خبرها بسیار مفید است؛ چون تصاویر قدیمی زیاد با ادعای جدید بازنشر می‌شوند.</p><p>اگر عکس برش خورده یا ویرایش شده باشد، ممکن است پیدا کردن نسخه اصلی سخت‌تر شود. برای همین چند موتور جست‌وجو، کلیدواژه‌های متن داخل تصویر و بررسی حساب منتشرکننده کنار هم استفاده می‌شوند.</p><p>باز هم اصل همان است: یک نتیجه جست‌وجو حکم نهایی نیست؛ باید تاریخ، منبع اولیه و زمینه انتشار را بررسی کرد.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>عکس واقعی می‌تواند با توضیح دروغ بازنشر شود؛ راستی‌آزمایی فقط درباره «فتوشاپ بودن» نیست.</strong></div>
+</div></section><section class="slide" data-short="GEOLOCATE" data-title="مکان‌یابی از روی تصویر" id="image-geolocation"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">43</span><div><small>Geolocation</small><h2>گاهی GPS خاموش است، ولی تصویر خودش آدرس می‌دهد.</h2></div></div><div class="story-grid"><article class="story-card"><div class="story-icon">↗</div><span>تابلو و نوشته</span><h3>زبان، نام مغازه، شماره جاده</h3><p>حتی بخشی از یک تابلو می‌تواند جست‌وجو را از یک کشور به یک خیابان محدود کند.</p></article><article class="story-card"><div class="story-icon">▥</div><span>معماری</span><h3>پنجره، نما، تیر برق</h3><p>شکل ساختمان‌ها و زیرساخت خیابان با تصاویر نقشه و آرشیوها مقایسه می‌شود.</p></article><article class="story-card"><div class="story-icon">☀</div><span>نور و هوا</span><h3>سایه، فصل، جهت</h3><p>این نشانه‌ها معمولاً برای تأیید یا رد یک فرضیه به کار می‌روند، نه برای حدس جادویی مکان.</p></article></div><div class="question-pause">آخرین عکسی که از پنجره، ماشین یا محل کارت فرستادی را تصور کن: <b>اگر چهره‌ات را حذف کنیم، هنوز مکان قابل حدس است؟</b></div><div class="takeaway"><b>نکته:</b> <strong>حذف GPS فقط یک لایه را می‌بندد؛ سرنخ‌های بصری همچنان باقی‌اند.</strong></div></div></section>
+<!-- Q-OSINT -->
+<section class="slide question-slide" data-short="3 POSTS" data-title="سؤال OSINT" id="osint-questions">
+<div class="slide-inner narrow">
+<div class="slide-head"><span class="chapter-no red">44</span><div><small>حالا مفهوم را روی خودت امتحان کن</small><h2>سه پست آخر اینستاگرامت چی بوده؟</h2></div></div>
+<div class="question-stack">
+<p>در یکی از آن‌ها <strong>محل کار، دانشگاه، خیابان، باشگاه یا کافه ثابتت</strong> دیده می‌شود؟</p>
+<p>از ساعت انتشارشان می‌شود فهمید معمولاً <strong>چه زمانی کجا هستی</strong>؟</p>
+<p>دوست‌هایت تو را در عکس یا استوری‌ای تگ کرده‌اند که خودت منتشر نکرده‌ای؟</p>
+<p>اگر یک غریبه فقط همان سه پست، بیوی تو و نام کاربری‌ات را داشته باشد، <strong>چند چیز درباره زندگی روزمره‌ات می‌تواند حدس بزند؟</strong></p>
+</div>
+<div class="question-pause">لازم نیست جواب را بلند بگویی. <b>همین که جواب در ذهنت شکل گرفت، مفهوم OSINT را فهمیده‌ای.</b></div>
+</div>
+</section>
+<!-- 06 -->
+<section class="slide" data-short="REAL LIFE" data-title="OSINT روزمره" id="osint-real-life">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no red">45</span>
+<div><small>پرونده‌های واقعی</small><h2>گاهی چیزی که لو می‌رود، اصلاً سوژه اصلی عکس نیست.</h2></div>
+</div>
+<div class="story-grid">
+<article class="story-card">
+<div class="story-icon eye">◉</div>
+<span>ژاپن • ۲۰۱۹</span>
+<h3>انعکاس چشم، سرنخ رفت‌وآمد شد.</h3>
+<p>پلیس ژاپن گفت مردی که بعداً به یک خواننده جوان حمله کرد، سلفی‌های او را بزرگ‌نمایی و انعکاس محیط در چشم او را بررسی کرده بود. با تطبیق نشانه‌ها و Street View، مسیر رفت‌وآمد او را محدود کرد.</p>
+<a href="https://www.theguardian.com/world/2019/oct/11/japanese-assault-suspect-tracked-down-pop-star-via-eye-reflection-in-selfie" rel="noopener" target="_blank">گزارش The Guardian ↗</a>
+</article>
+<article class="story-card">
+<div class="story-icon meta">EXIF</div>
+<span>گواتمالا • ۲۰۱۲</span>
+<h3>عکس چیزی نشان نمی‌داد؛ فایل عکس نشان می‌داد.</h3>
+<p>در ماجرای John McAfee، تصویری که VICE منتشر کرد دارای اطلاعات مکانی در متادیتا بود و محل تقریبی ثبت عکس را آشکار کرد. این نمونه کلاسیک نشان می‌دهد «محتوا» و «اطلاعات فایل» دو چیز متفاوت‌اند.</p>
+<a href="https://www.vice.com/en/article/on-the-lam-with-john-mcafee/" rel="noopener" target="_blank">گزارش VICE ↗</a>
+</article>
+<article class="story-card">
+<div class="story-icon run">⌁</div>
+<span>Strava • ۲۰۱۸</span>
+<h3>کاربران فقط ورزش کرده بودند.</h3>
+<p>Heatmap عمومی Strava مسیرهای ثبت‌شده کاربران را تجمیع می‌کرد. در مناطق کم‌جمعیت، همین داده‌های عادی باعث شد الگوی بعضی تأسیسات نظامی و مسیرهای تکراری کارکنان واضح شود.</p>
+<a href="https://www.theguardian.com/world/2018/jan/28/fitness-tracking-app-gives-away-location-of-secret-us-army-bases" rel="noopener" target="_blank">گزارش The Guardian ↗</a>
+</article>
+</div>
+<div class="real-image-grid three compact-gallery">
+<figure><img alt="جان مک‌آفی در گواتمالا در سال ۲۰۱۲" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://www.vmcdn.ca/f/files/glaciermedia/import/lmp-all/6290-GUA101-1212-2012-141328-high.jpg"/><figcaption>John McAfee در گواتمالا؛ پرونده‌ای که متادیتای عکس به افشای موقعیت او گره خورد.</figcaption></figure>
+<figure><img alt="Strava Heatmap" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://i.guim.co.uk/img/media/ae4001f9311f4912db843f79ee2510db6d9419e0/0_180_1472_883/master/1472.png?crop=none&amp;dpr=1&amp;s=none&amp;width=1200"/><figcaption>نقشه حرارتی Strava؛ نمونه‌ای از اینکه تجمع داده‌های بی‌خطر چگونه الگو می‌سازد.</figcaption></figure>
+<figure class="visual-placeholder"><div><b>یک سلفی ساده</b><span>انعکاس، تابلو، پنجره، پس‌زمینه و زمان انتشار می‌توانند سرنخ شوند.</span></div><figcaption>در پرونده ژاپن، پلیس گفت بررسی انعکاس و تصاویر عمومی بخشی از روند یافتن محل بوده است.</figcaption></figure>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>قبل از انتشار، فقط به چیزی که می‌خواهی نشان بدهی نگاه نکن؛ به چیزی که ناخواسته نشان داده‌ای نگاه کن.</strong></div>
+</div>
+</section><section class="slide" data-short="SELFIE" data-title="پرونده سلفی ژاپن" id="japan-selfie-case"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">46</span><div><small>پرونده واقعی • ژاپن ۲۰۱۹</small><h2>سلفی برای مخاطب بود؛ انعکاس برای فرد دیگری.</h2></div></div><div class="definition-card big"><p>در پرونده‌ای که پلیس ژاپن درباره آن توضیح داد، مردی که بعداً به یک خواننده جوان حمله کرد، تصاویر عمومی او را با جزئیات بررسی کرده بود. گزارش‌ها می‌گویند از <strong>انعکاس محیط در چشم</strong> و نشانه‌های بصری برای محدودکردن ایستگاهی که قربانی استفاده می‌کرد بهره گرفته شد.</p><p>این مثال نباید به افسانه «از هر چشم می‌شود آدرس دقیق استخراج کرد» تبدیل شود. نکته واقعی این است: وقتی چند تصویر، زمان و نشانه محیطی با هم ترکیب شوند، محدوده جست‌وجو ممکن است کوچک‌تر شود.</p><a class="source-link" href="https://www.theguardian.com/world/2019/oct/11/japanese-assault-suspect-tracked-down-pop-star-via-eye-reflection-in-selfie" rel="noopener" target="_blank">گزارش The Guardian ↗</a></div><div class="takeaway"><b>نکته:</b> <strong>در OPSEC تصویری، حاشیه عکس گاهی مهم‌تر از مرکز عکس است.</strong></div></div></section><section class="slide" data-short="MCAFEE" data-title="جان مک‌آفی که بود؟" id="mcafee-who">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">47</span><div><small>قبل از پرونده متادیتا</small><h2>نام McAfee اول از همه با یکی از شرکت‌های قدیمی آنتی‌ویروس گره خورده است.</h2></div></div>
+<div class="definition-card big"><p>John McAfee برنامه‌نویس و کارآفرین حوزه امنیت بود که در دهه ۱۹۸۰ شرکت McAfee Associates را برای نرم‌افزار ضدویروس راه انداخت. نام او سال‌ها روی یکی از شناخته‌شده‌ترین محصولات امنیتی بازار باقی ماند، هرچند خودش در دهه ۱۹۹۰ از شرکت جدا شد.</p><p>سال‌ها بعد زندگی شخصی او پرحاشیه شد. در ۲۰۱۲، مقام‌های بلیز می‌خواستند درباره قتل همسایه‌اش Gregory Faull از او سؤال کنند. McAfee دخالت در قتل را رد می‌کرد و از بلیز خارج شد.</p><p>در همین دوره خبرنگاران VICE مدتی همراه او بودند. درست همین همراهی، یکی از مشهورترین مثال‌های متادیتای عکس را ساخت.</p><a class="source-link" href="https://ithistory.org/honoree/john-david-mcafee" rel="noopener" target="_blank">IT History Society ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>برای فهم داستان متادیتا، مهم است بدانیم عکس مربوط به یک فرد عادی در سفر نبود؛ محل حضور McAfee آن زمان موضوع حساس و خبری بود.</strong></div>
+</div></section><section class="slide" data-short="MCAFEE 2012" data-title="ماجرای گواتمالا" id="mcafee-2012-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">48</span><div><small>چرا یک عکس مهم شد؟</small><h2>VICE می‌خواست نشان بدهد خبرنگارش کنار McAfee است؛ اما فایل تصویر چیز دیگری هم همراه داشت.</h2></div></div>
+<div class="definition-card big"><p>در دسامبر ۲۰۱۲، VICE تصویری از McAfee و خبرنگارش منتشر کرد. نسخه اولیه فایل هنوز اطلاعات EXIF شامل geotag را در خود داشت. پژوهشگران متوجه شدند مختصات، محل عکس را در گواتمالا نشان می‌دهد.</p><p>در ساعات اول روایت‌های متناقضی درباره دستکاری عمدی متادیتا مطرح شد. VICE بعداً در بیانیه خود گفت عکس منتشرشده واقعاً متادیتایی داشت که به محل McAfee اشاره می‌کرد و خود McAfee نیز حضورش در گواتمالا را علنی کرد.</p><p>این پیچیدگی خودش درس خوبی است: در OSINT باید بین آنچه فایل نشان می‌دهد، ادعای افراد در لحظه و چیزی که بعداً تأیید می‌شود فرق گذاشت.</p><a class="source-link" href="https://www.vice.com/en/article/on-the-lam-with-john-mcafee/" rel="noopener" target="_blank">VICE ↗</a></div>
+<div class="real-image-grid two compact-gallery"><figure><img alt="جان مک‌آفی در گواتمالا، ۲۰۱۲" loading="lazy" referrerpolicy="no-referrer" src="https://www.vmcdn.ca/f/files/glaciermedia/import/lmp-all/6290-GUA101-1212-2012-141328-high.jpg"/><figcaption>جان مک‌آفی در گواتمالا در دسامبر ۲۰۱۲؛ تصویر خبری آرشیوی.</figcaption></figure><figure><div class="visual-placeholder"><div><b>EXIF → GPS</b><span>در پرونده اصلی، مختصات در متادیتای نسخه اولیه عکس دیده شد.</span></div></div><figcaption>ایده اصلی پرونده: اطلاعات پنهان فایل، نه چیزی که با چشم در عکس دیده می‌شد.</figcaption></figure></div>
+<div class="takeaway"><b>نکته:</b> <strong>متادیتا می‌تواند یک سرنخ بسیار قوی باشد، اما باز هم باید روایت و زمان‌بندی رخداد را از چند منبع بررسی کرد.</strong></div>
+</div></section><section class="slide" data-short="MCAFEE" data-title="پرونده متادیتای McAfee" id="mcafee-case"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">49</span><div><small>پرونده واقعی • ۲۰۱۲</small><h2>VICE عکس را منتشر کرد؛ فایل عکس بیشتر از عکس حرف زد.</h2></div></div><div class="case-layout"><div class="case-narrative"><p>وقتی VICE تصویری از John McAfee منتشر کرد، متادیتای فایل اصلی حاوی اطلاعات مکانی بود و محل تقریبی ثبت عکس را آشکار کرد. این ماجرا تبدیل به یکی از مثال‌های کلاسیک امنیت عملیاتی شد.</p><p>دو درس دارد: اول، چیزی که روی صفحه می‌بینی تمام محتوای فایل نیست. دوم، فرایند انتشار باید خودش کنترل داشته باشد؛ نباید امنیت را به حافظه فردی که فایل را آپلود می‌کند بسپاریم.</p><a class="source-link" href="https://www.vice.com/en/article/on-the-lam-with-john-mcafee/" rel="noopener" target="_blank">گزارش VICE ↗</a></div><div class="meta-panel unlocked"><div><span>GPSLatitude</span><b>...</b></div><div><span>GPSLongitude</span><b>...</b></div><div><span>DateTimeOriginal</span><b>...</b></div><div><span>Make / Model</span><b>Camera / Phone</b></div></div></div><div class="takeaway"><b>نکته:</b> <strong>قبل از انتشار فایل حساس، metadata را بررسی یا با فرایند استاندارد strip کن.</strong></div></div></section><section class="slide" data-short="VERIFY" data-title="راستی‌آزمایی OSINT" id="osint-verification"><div class="slide-inner"><div class="slide-head"><span class="chapter-no green">50</span><div><small>فرق تحقیق با حدس</small><h2>یک سرنخ جذاب، هنوز نتیجه نیست.</h2></div></div><div class="protocol-grid"><div><span>01</span><b>منبع اولیه</b><p>عکس یا ادعا دقیقاً از کجا آمده؟</p></div><div><span>02</span><b>زمان</b><p>قدیمی نیست؟ دوباره منتشر نشده؟</p></div><div><span>03</span><b>مکان</b><p>نشانه‌های محیط با نقشه می‌خواند؟</p></div><div><span>04</span><b>شاهد دوم</b><p>منبع مستقلی همان نتیجه را پشتیبانی می‌کند؟</p></div><div><span>05</span><b>تناقض</b><p>چه چیزی می‌تواند فرضیه را رد کند؟</p></div><div><span>06</span><b>سطح اطمینان</b><p>قطعی، محتمل یا صرفاً ممکن؟</p></div><div><span>07</span><b>مرز اخلاقی</b><p>آیا انتشار نتیجه به فردی آسیب بی‌دلیل می‌زند؟</p></div></div><div class="takeaway"><b>نکته:</b> <strong>OSINT حرفه‌ای دنبال تأیید خودش نیست؛ دنبال راهی است که اشتباه خودش را پیدا کند.</strong></div></div></section>
+<!-- 07 -->
+<section class="slide" data-short="STRAVA" data-title="Strava چیست؟" id="strava-what-is">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">51</span><div><small>قبل از Heatmap</small><h2>Strava یک اپ ورزشی و شبکه اجتماعی برای ثبت و اشتراک فعالیت‌های بدنی است.</h2></div></div>
+<div class="definition-card big"><p>کاربر می‌تواند با GPS گوشی یا ساعت ورزشی مسیر دویدن، دوچرخه‌سواری و فعالیت‌های دیگر را ثبت کند. بعد از فعالیت، مسیر روی نقشه، زمان، سرعت و داده‌های تمرینی نمایش داده می‌شوند.</p><p>بخش اجتماعی Strava هم مهم است: افراد می‌توانند فعالیت‌ها را با دیگران به اشتراک بگذارند، دوستان را دنبال کنند و در بخش‌هایی از مسیر با هم مقایسه شوند.</p><p>پس Strava ذاتاً «اپ جاسوسی» نیست؛ یک سرویس ورزشی است. مسئله امنیتی وقتی شکل می‌گیرد که داده مکانیِ تعداد زیادی کاربر در یک محیط حساس کنار هم قرار بگیرد یا تنظیمات حریم خصوصی مناسب نباشد.</p><a class="source-link" href="https://support.strava.com/en-us/articles/15402118-what-is-strava" rel="noopener" target="_blank">Strava Help ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>خیلی از ریسک‌های امنیتی از ابزار بد به وجود نمی‌آیند؛ از استفاده از ابزار خوب در زمینه‌ای متفاوت به وجود می‌آیند.</strong></div>
+</div></section><section class="slide" data-short="HEATMAP" data-title="Heatmap استراوا چیست؟" id="strava-heatmap-how">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">52</span><div><small>نقشه گرمایی چگونه ساخته می‌شود؟</small><h2>Heatmap مسیرهای پرتکرار را به شکل خطوط و نواحی روشن‌تر نشان می‌دهد.</h2></div></div>
+<div class="definition-card big"><p>وقتی تعداد زیادی فعالیت GPS روی هم قرار می‌گیرند، مسیرهای محبوب‌تر روی نقشه برجسته‌تر می‌شوند. در یک شهر بزرگ این خطوط بین هزاران خیابان گم می‌شوند؛ اما در بیابان، منطقه نظامی یا محیط کم‌جمعیت، چند خط روشن می‌تواند توجه را جلب کند.</p><p>این دقیقاً همان اثر «تجمیع داده» است: هر فعالیت فردی شاید حساس نباشد، ولی مجموع آن‌ها الگویی می‌سازد که هیچ کاربر به‌تنهایی منتشر نکرده است.</p><p>امروز Strava کنترل‌های حریم خصوصی و تنظیمات نمایش نقشه دارد، اما رخداد ۲۰۱۸ به‌عنوان درس کلاسیک OPSEC باقی مانده است.</p><a class="source-link" href="https://support.strava.com/en-us/collections/19668888-maps-gps-and-location" rel="noopener" target="_blank">Strava Help ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>گاهی حساس‌ترین اطلاعات از یک رکورد خاص نمی‌آید؛ از الگوی ساخته‌شده توسط صدها رکورد عادی می‌آید.</strong></div>
+</div></section><section class="slide visual-slide" data-short="STRAVA" data-title="Strava" id="strava">
+<div class="slide-inner media-split">
+<figure class="evidence-frame">
+<img alt="نقشه حرارتی Strava از یک پایگاه نظامی در هلمند افغانستان" data-critical-image="" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://i.guim.co.uk/img/media/ae4001f9311f4912db843f79ee2510db6d9419e0/0_180_1472_883/master/1472.png?crop=none&amp;dpr=1&amp;s=none&amp;width=1200"/>
+<figcaption><b>تصویر واقعی</b> — Strava Heatmap؛ نمونه منتشرشده از هلمند افغانستان. منبع: The Guardian / Strava.</figcaption>
+</figure>
+<div class="media-copy">
+<span class="case-tag">OPSEC FAILURE</span>
+<h2>هیچ‌کس آدرس پایگاه را پست نکرده بود.</h2>
+<p>هر کاربر فقط مسیر ورزش خودش را ثبت کرده بود. اما وقتی مسیر صدها فعالیت روی هم افتاد، یک الگو شکل گرفت. در شهرهای بزرگ این خطوط گم می‌شوند؛ در بیابان یا منطقه کم‌تردد، همان خطوط می‌توانند یک نقطه را برجسته کنند.</p>
+<div class="layer-list">
+<button class="layer active" data-layer="route"><b>۱. مسیر</b><span>خطوط GPS</span></button>
+<button class="layer" data-layer="repeat"><b>۲. تکرار</b><span>الگوی ثابت</span></button>
+<button class="layer" data-layer="identity"><b>۳. هویت</b><span>پروفایل عمومی</span></button>
+<button class="layer" data-layer="time"><b>۴. زمان</b><span>الگوی حضور</span></button>
+</div>
+<div class="layer-explain" id="layerExplain">یک مسیر به‌تنهایی ممکن است بی‌اهمیت باشد؛ ارزش اطلاعاتی وقتی بالا می‌رود که مسیرها تکرار شوند.</div>
+</div>
+<div class="takeaway full"><b>نکته:</b> <strong>OPSEC یعنی قبل از انتشار بپرسیم «ترکیب این داده با داده‌های دیگر چه چیزی را قابل استنباط می‌کند؟»</strong></div>
+</div>
+</section><section class="slide question-slide" data-short="STRAVA?" data-title="سؤال درباره ردپای مکانی" id="strava-question"><div class="slide-inner narrow"><div class="slide-head"><span class="chapter-no red">54</span><div><small>ردپای مکانی فقط Strava نیست</small><h2>کدام اپ روی گوشی تو می‌داند هر روز از کجا شروع می‌کنی؟</h2></div></div><div class="question-stack"><p>اپ ورزش، نقشه، تاکسی، عکس، هواشناسی یا شبکه اجتماعی؟</p><p>کدام‌شان اجازه <strong>Always allow location</strong> دارد، در حالی که واقعاً لازم نیست؟</p><p>آیا مسیرهای ورزشی یا چک‌این‌هایت برای همه عمومی‌اند؟</p><p>اگر یک نقطه تقریباً هر روز ساعت مشابه تکرار شود، <strong>چه چیزی درباره برنامه زندگی‌ات می‌گوید؟</strong></p></div><div class="question-pause"><b>موقعیت مکانی یک داده لحظه‌ای نیست؛ وقتی تکرار شود، تبدیل به الگوی زندگی می‌شود.</b></div></div></section>
+<!-- 08 -->
+<section class="slide" data-short="OSINT → OPSEC" data-title="از OSINT به OPSEC" id="opsec-transition">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">55</span><div><small>دو طرف یک سکه</small><h2>OSINT می‌پرسد از اطلاعات عمومی چه می‌شود فهمید؛ OPSEC می‌پرسد چه چیزی نباید قابل فهم باشد.</h2></div></div>
+<div class="definition-card big"><p>اگر OSINT را فقط به‌عنوان ابزار تحلیل ببینیم، نصف داستان را دیده‌ایم. طرف دیگر ماجرا این است که خودمان قبل از انتشار بفهمیم کدام داده‌ها اگر کنار هم قرار بگیرند، اطلاعات حساس می‌سازند.</p><p>OPSEC یا Operations Security در اصل یک فرایند مدیریت ریسک است: اطلاعات حیاتی را شناسایی کن، تهدید را بشناس، آسیب‌پذیری را ببین و کنترل مناسب بگذار.</p><p>این منطق هم در یگان نظامی معنی دارد، هم در شرکت و هم در خانه. «چه زمانی خانه نیستم؟»، «کجا کار می‌کنم؟» و «چه ساعتی مسیر ثابت دارم؟» هم می‌توانند اطلاعات قابل سوءاستفاده باشند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>OPSEC یعنی قبل از انتشار، از زاویه کسی نگاه کنی که می‌خواهد از اطلاعاتت نتیجه بگیرد.</strong></div>
+</div></section><section class="slide" data-short="OPSEC" data-title="OPSEC" id="opsec-definition">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no">56</span>
+<div><small>تعریف</small><h2>OSINT سرنخ‌ها را کنار هم می‌گذارد؛ OPSEC کاری می‌کند سرنخ اضافه مفت و مجانی بیرون ندهیم.</h2></div>
+</div>
+<div class="compare-board">
+<div class="compare-side osint-side">
+<span>OSINT</span><h3>از بیرون نگاه می‌کند.</h3>
+<p>چه اطلاعات عمومی وجود دارد؟ چه چیزهایی با هم تطبیق دارند؟ چه الگویی از آن‌ها ساخته می‌شود؟</p>
+</div>
+<div class="compare-arrow">⇄</div>
+<div class="compare-side opsec-side">
+<span>OPSEC</span><h3>از داخل سؤال می‌پرسد.</h3>
+<p>کدام اطلاعات حیاتی‌اند؟ از چه راهی ممکن است لو بروند؟ چه تغییر ساده‌ای می‌تواند ریسک را کم کند؟</p>
+</div>
+</div>
+<div class="opsec-cards">
+<div><b>خانه</b><span>استوری «یک هفته نیستیم» = اعلام زمان نبودن.</span></div>
+<div><b>محل کار</b><span>عکس میز = کارت، مانیتور، نام پروژه، برنامه جلسه.</span></div>
+<div><b>سفر</b><span>پست زنده = موقعیت و الگوی جابه‌جایی.</span></div>
+<div><b>ورزش</b><span>مسیر تکراری = محدوده خانه یا محل کار.</span></div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>مشکل OPSEC معمولاً یک افشای بزرگ نیست؛ مجموعه‌ای از افشاهای کوچک است که کنار هم معنا پیدا می‌کنند.</strong></div>
+</div>
+</section><section class="slide" data-short="5 STEPS" data-title="پنج گام OPSEC" id="opsec-five"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">57</span><div><small>چارچوب ساده</small><h2>OPSEC را می‌شود با پنج سؤال روزمره کرد.</h2></div></div><div class="protocol-grid"><div><span>01</span><b>چه چیز مهم است؟</b><p>آدرس، برنامه، هویت، پروژه، سفر، دسترسی.</p></div><div><span>02</span><b>چه کسی آن را می‌خواهد؟</b><p>مجرم، رقیب، مزاحم یا صرفاً فرد کنجکاو.</p></div><div><span>03</span><b>از کجا لو می‌رود؟</b><p>عکس، پست، اپ، دوست، سند یا metadata.</p></div><div><span>04</span><b>پیامدش چیست؟</b><p>مزاحمت، سرقت، فیشینگ دقیق‌تر یا آسیب سازمانی.</p></div><div><span>05</span><b>چه کنترل ساده‌ای دارم؟</b><p>تاخیر در انتشار، محدودکردن مخاطب، حذف metadata.</p></div></div><div class="takeaway"><b>نکته:</b> <strong>OPSEC یعنی «هیچ‌چیز منتشر نکن» نیست؛ یعنی آگاهانه انتخاب کن چه چیزی، چه زمانی و برای چه کسی منتشر شود.</strong></div></div></section><section class="slide" data-short="HOME" data-title="OPSEC در خانه" id="opsec-home"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">58</span><div><small>زندگی شخصی</small><h2>خانه‌ات را لازم نیست آدرس بدهی؛ عادت‌ها ممکن است این کار را بکنند.</h2></div></div><div class="opsec-cards"><div><b>استوری سفر</b><span>زمان نبودن در خانه را عمومی می‌کند.</span></div><div><b>عکس پنجره</b><span>منظره و ساختمان‌های اطراف سرنخ می‌دهند.</span></div><div><b>بسته پستی</b><span>نام و آدرس ممکن است روی برچسب باشد.</span></div><div><b>روتین صبحگاهی</b><span>زمان و مکان تکراری الگو می‌سازد.</span></div></div><div class="question-pause">اگر کسی یک ماه استوری‌هایت را ببیند، <b>می‌فهمد چه وقت‌هایی معمولاً خانه نیستی؟</b></div><div class="takeaway"><b>نکته:</b> <strong>انتشار با تأخیر، در بسیاری از سفرها ساده‌ترین کنترل OPSEC است.</strong></div></div></section><section class="slide" data-short="WORK" data-title="OPSEC در محل کار" id="opsec-workplace"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">59</span><div><small>عکس ساده از میز</small><h2>پس‌زمینه میز کار، گاهی یک گزارش اطلاعاتی کوچک است.</h2></div></div><div class="story-grid"><article class="story-card"><span>مانیتور</span><h3>نام پروژه و ایمیل</h3><p>حتی متن تار می‌تواند عنوان پروژه یا ساختار نرم‌افزار را نشان دهد.</p></article><article class="story-card"><span>کارت</span><h3>Badge و QR</h3><p>ظاهر کارت، لوگو، رنگ دسترسی یا اطلاعات چاپ‌شده قابل کپی است.</p></article><article class="story-card"><span>تقویم</span><h3>جلسه و زمان</h3><p>تخته برنامه، شیفت یا نام افراد از چیزهایی است که در عکس دیده می‌شود.</p></article></div><div class="question-pause">آخرین عکس محیط کارت را یادت هست؟ <b>قبل از ارسال، چهار گوشه تصویر را هم نگاه کردی؟</b></div><div class="takeaway"><b>نکته:</b> <strong>قبل از انتشار عکس سازمانی، یک بار تصویر را مثل فردی ببین که دنبال سوژه اصلی نیست.</strong></div></div></section><section class="slide" data-short="TRAVEL" data-title="OPSEC در سفر" id="opsec-travel"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">60</span><div><small>فرودگاه، هتل، کارت پرواز</small><h2>سفر، اطلاعات ریز زیادی تولید می‌کند.</h2></div></div><div class="definition-card big"><p>عکس کارت پرواز، شماره رزرو، برچسب چمدان، نام هتل، استوری لحظه‌ای و لوکیشن زنده هرکدام می‌توانند بخشی از برنامه سفر را آشکار کنند. بعضی اطلاعات شاید به‌تنهایی حساس نباشند؛ اما کنار هم زمان خروج، مقصد، مدت سفر یا هویت همراه را نشان می‌دهند.</p><p>به‌جای اینکه بگوییم «هیچ‌وقت از سفر پست نگذار»، کنترل منطقی‌تر این است: <strong>انتشار با تأخیر، حذف اطلاعات رزرو، و محدودکردن مخاطب</strong>.</p></div><div class="takeaway"><b>نکته:</b> <strong>هر چیزی که برای پذیرش پرواز یا هتل مفید است، لزوماً برای استوری مناسب نیست.</strong></div></div></section><section class="slide" data-short="BURGLARY" data-title="وقتی سفر، زمان خالی‌بودن خانه شد" id="john-terry-case"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">61</span><div><small>پرونده واقعی • ۲۰۱۷</small><h2>گاهی مجرم لازم نیست بداند «کجا هستی»؛ کافی است بداند «خانه نیستی».</h2></div></div><div class="definition-card big"><p>در پرونده‌ای در بریتانیا، دادگاه شنید که خانه John Terry پس از انتشار تصاویر تعطیلات خانوادگی در خارج از کشور هدف سرقت قرار گرفت. مشهوربودن او بخش حاشیه‌ای ماجراست؛ منطق حمله برای هر کسی قابل‌فهم است: <strong>اعلام عمومی غیبت + دانستن محل خانه = فرصت</strong>.</p><p>برای آدم‌های عادی هم همین الگو در مقیاس کوچک اتفاق افتاده؛ مجرم ممکن است از قبل قربانی را بشناسد و فقط منتظر نشانه‌ای از نبودن او باشد.</p><a class="source-link" href="https://www.theguardian.com/uk-news/2017/jul/28/gang-stole-400k-from-john-terry-mansion-jailed" rel="noopener" target="_blank">گزارش The Guardian ↗</a></div><div class="takeaway"><b>نکته:</b> <strong>لازم نیست سفر را پنهان کنی؛ لازم نیست زمان دقیق خالی‌بودن خانه را هم زنده پخش کنی.</strong></div></div></section><section class="slide" data-short="STRAVA 2018" data-title="ماجرای Strava در ۲۰۱۸" id="strava-2018-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">62</span><div><small>چرا ناگهان همه درباره یک اپ ورزشی حرف زدند؟</small><h2>انتشار نقشه گرمایی جهانی باعث شد الگوهای فعالیت در بعضی تأسیسات نظامی و مناطق جنگی دیده شوند.</h2></div></div>
+<div class="definition-card big"><p>در ژانویه ۲۰۱۸ پژوهشگران و روزنامه‌نگاران متوجه شدند خطوط Heatmap در بعضی مناطق کم‌جمعیت با محل پایگاه‌ها و مسیرهای داخلی آن‌ها هم‌خوانی دارد. گزارش‌ها نمونه‌هایی از افغانستان، خاورمیانه و جیبوتی را مطرح کردند.</p><p>پنتاگون اعلام کرد موضوع را از نظر امنیتی بررسی می‌کند. مسئله فقط مکان کلی پایگاه نبود؛ در بعضی شرایط، الگوی رفت‌وآمد و حتی حساب‌های عمومی کاربران می‌توانست اطلاعات بیشتری بدهد.</p><p>این پرونده برای نیروهای نظامی و سازمان‌های حساس یک هشدار جدی بود: ساعت ورزشی و اپ روزمره هم باید وارد مدل تهدید شوند.</p><a class="source-link" href="https://www.theguardian.com/world/2018/jan/28/fitness-tracking-app-gives-away-location-of-secret-us-army-bases" rel="noopener" target="_blank">The Guardian ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>وقتی محیط حساس است، «داده شخصی ورزشی» می‌تواند به «داده عملیاتی» تبدیل شود.</strong></div>
+</div></section><section class="slide visual-slide" data-short="MIL OPSEC" data-title="Strava و OPSEC نظامی" id="military-strava"><div class="slide-inner media-split"><figure class="evidence-frame"><img alt="نقشه حرارتی Strava و مسیرهای اطراف یک پایگاه" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://i.guim.co.uk/img/media/ae4001f9311f4912db843f79ee2510db6d9419e0/0_180_1472_883/master/1472.png?crop=none&amp;dpr=1&amp;s=none&amp;width=1200"/><figcaption><b>تصویر واقعی</b> — نمونه‌ای از Heatmap عمومی Strava که بحث OPSEC نظامی را جهانی کرد.</figcaption></figure><div class="media-copy"><span class="case-tag">PUBLIC FITNESS DATA</span><h2>هیچ سربازی ننوشت «پایگاه اینجاست».</h2><p>مسئله در ۲۰۱۸ این بود که داده تجمیعی فعالیت‌های ورزشی در مناطق کم‌جمعیت خطوطی ساخت که می‌توانستند به تأسیسات و مسیرهای تکراری اشاره کنند.</p><p>این نمونه ارزش آموزشی زیادی دارد چون نشان می‌دهد افشای اطلاعات همیشه «پست محرمانه» نیست. گاهی <strong>داده عادی یک سرویس مصرفی</strong> وقتی به اندازه کافی جمع شود، ارزش اطلاعاتی پیدا می‌کند.</p></div><div class="takeaway full"><b>نکته:</b> <strong>در محیط‌های حساس، تنظیمات اپ‌های روزمره هم بخشی از OPSEC هستند.</strong></div></div></section>
+<!-- Q-OPSEC -->
+<section class="slide question-slide" data-short="30 DAYS" data-title="سؤال OPSEC" id="opsec-questions">
+<div class="slide-inner narrow">
+<div class="slide-head"><span class="chapter-no red">64</span><div><small>از نگاه یک غریبه</small><h2>اگر کسی ۳۰ روز پست‌ها و استوری‌هایت را ببیند، چه الگویی پیدا می‌کند؟</h2></div></div>
+<div class="question-grid">
+<article><span>01</span><h3>چه ساعت‌هایی معمولاً سر کار، دانشگاه یا باشگاه هستی؟</h3></article>
+<article><span>02</span><h3>کدام مسیر یا کافه آن‌قدر تکرار شده که تبدیل به عادت قابل پیش‌بینی شده؟</h3></article>
+<article><span>03</span><h3>آیا تا حالا قبل از برگشتن از سفر، عکس سفر را زنده منتشر کرده‌ای؟</h3></article>
+<article><span>04</span><h3>در عکس میز کارت، مانیتور، کارت ورود، برنامه شیفت یا اسم پروژه دیده می‌شود؟</h3></article>
+</div>
+<div class="question-pause"><b>OPSEC از همین‌جا شروع می‌شود:</b> چیزی که برای تو خاطره است، برای دیگری ممکن است «الگو» باشد.</div>
+</div>
+</section>
+<!-- 09 -->
+<section class="slide" data-short="BELLINGCAT" data-title="Bellingcat چیست؟" id="bellingcat-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">65</span><div><small>قبل از پرونده MH17</small><h2>Bellingcat یک گروه تحقیقاتی است که بخش مهمی از کارش بر منابع باز و راستی‌آزمایی دیجیتال تکیه دارد.</h2></div></div>
+<div class="definition-card big"><p>این مجموعه در تحقیقات مختلف از ویدئوهای شبکه‌های اجتماعی، تصاویر ماهواره‌ای، نقشه‌ها، داده‌های عمومی و آرشیوهای اینترنتی استفاده کرده است. شهرت آن به‌خصوص با بررسی جنگ سوریه و پرونده پرواز MH17 بیشتر شد.</p><p>در پرونده‌ای که اینجا بررسی می‌کنیم، جذابیت کار در این است که هیچ دوربین واحدی کل مسیر را ثبت نکرده بود. افراد مختلف در شهرهای مختلف، هرکدام چند ثانیه فیلم گرفته بودند.</p><p>کار تحلیلگر این بود که بفهمد آیا این تکه‌ها واقعاً به یک کاروان مربوط‌اند، هر ویدئو کجا ضبط شده و ترتیب زمانی آن‌ها چیست.</p><a class="source-link" href="https://www.bellingcat.com/news/2014/11/08/origin-of-the-separatists-buk-a-bellingcat-investigation/" rel="noopener" target="_blank">Bellingcat ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>OSINT حرفه‌ای یعنی از تکه‌های پراکنده، با روش قابل‌توضیح و قابل‌بررسی، یک تصویر بزرگ‌تر بسازی.</strong></div>
+</div></section><section class="slide" data-short="MH17" data-title="پرواز MH17 چه بود؟" id="mh17-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">66</span><div><small>زمینه پرونده</small><h2>MH17 پرواز مالزی ایرلاینز از آمستردام به کوالالامپور بود که ۱۷ ژوئیه ۲۰۱۴ در شرق اوکراین سقوط کرد.</h2></div></div>
+<div class="definition-card big"><p>همه ۲۹۸ سرنشین و خدمه هواپیما کشته شدند. تحقیقات بین‌المللی و بعداً دادگاه هلند به این نتیجه رسیدند که هواپیما با موشک Buk از منطقه تحت کنترل جدایی‌طلبان ساقط شده است.</p><p>تیم تحقیق مشترک JIT در ادامه اعلام کرد سامانه Buk استفاده‌شده از تیپ ۵۳ پدافند هوایی روسیه در کورسک آمده بود. در ۲۰۲۲ دادگاه لاهه سه متهم را در ارتباط با ساقط‌کردن پرواز و مرگ سرنشینان محکوم کرد و یک نفر را تبرئه کرد.</p><p>در کارگاه ما تمرکز روی بخش OSINT ماجراست: اینکه تصاویر و ویدئوهای عمومی چطور برای ردیابی کاروان و مقایسه ویژگی‌های خودروها استفاده شدند.</p><a class="source-link" href="https://www.prosecutionservice.nl/topics/m/mh17-plane-crash" rel="noopener" target="_blank">دادستانی هلند ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>زمینه تاریخی را از روش تحقیق جدا نگه دار: برای آموزش OSINT، مهم است دقیقاً بدانیم کدام نتیجه از کدام منبع آمده است.</strong></div>
+</div></section><section class="slide" data-short="WHY IT MATTERS" data-title="چرا پرونده کاروان برای OSINT مهم است؟" id="mh17-why-osint">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">67</span><div><small>از یک ویدئو به یک مسیر</small><h2>در این پرونده ارزش اصلی در «یک عکس جادویی» نبود؛ در اتصال چندین مشاهده مستقل بود.</h2></div></div>
+<div class="definition-card big"><p>Bellingcat گزارش کرد ۱۶ ویدئوی مربوط به کاروان ژوئن را از شبکه‌هایی مثل VKontakte، YouTube، Instagram و Odnoklassniki جمع‌آوری کرده و محل هرکدام را مشخص کرده است.</p><p>برای مکان‌یابی از چیزهای بسیار زمینی استفاده شد: فروشگاه Magnit، تابلوی پمپ گاز، ایستگاه تراموا، شکل تقاطع، دیوار آجری، خط راه‌آهن و چینش خودروها. هر تکه یک نقطه روی نقشه شد.</p><p>بعد ویژگی‌های خاص بعضی خودروها بین ویدئوهای مختلف مقایسه شد تا مشخص شود آیا واقعاً یک کاروان واحد دیده می‌شود یا نه.</p><a class="source-link" href="https://www.bellingcat.com/resources/case-studies/2014/09/29/geolocating-the-mh17-buk-convoy-in-russia/" rel="noopener" target="_blank">Bellingcat Case Study ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>قدرت این تحقیق در «تعداد سرنخ‌ها» نبود؛ در این بود که هر سرنخ به سرنخ بعدی وصل و دوباره بررسی شد.</strong></div>
+</div></section><section class="slide visual-slide" data-short="MH17 / CONVOY" data-title="OSINT نظامی" id="mh17-convoy">
+<div class="slide-inner media-split reverse-media">
+<div class="media-copy">
+<span class="case-tag">BELLINGCAT • MH17 • 2014</span>
+<h2>یک کاروان، ۱۶ ویدئوی پراکنده، یک مسیر قابل بازسازی.</h2>
+<p>در بررسی Bellingcat درباره کاروان سامانه‌های Buk، پژوهشگران مجموعه‌ای از ویدئوها و تصاویر منتشرشده توسط افراد عادی در شبکه‌هایی مثل VKontakte، YouTube، Instagram و Odnoklassniki را کنار هم گذاشتند.</p>
+<p>نشانه‌های ساده‌ای مثل <strong>شکل جاده، ساختمان، تابلو، ایستگاه اتوبوس، خط راه‌آهن و مشخصات خودروها</strong> برای مکان‌یابی تصاویر و تطبیق چند مشاهده استفاده شد. نتیجه، بازسازی مسیر حرکت کاروان در چند روز بود.</p>
+<div class="method-row"><span>ویدئوی عمومی</span><i>→</i><span>نشانه محیطی</span><i>→</i><span>تطبیق نقشه</span><i>→</i><span>راستی‌آزمایی</span></div>
+<a class="source-link" href="https://www.bellingcat.com/news/2014/11/08/origin-of-the-separatists-buk-a-bellingcat-investigation/" rel="noopener" target="_blank">تحقیق Bellingcat ↗</a>
+</div>
+<figure class="evidence-frame">
+<img alt="تصویر ماهواره‌ای و تطبیق خودروهای کاروان مرتبط با Buk در تحقیق Bellingcat" data-critical-image="" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://www.bellingcat.com/app/uploads/2016/06/DG_17-7-2014_Makiivka1.jpg"/>
+<figcaption><b>تصویر واقعی تحقیق</b> — تطبیق وسایل نقلیه دیده‌شده در ویدئو با تصویر ماهواره‌ای. منبع: Bellingcat / Google Earth / DigitalGlobe.</figcaption>
+</figure>
+<div class="takeaway full"><b>نکته:</b> <strong>آنچه برای یک رهگذر فقط یک ویدئوی چندثانیه‌ای بود، برای تحلیلگر یک نقطه از خط زمانی شد.</strong></div>
+</div>
+</section>
+<!-- 10 -->
+<section class="slide visual-slide" data-short="VERIFY" data-title="راستی‌آزمایی OSINT" id="mh17-proof">
+<div class="slide-inner gallery-layout">
+<div class="slide-head compact">
+<span class="chapter-no red">69</span>
+<div><small>پرونده MH17</small><h2>OSINT خوب فقط «پیدا کردن» نیست؛ تطبیق مستقل است.</h2></div>
+</div>
+<div class="evidence-gallery">
+<figure>
+<img alt="مقایسه ویدئوی کاروان با تصویر ماهواره‌ای در تحقیق Bellingcat" data-critical-image="" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://www.bellingcat.com/app/uploads/2016/06/DG_17-7-2014_Makiivka3.jpg"/>
+<figcaption>مقایسه سایه و موقعیت خودروها در ویدئو با تصویر ماهواره‌ای.</figcaption>
+</figure>
+<figure>
+<img alt="تصویر تحلیلی موقعیت Buk در روز سقوط MH17" data-critical-image="" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://www.bellingcat.com/app/uploads/2016/06/buk-air-defense-mh17.png"/>
+<figcaption>تصویر تحلیلی منتشرشده درباره موقعیت سامانه Buk در روز حادثه.</figcaption>
+</figure>
+</div>
+<div class="verify-points">
+<div><b>منبع اول</b><span>ویدئو یا عکس شبکه اجتماعی</span></div>
+<div><b>منبع دوم</b><span>نقشه / Street View / تصویر ماهواره‌ای</span></div>
+<div><b>منبع سوم</b><span>زمان، سایه، ترتیب خودروها یا گزارش دیگر</span></div>
+<div class="warn"><b>نتیجه</b><span>یک ادعا وقتی قوی می‌شود که چند مسیر مستقل به یک نقطه برسند.</span></div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>در OSINT، یک عکس «اثبات» نیست؛ زنجیره راستی‌آزمایی است که ارزش تحلیل می‌سازد.</strong></div>
+</div>
+</section><section class="slide visual-slide" data-short="ROUTE" data-title="بازسازی مسیر کاروان" id="mh17-route"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">70</span><div><small>OSINT نظامی • MH17</small><h2>از یک ویدئو نتیجه نگرفتند؛ چند نقطه را روی مسیر دوختند.</h2></div></div><div class="real-image-grid three compact-gallery"><figure><img alt="تصویر کاروان Buk در ماکییوکا" loading="lazy" referrerpolicy="no-referrer" src="https://www.bellingcat.com/app/uploads/2016/06/DG_17-7-2014_Makiivka1.jpg"/><figcaption>یک فریم از مسیر مورد بررسی.</figcaption></figure><figure><img alt="تطبیق دوم کاروان Buk" loading="lazy" referrerpolicy="no-referrer" src="https://www.bellingcat.com/app/uploads/2016/06/DG_17-7-2014_Makiivka3.jpg"/><figcaption>تطبیق محیطی در نقطه‌ای دیگر.</figcaption></figure><figure><img alt="تحلیل Buk مرتبط با MH17" loading="lazy" referrerpolicy="no-referrer" src="https://www.bellingcat.com/app/uploads/2016/06/buk-air-defense-mh17.png"/><figcaption>نمونه‌ای از مستندات تصویری پرونده.</figcaption></figure></div><div class="definition-card big"><p>Bellingcat در بررسی منشأ و مسیر سامانه Buk، چندین ویدئو و تصویر عمومی را مکان‌یابی کرد و آن‌ها را با جاده، ساختمان، تابلو و تصاویر ماهواره‌ای تطبیق داد. ارزش کار در <strong>توالی شواهد</strong> بود: هر نقطه باید با نقطه بعدی سازگار می‌بود.</p><a class="source-link" href="https://www.bellingcat.com/news/2014/11/08/origin-of-the-separatists-buk-a-bellingcat-investigation/" rel="noopener" target="_blank">تحقیق Bellingcat ↗</a></div><div class="takeaway"><b>نکته:</b> <strong>ردیابی OSINT یعنی زنجیره شواهد، نه پیدا کردن یک تصویر هیجان‌انگیز.</strong></div></div></section><section class="slide" data-short="METHOD" data-title="روش کار OSINT در پرونده کاروان" id="mh17-method"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">71</span><div><small>چطور این کار انجام می‌شود؟</small><h2>هر تصویر یک سؤال جدید می‌سازد.</h2></div></div><div class="protocol-grid"><div><span>01</span><b>جمع‌آوری</b><p>ویدئوها و پست‌های عمومی مرتبط پیدا می‌شوند.</p></div><div><span>02</span><b>استخراج نشانه</b><p>تابلو، ساختمان، جاده، خودرو، جهت حرکت.</p></div><div><span>03</span><b>مکان‌یابی</b><p>نقشه و تصویر ماهواره‌ای با فریم مقایسه می‌شود.</p></div><div><span>04</span><b>زمان‌بندی</b><p>زمان انتشار و ترتیب رخدادها بررسی می‌شود.</p></div><div><span>05</span><b>تطبیق شیء</b><p>مشخصات خودرو/سامانه در تصاویر مختلف مقایسه می‌شود.</p></div><div><span>06</span><b>شاهد مستقل</b><p>هر ادعا با منبع دیگری کنترل می‌شود.</p></div><div><span>07</span><b>ثبت عدم قطعیت</b><p>جایی که مدرک کافی نیست، نتیجه قطعی اعلام نمی‌شود.</p></div></div><div class="takeaway"><b>نکته:</b> <strong>روش OSINT خوب قابل بازتولید است؛ یعنی دیگری هم بتواند مسیر استدلال را قدم‌به‌قدم بررسی کند.</strong></div></div></section><section class="slide question-slide" data-short="ONE PHOTO" data-title="سؤال OSINT نظامی" id="mh17-question"><div class="slide-inner narrow"><div class="slide-head"><span class="chapter-no red">72</span><div><small>یک عکس محیط عملیاتی</small><h2>اگر فقط یک خودرو را می‌خواستی نشان بدهی، چه چیزهای دیگری همراهش منتشر کردی؟</h2></div></div><div class="question-stack"><p>شماره خودرو یا علامت تاکتیکی؟</p><p>ورودی، حصار، برجک، ساختمان شاخص یا مسیر جاده؟</p><p>لباس، درجه، نام یگان یا تجهیزات دیگر؟</p><p>زمان انتشار و تکرار همان زاویه در پست‌های قبلی؟</p></div><div class="question-pause"><b>در عکس عملیاتی، «اطراف سوژه» خودش یک لایه اطلاعات است.</b></div></div></section>
+<!-- 11 -->
+<section class="slide" data-short="METADATA" data-title="ورود به متادیتا" id="metadata-transition">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">73</span><div><small>اطلاعاتی که روی صفحه دیده نمی‌شود</small><h2>فایل فقط همان چیزی نیست که باز می‌کنی و می‌بینی.</h2></div></div>
+<div class="definition-card big"><p>یک عکس تصویر دارد، اما ممکن است اطلاعاتی درباره دوربین، زمان ثبت، نرم‌افزار و گاهی موقعیت مکانی هم داشته باشد. یک فایل Word می‌تواند نام نویسنده یا تاریخ ویرایش داشته باشد. PDF هم بسته به روش ساخت ممکن است اطلاعات مشابهی نگه دارد.</p><p>به این داده‌های توصیفی، متادیتا می‌گوییم: داده درباره خود فایل و نحوه تولید یا مدیریت آن.</p><p>همه فایل‌ها همه این اطلاعات را ندارند و بسیاری از شبکه‌های اجتماعی بخشی از متادیتا را حذف می‌کنند؛ اما اصل دفاعی این است که قبل از انتشار حساس، خودت بررسی کنی نه اینکه به حذف خودکار سرویس امید ببندی.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>متادیتا معمولاً مخفی نیست؛ فقط در نمای عادی فایل دیده نمی‌شود.</strong></div>
+</div></section><section class="slide" data-short="TYPES" data-title="چه نوع متادیتایی داریم؟" id="metadata-types">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">74</span><div><small>عکس، سند، صدا و فایل‌های دیگر</small><h2>متادیتا یک فهرست ثابت نیست؛ به نوع فایل و نرم‌افزار بستگی دارد.</h2></div></div>
+<div class="definition-card big"><p>در عکس‌ها EXIF می‌تواند زمان ثبت، مدل دستگاه، تنظیمات دوربین و در صورت فعال بودن geotag، مختصات را نگه دارد. در اسناد Office ممکن است Author، Company، تاریخ ایجاد و آخرین ویرایش وجود داشته باشد.</p><p>فایل‌های صوتی و ویدئویی هم container metadata دارند؛ مثلاً codec، duration، زمان ایجاد یا اطلاعات نرم‌افزار تولیدکننده. بعضی فایل‌ها thumbnail یا تاریخچه‌ای دارند که کاربر عادی هیچ‌وقت نمی‌بیند.</p><p>به همین دلیل «پاک کردن متن روی تصویر» لزوماً همه اطلاعات جانبی را پاک نمی‌کند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>برای فایل حساس، فقط محتوای قابل‌مشاهده را بررسی نکن؛ مشخصات و متادیتای فایل هم بخشی از بازبینی‌اند.</strong></div>
+</div></section><section class="slide" data-short="METADATA" data-title="متادیتا" id="metadata">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no">75</span>
+<div><small>تعریف + تمرین</small><h2>Metadata: اطلاعاتی درباره خودِ فایل.</h2></div>
+</div>
+<div class="metadata-stage">
+<div class="file-card">
+<div class="file-visual"><span class="file-sun"></span><span class="file-mountain"></span></div>
+<div class="file-name"><b>IMG_4831.JPG</b><span>4.8 MB</span></div>
+<button class="btn ghost" id="metaBtn">نمایش اطلاعات فایل</button>
+</div>
+<div class="meta-panel" id="metaPanel">
+<div><span>Device</span><b class="masked">••••••••</b></div>
+<div><span>DateTimeOriginal</span><b class="masked">••••/••/•• — ••:••</b></div>
+<div><span>Software</span><b class="masked">••••••••</b></div>
+<div><span>Author</span><b class="masked">••••••••</b></div>
+<div><span>GPS</span><b class="masked danger-text">••.•••• , ••.••••</b></div>
+<p>مقادیر این نمایش ساختگی‌اند؛ صفحه هیچ فایل واقعی شما را نمی‌خواند.</p>
+</div>
+<article class="definition-card metadata-copy">
+<span class="term">METADATA</span>
+<p>خود فایل یک «محتوا» دارد؛ اما سیستم ممکن است همراه آن اطلاعات دیگری نگه دارد: زمان ایجاد، مدل دوربین، نرم‌افزار، نام نویسنده، تاریخ ویرایش و گاهی موقعیت مکانی.</p>
+<p>در عکس‌ها بخشی از این اطلاعات معمولاً با عنوان <strong>EXIF</strong> شناخته می‌شود. در Word و PDF هم Document Properties می‌تواند اطلاعات جانبی ذخیره کند.</p>
+</article>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>فایل حساس را قبل از انتشار فقط «بازبینی» نکن؛ Properties و metadata آن را هم بررسی کن.</strong></div>
+</div>
+</section><section class="slide" data-short="EXIF" data-title="EXIF دقیقاً چیست؟" id="metadata-exif"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">76</span><div><small>متادیتای تصویر</small><h2>عکس فقط پیکسل نیست.</h2></div></div><div class="definition-grid"><article class="definition-card big"><p><strong>EXIF</strong> بخشی از متادیتای رایج فایل‌های تصویری است. بسته به دستگاه و تنظیمات، می‌تواند شامل مدل دوربین یا گوشی، زمان ثبت، تنظیمات لنز و در بعضی موارد مختصات GPS باشد.</p><p>نکته مهم این است که همه شبکه‌های اجتماعی رفتار یکسانی ندارند. بعضی هنگام آپلود بخشی از metadata را حذف می‌کنند، بعضی فایل اصلی را نگه می‌دارند و در ارسال مستقیم فایل ممکن است اطلاعات باقی بماند.</p><p>بنابراین به‌جای حفظ‌کردن فهرست «کدام اپ حذف می‌کند»، عادت امن‌تر این است که برای فایل حساس خودت metadata را بررسی کنی.</p></article><div class="meta-panel unlocked"><div><span>DateTimeOriginal</span><b>2026:09:25 18:42</b></div><div><span>Make</span><b>Phone maker</b></div><div><span>Model</span><b>Device model</b></div><div><span>GPS</span><b>ممکن است وجود داشته باشد</b></div></div></div><div class="takeaway"><b>نکته:</b> <strong>«اینستاگرام حذفش می‌کند» جایگزین کنترل فایل قبل از انتشار نیست.</strong></div></div></section><section class="slide" data-short="DOC META" data-title="متادیتای Word و PDF" id="metadata-docs"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">77</span><div><small>فقط عکس‌ها نیستند</small><h2>یک فایل اداری هم ممکن است درباره سازنده‌اش حرف بزند.</h2></div></div><div class="opsec-cards"><div><b>Author</b><span>نام نویسنده یا حساب سیستم.</span></div><div><b>Company</b><span>نام سازمان در تنظیمات Office.</span></div><div><b>Created / Modified</b><span>زمان ایجاد و آخرین ویرایش.</span></div><div><b>Comments</b><span>یادداشت و Track Changes فراموش‌شده.</span></div><div><b>File path</b><span>در بعضی خروجی‌ها مسیر داخلی سیستم.</span></div><div><b>Embedded objects</b><span>فایل یا داده‌ای که داخل سند مانده.</span></div></div><div class="question-pause">آخرین PDF یا Wordی که بیرون سازمان فرستادی: <b>فقط متنش را بررسی کردی یا Properties را هم دیدی؟</b></div><div class="takeaway"><b>نکته:</b> <strong>پاک‌کردن متن از صفحه لزوماً آن را از تاریخچه، کامنت یا لایه‌های دیگر سند پاک نمی‌کند.</strong></div></div></section><section class="slide" data-short="SHARE SAFE" data-title="قبل از ارسال فایل" id="metadata-sharing"><div class="slide-inner"><div class="slide-head"><span class="chapter-no green">78</span><div><small>روال ساده</small><h2>فایل را مثل پاکت نامه بررسی کن، نه فقط مثل محتوا.</h2></div></div><div class="protocol-grid"><div><span>01</span><b>نام فایل</b><p>عنوان داخلی یا نام فرد حساس ندارد؟</p></div><div><span>02</span><b>Properties</b><p>Author، Company، GPS، زمان.</p></div><div><span>03</span><b>حاشیه‌ها</b><p>Comment، Track Changes، Notes.</p></div><div><span>04</span><b>نسخه خروجی</b><p>برای انتشار، نسخه Sanitized بساز.</p></div><div><span>05</span><b>دسترسی لینک</b><p>«هرکس لینک را دارد» واقعاً لازم است؟</p></div><div><span>06</span><b>گیرنده</b><p>آدرس و کانال ارسال درست است؟</p></div><div><span>07</span><b>بازبینی نهایی</b><p>فایل خروجی را دوباره باز کن.</p></div></div><div class="takeaway"><b>نکته:</b> <strong>Sanitize کردن باید بخشی از فرایند انتشار باشد، نه کار اضافیِ افراد خیلی محتاط.</strong></div></div></section>
+<!-- Q-METADATA -->
+<section class="slide question-slide" data-short="YOUR LAST PHOTO" data-title="سؤال متادیتا" id="metadata-questions">
+<div class="slide-inner narrow">
+<div class="slide-head"><span class="chapter-no red">79</span><div><small>یک سؤال خیلی ساده</small><h2>آخرین عکسی که برای کسی فرستادی، متادیتاش رو چک کردی؟</h2></div></div>
+<div class="question-stack">
+<p>می‌دانی فایل اصلی عکس <strong>GPS</strong> داشته یا نه؟</p>
+<p>اگر فایل Word یا PDF فرستادی، داخل Properties نام نویسنده، شرکت یا نام کاربری سیستم ذخیره بوده؟</p>
+<p>فایل را مستقیم فرستادی یا از سرویسی عبور دادیش که بخشی از metadata را حذف می‌کند؟</p>
+<p>اگر مقصد فایل ناشناس بود، آیا قبل از ارسال یک نسخه پاک‌سازی‌شده ساختی؟</p>
+</div>
+<div class="question-pause">خطر همیشه چیزی نیست که <b>داخل عکس می‌بینی</b>. گاهی چیزی است که فایل درباره خودش می‌گوید.</div>
+</div>
+</section>
+<!-- 12 -->
+<section class="slide" data-short="DATA BREACH" data-title="نشت داده" id="breach-definition">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no">80</span>
+<div><small>تعریف</small><h2>Data Breach: وقتی داده از کنترل صاحبش خارج می‌شود.</h2></div>
+</div>
+<div class="breach-intro">
+<article class="definition-card">
+<span class="term">DATA BREACH</span>
+<p>نشت یا رخنه داده زمانی است که اطلاعاتی که نباید در اختیار فرد یا گروهی باشد، بدون مجوز قابل دسترس، کپی، افشا یا استخراج شود. این الزاماً به معنی «هک پیچیده» نیست؛ خطای پیکربندی، حساب کاربری دزدیده‌شده، سرویس شخص ثالث یا اشتباه انسانی هم می‌تواند عامل باشد.</p>
+</article>
+<div class="breach-impact">
+<div><span>۱</span><b>فیشینگ دقیق‌تر</b><small>نام، شماره، سابقه خرید یا سرویس مورد استفاده باعث می‌شود پیام جعلی واقعی‌تر به نظر برسد.</small></div>
+<div><span>۲</span><b>Credential Stuffing</b><small>اگر رمز را جای دیگری تکرار کرده باشی، یک نشت قدیمی می‌تواند در سرویس جدید استفاده شود.</small></div>
+<div><span>۳</span><b>سرقت هویت</b><small>ترکیب چند پایگاه داده می‌تواند پروفایل دقیق‌تری از فرد بسازد.</small></div>
+<div><span>۴</span><b>اثر طولانی‌مدت</b><small>شماره ملی، سابقه یا DNA مثل رمز عبور نیست که بتوانی فردا عوضش کنی.</small></div>
+</div>
+</div>
+<div class="fear-banner"><span>یک نشت امروز</span><b>ممکن است سوخت حمله‌ای باشد که ماه‌ها یا سال‌ها بعد اتفاق می‌افتد.</b></div>
+<div class="takeaway"><b>نکته:</b> <strong>بعد از اعلام نشت، فقط رمز همان سرویس را عوض نکن؛ هر جایی که همان رمز یا الگوی مشابه داشته‌ای را بررسی کن.</strong></div>
+</div>
+</section><section class="slide" data-short="WHAT LEAKS" data-title="چه داده‌ای در نشت مهم است؟" id="breach-data-types"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">81</span><div><small>همه داده‌ها یک ارزش ندارند</small><h2>شماره تلفن، آدرس و رمز قدیمی «اطلاعات معمولی» نیستند.</h2></div></div><div class="opsec-cards"><div><b>هویتی</b><span>نام، کد ملی، تاریخ تولد، شماره سند.</span></div><div><b>تماس</b><span>شماره، ایمیل، آدرس منزل.</span></div><div><b>ورود</b><span>رمز، hash، token، سؤال امنیتی.</span></div><div><b>مکانی</b><span>GPS، آدرس سفارش، مسیر.</span></div><div><b>رفتاری</b><span>خرید، سفارش، تماس، زمان فعالیت.</span></div><div><b>مالی</b><span>کارت، حساب، تراکنش یا شناسه پرداخت.</span></div></div><div class="definition-card big"><p>حتی اگر رمز یا اطلاعات بانکی درز نکرده باشد، داده‌های هویتی و رفتاری می‌توانند برای <strong>فیشینگ دقیق‌تر، جعل هویت، مزاحمت یا ترکیب با نشت‌های دیگر</strong> ارزشمند باشند.</p></div><div class="takeaway"><b>نکته:</b> <strong>ارزش داده را از نگاه مهاجم بسنج، نه از نگاه اینکه «خودش که محرمانه نیست».</strong></div></div></section><section class="slide question-slide" data-short="WHY CARE" data-title="چرا نشت داده مهم است؟" id="breach-why-matters"><div class="slide-inner narrow"><div class="slide-head"><span class="chapter-no red">82</span><div><small>فرض کن رمز لو نرفته</small><h2>اگر فقط نام، موبایل، آدرس و سفارش‌های قبلی‌ات لو برود، خیالت راحت است؟</h2></div></div><div class="question-stack"><p>مهاجم می‌تواند با نام فروشگاهی که واقعاً استفاده کرده‌ای، پیام قابل‌باورتری بسازد؟</p><p>اگر آدرس خانه و شماره همراه کنار هم باشند، برای مزاحمت یا جعل هویت چه ارزشی دارند؟</p><p>اگر همین ایمیل در نشت دیگری همراه یک رمز قدیمی باشد، آیا حساب‌های دیگر هم در خطرند؟</p></div><div class="question-pause"><b>نشت‌ها جدا از هم زندگی نمی‌کنند؛ مهاجم می‌تواند آن‌ها را با هم ترکیب کند.</b></div></div></section><section class="slide" data-short="STUFFING" data-title="Credential Stuffing" id="credential-stuffing"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">83</span><div><small>چرا رمز تکراری خطرناک است؟</small><h2>سایت B هک نشده؛ ولی رمز سایت A روی آن امتحان می‌شود.</h2></div></div><div class="everyday-chain"><div><span>نشت سایت A</span><b>email + password</b><small>اطلاعات قدیمی</small></div><div><span>اتوماسیون</span><b>همان ترکیب</b><small>روی سرویس‌های دیگر</small></div><div><span>رمز تکراری</span><b>ورود موفق</b><small>سایت B هک نشده بود</small></div><div class="result"><span>پیامد</span><b>تصاحب حساب</b><small>به خاطر عادت کاربر</small></div></div><div class="definition-card big"><p>به این حمله <strong>Credential Stuffing</strong> می‌گویند. مهاجم لازم نیست رمز تو را حدس بزند؛ از رمز واقعیِ لو‌رفته در سرویس دیگری استفاده می‌کند.</p><p>سرویس Have I Been Pwned هم دقیقاً درباره همین خطر هشدار می‌دهد و توضیح می‌دهد که رمزهای دیده‌شده در نشت‌ها نباید دوباره استفاده شوند.</p><a class="source-link" href="https://haveibeenpwned.com/Passwords" rel="noopener" target="_blank">Pwned Passwords ↗</a></div><div class="takeaway"><b>نکته:</b> <strong>رمز منحصربه‌فرد برای هر سرویس، جلوی تبدیل یک نشت به چند تصاحب حساب را می‌گیرد.</strong></div></div></section><section class="slide question-slide" data-short="ONE PASSWORD" data-title="سؤال رمز تکراری" id="password-reuse-question"><div class="slide-inner narrow"><div class="slide-head"><span class="chapter-no red">84</span><div><small>جوابش را برای خودت نگه دار</small><h2>اگر یکی از رمزهای قدیمی‌ات همین الان منتشر شود، چند حساب دیگر هم باز می‌شود؟</h2></div></div><div class="question-stack"><p>ایمیل اصلی؟ فروشگاه؟ شبکه اجتماعی؟ پنل کاری؟ سرویس ابری؟</p><p>آیا فقط یک کلمه را آخر رمزها عوض می‌کنی و الگو قابل حدس است؟</p><p>Password Manager داری یا هنوز رمزها باید «قابل حفظ» باشند؟</p></div><div class="question-pause"><b>امنیت خوب یعنی نشت یک سرویس، بقیه زندگی دیجیتال را با خودش نبرد.</b></div></div></section>
+<!-- Q-BREACH -->
+<section class="slide question-slide" data-short="WHAT IF" data-title="سؤال نشت داده" id="breach-questions">
+<div class="slide-inner narrow">
+<div class="slide-head"><span class="chapter-no red">85</span><div><small>فرض کن امروز یک دیتابیس قدیمی لو رفته</small><h2>اگر اطلاعاتت لو برود، مهاجم با کدام تکه شروع می‌کند؟</h2></div></div>
+<div class="question-grid">
+<article><span>01</span><h3>همان رمزی که پنج سال پیش استفاده می‌کردی، هنوز جایی تکرار شده؟</h3></article>
+<article><span>02</span><h3>شماره موبایلت به چند حساب بانکی، پیام‌رسان و سرویس بازیابی رمز وصل است؟</h3></article>
+<article><span>03</span><h3>اگر کسی نام، شماره، آدرس و سابقه سفارش تو را بداند، پیام جعلی‌اش چقدر واقعی‌تر می‌شود؟</h3></article>
+<article><span>04</span><h3>اگر یک سرویس هک شود، آیا می‌دانی در ۳۰ دقیقه اول کدام رمزها را باید عوض کنی؟</h3></article>
+</div>
+<div class="question-pause">نشت داده فقط مشکل همان شرکت نیست. <b>اثر آن می‌تواند در حساب‌های دیگر تو ادامه پیدا کند.</b></div>
+</div>
+</section>
+<!-- IRAN CASE: SNAPFOOD -->
+<section class="slide" data-short="IRAN" data-title="نشت داده در ایران" id="iran-breach-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">86</span><div><small>چرا نمونه ایرانی مهم است؟</small><h2>وقتی سرویس هر روزه خودمان دچار رخداد می‌شود، مفهوم نشت داده ناگهان خیلی واقعی‌تر می‌شود.</h2></div></div>
+<div class="definition-card big"><p>در سال‌های اخیر چند کسب‌وکار ایرانی رخدادهای دسترسی غیرمجاز یا نشت داده را تأیید کرده‌اند. در فضای شبکه‌های اجتماعی هم معمولاً هم‌زمان اعداد بزرگ، فایل نمونه و ادعاهای مختلف منتشر می‌شود.</p><p>برای آموزش درست، باید بین سه چیز فرق بگذاریم: <strong>اصل رخداد که شرکت تأیید کرده، جزئیاتی که منبع مستقل تأیید کرده و ادعاهایی که فقط مهاجم گفته است.</strong></p><p>این تفکیک هم از شایعه جلوگیری می‌کند و هم به مخاطب یاد می‌دهد خبر امنیتی را مثل هر خبر دیگری راستی‌آزمایی کند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>در رخداد امنیتی، «عدد بزرگ‌تر» لزوماً «خبر دقیق‌تر» نیست.</strong></div>
+</div></section><section class="slide" data-short="SNAPPFOOD" data-title="اسنپ‌فود چیست؟" id="snappfood-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">87</span><div><small>قبل از رخداد ۱۴۰۲</small><h2>اسنپ‌فود یک پلتفرم سفارش آنلاین غذا و خدمات مرتبط در ایران است.</h2></div></div>
+<div class="definition-card big"><p>کاربر در چنین پلتفرمی معمولاً نام، شماره تلفن، آدرس‌های تحویل و سابقه سفارش دارد. فروشنده و پیک هم داده‌های کاری خودشان را در سامانه دارند.</p><p>همین توضیح ساده نشان می‌دهد چرا رخداد امنیتی این نوع سرویس فقط درباره «رمز عبور» نیست. آدرس و الگوی سفارش می‌تواند برای فیشینگ، مزاحمت یا ساخت پیام‌های بسیار شخصی‌سازی‌شده ارزش پیدا کند.</p><p>در دی ۱۴۰۲ اسنپ‌فود دسترسی غیرمجاز به بخشی از داده‌ها را تأیید کرد و گفت برای رفع رخنه با پلیس فتا همکاری کرده است.</p><a class="source-link" href="https://digiato.com/iran-technology-news/snappfood-second-statement-unauthorized-access-to-data" rel="noopener" target="_blank">گزارش بیانیه اسنپ‌فود ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>برای سنجش اثر نشت، اول ببین سرویس چه نوع زندگی روزمره‌ای را در داده‌هایش بازتاب می‌دهد.</strong></div>
+</div></section><section class="slide visual-slide" data-short="SNAPPFOOD" data-title="نمونه ایرانی: اسنپ‌فود" id="snappfood-case">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no red">88</span><div><small>ایران • دی ۱۴۰۲</small><h2>اسنپ‌فود: وقتی «اطلاعات سفارش» می‌تواند فراتر از سفارش معنا داشته باشد.</h2></div></div>
+<div class="case-layout">
+<div class="case-narrative">
+<p>اسنپ‌فود در دی ۱۴۰۲ دسترسی غیرمجاز به بخشی از داده‌ها را تأیید کرد و اعلام کرد با پلیس فتا برای شناسایی و رفع منبع رخداد همکاری می‌کند. شرکت در بیانیه تکمیلی گفت اطلاعات پرداخت بانکی مطابق مقررات روی پلتفرم ذخیره نمی‌شود و رمزهای عبور نیز به‌صورت رمزنگاری‌شده نگهداری می‌شوند.</p>
+<p>گروه مهاجم اعداد بسیار بزرگی درباره تعداد کاربران و سفارش‌ها مطرح کرد. در کارگاه باید این دو را جدا نگه داشت: <strong>اصل رخداد توسط شرکت تأیید شد؛ دامنه و ارقام اعلام‌شده توسط مهاجم، ادعای مهاجم‌اند مگر اینکه مستقل تأیید شوند.</strong></p>
+<p>چرا سفارش غذا حساس است؟ چون حتی بدون اطلاعات بانکی، ترکیب نام، شماره تماس، نشانی یا الگوهای سفارش می‌تواند برای فیشینگ شخصی‌سازی‌شده ارزش داشته باشد.</p>
+<a class="source-link" href="https://digiato.com/iran-technology-news/snappfood-second-statement-unauthorized-access-to-data" rel="noopener" target="_blank">بیانیه تکمیلی به نقل از دیجیاتو ↗</a>
+</div>
+<div class="real-image-grid two">
+<figure><img alt="تصویر اپ اسنپ‌فود در گزارش رخداد" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://cdn.fararu.com/thumbnail/YTlkNzE2TynY/3tXaJgVYRg1hTnuno9cQMfaGM2ap4FQB0-TClnJe2ut-2-FGl4iCh7Ot35FwgMvoUW0cZdCob28nxMM5cgAOGLV_qtc-QBdJ6yl0sttSAe9rU3qA21LeD7P8S55ewKUw-RWfB-vCrH8dD-4GHO8njCPzWTthvSRuaaGSf3_rztIsgAiw9L0I4BXN8vNFTRHRXgWdgz3prIu9TVuSxU-aPyan77pbiJctwB75DltWzeQ%2C/YTlkNzE2TynY.jpg"/><figcaption>تصویر آرشیوی اپلیکیشن در گزارش رسانه‌ای رخداد.</figcaption></figure>
+<figure><img alt="اسکرین شات ادعای گروه مهاجم درباره داده‌های اسنپ‌فود" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://pbs.twimg.com/media/GC0p7jwXgAARJtc.png"/><figcaption><b>ادعای گروه مهاجم</b>؛ جزئیات و اعداد داخل این تصویر را نباید بدون تأیید مستقل، واقعیت قطعی تلقی کرد.</figcaption></figure>
+</div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>داده بانکی تنها داده حساس نیست؛ داده رفتاری و نشانی هم می‌تواند برای فریب بعدی ارزشمند باشد.</strong></div>
+</div>
+</section><section class="slide" data-short="SNAPP IMPACT" data-title="بعد از نشت اسنپ‌فود" id="snappfood-impact"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">89</span><div><small>نمونه ایرانی</small><h2>مسئله فقط «هک شد یا نشد» نیست؛ سؤال مهم‌تر این است که با داده چه می‌شود کرد.</h2></div></div><div class="definition-card big"><p>پس از اعلام دسترسی غیرمجاز به داده‌های اسنپ‌فود، شرکت در بیانیه تکمیلی درباره افزایش استانداردهای دسترسی به منابع حساس توضیح داد و گزارش‌ها درباره نوع داده‌های تحت تأثیر منتشر شد.</p><p>برای کاربر، مهم‌ترین درس این است که داده‌های سفارش و آدرس می‌توانند <strong>زمینه فیشینگ بسیار باورپذیر</strong> بسازند: مهاجم لازم نیست همه‌چیز را بداند؛ کافی است چند جزئیات واقعی داشته باشد تا پیامش شبیه ارتباط عادی سرویس شود.</p><p>همین‌جا باید بین «داده‌ای که شرکت تأیید کرده» و «اعدادی که مهاجم ادعا کرده» فرق گذاشت. در کارگاه، این تفکیک خودش یک درس سواد سایبری است.</p><a class="source-link" href="https://digiato.com/iran-technology-news/snappfood-second-statement-unauthorized-access-to-data" rel="noopener" target="_blank">گزارش و بیانیه تکمیلی ↗</a></div><div class="takeaway"><b>نکته:</b> <strong>بعد از هر نشت، انتظار فیشینگ هدفمندتر را داشته باش؛ مخصوصاً پیام‌هایی که چند جزئیات واقعی از تو می‌دانند.</strong></div></div></section>
+<!-- IRAN CASE: TAPSI -->
+<section class="slide" data-short="TAPSI" data-title="تپسی چیست؟" id="tapsi-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">90</span><div><small>قبل از رخداد ۱۴۰۲</small><h2>تپسی یکی از پلتفرم‌های تاکسی اینترنتی ایران است؛ یعنی داده سفر بخشی از مدل کسب‌وکار آن است.</h2></div></div>
+<div class="definition-card big"><p>کاربر برای درخواست خودرو مبدأ و مقصد، شماره تماس و اطلاعات حساب دارد. راننده هم اطلاعات هویتی و کاری در سامانه دارد. بنابراین دسترسی غیرمجاز به این نوع پلتفرم بالقوه می‌تواند داده‌های مختلفی را درگیر کند.</p><p>در شهریور ۱۴۰۲ مدیرعامل وقت تپسی اعلام کرد مهاجمان به بخشی از اطلاعات دسترسی پیدا کرده‌اند و هدفشان اخاذی بوده است. شرکت گفت باج پرداخت نکرده و موضوع را پیگیری می‌کند.</p><p>اعداد بسیار بزرگی درباره حجم داده در شبکه‌های اجتماعی منتشر شد، اما رسانه‌هایی مثل دیجیاتو صریحاً گفتند امکان تأیید مستقل آن اعداد را ندارند.</p><a class="source-link" href="https://digiato.com/articles/new-hack-tapsi-1402" rel="noopener" target="_blank">دیجیاتو ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>بین «شرکت هک را تأیید کرده» و «هر عددی که مهاجم نوشته درست است» فاصله زیادی وجود دارد.</strong></div>
+</div></section><section class="slide visual-slide" data-short="TAPSI" data-title="نمونه ایرانی: تپسی" id="tapsi-case">
+<div class="slide-inner media-split reverse-media">
+<div class="media-copy">
+<span class="case-tag">IRAN • 1402</span>
+<h2>تپسی: «بخشی از اطلاعات» و یک درخواست اخاذی.</h2>
+<p>مدیرعامل وقت تپسی در شهریور ۱۴۰۲ اعلام کرد دسترسی غیرمجاز به زیرساخت شرکت رخ داده و بخشی از اطلاعات به دست مهاجمان افتاده است. او گفت هدف اعلام‌شده مهاجمان اخاذی بوده و شرکت تصمیم گرفته پول پرداخت نکند و موضوع را از مسیر پلیس پیگیری کند.</p>
+<p>در فضای مجازی اعدادی درباره حجم داده‌های سرقت‌شده مطرح شد، اما رسانه‌هایی مثل دیجیاتو صریحاً نوشتند که نمی‌توانند آن ارقام را مستقل تأیید کنند. این تفاوت برای آموزش امنیت حیاتی است: <strong>«رخداد تأییدشده» با «جزئیات ادعایی مهاجم» یکی نیست.</strong></p>
+<p>از منظر کاربر، چنین رخدادی یعنی باید نسبت به پیام‌هایی که بعداً با نام واقعی سرویس، اطلاعات سفر یا شماره تلفن طراحی می‌شوند حساس‌تر بود.</p>
+<a class="source-link" href="https://digiato.com/articles/new-hack-tapsi-1402" rel="noopener" target="_blank">گزارش دیجیاتو ↗</a>
+</div>
+<div class="real-image-grid two">
+<figure><img alt="رشته توییت مدیرعامل تپسی درباره رخداد ۱۴۰۲" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://static1.khabarfoori.com/thumbnail/1WMMrnnVcSdi/MPG-GGKSFzLCrjpM5307pPl6zF97oQefSuk2EILNlflpHB38cIez15XRBeqa6Tcp/7mOJsicxXnnl.jpg"/><figcaption>اسکرین‌شات رشته‌توییت مدیرعامل وقت تپسی درباره دسترسی غیرمجاز و تصمیم به نپرداختن باج.</figcaption></figure>
+<figure><img alt="تصویر خبر تپسی" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://static2.etemadonline.com/thumbnail/mNiwpv1kZY2I/gtXaXeKoAOkI0pSpfCWqCoxyYGrHjyb10d31f-YGMRc1yhjwUCZaOT5gnoOWVX2DBNkxDtBpCtixKuaQzPP2rVugCC4LdHbJhyeJrq_mYbD9DZBhGMPYpkpAEn5qYFkCaXeQMqjNqS_9goJrmSYZAQ%2C%2C/%D8%AA%D9%BE%D8%B3%DB%8C.jpg"/><figcaption>تصویر رسانه‌ای همراه با گزارش رخداد تپسی.</figcaption></figure>
+</div>
+<div class="takeaway full"><b>نکته:</b> <strong>بعد از یک نشت عمومی، انتظار فیشینگ «مرتبط با همان سرویس» منطقی است؛ دانستن جزئیات تو، هویت فرستنده را اثبات نمی‌کند.</strong></div>
+</div>
+</section><section class="slide" data-short="IRAN DATA" data-title="وقتی نشت‌های مختلف کنار هم می‌نشینند" id="iran-leaks-combine"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">92</span><div><small>سناریوی دفاعی بر اساس نشت‌های واقعی</small><h2>یک مهاجم لازم نیست همه داده را از یک شرکت بگیرد.</h2></div></div><div class="everyday-chain"><div><span>نشت ۱</span><b>شماره موبایل</b><small>یک سرویس</small></div><div><span>نشت ۲</span><b>ایمیل و رمز قدیمی</b><small>سرویس دیگر</small></div><div><span>نشت ۳</span><b>آدرس یا سفارش</b><small>پلتفرم سوم</small></div><div class="result"><span>ترکیب</span><b>فیشینگ شخصی‌تر</b><small>اطلاعات واقعی + پیام جعلی</small></div></div><div class="question-pause">اگر پیامکی نام، محله و سفارش قبلی‌ات را درست بگوید، <b>چقدر احتمال دارد لینک را معتبر فرض کنی؟</b></div><div class="takeaway"><b>نکته:</b> <strong>اطلاعات واقعی داخل یک پیام، اصالت فرستنده را ثابت نمی‌کند؛ شاید همان اطلاعات قبلاً جایی نشت کرده باشد.</strong></div></div></section>
+<!-- 13 -->
+<section class="slide" data-short="DIVAR" data-title="دیوار چیست؟" id="divar-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">93</span><div><small>قبل از رخداد ۱۳۹۹</small><h2>دیوار یک پلتفرم آگهی آنلاین است؛ ارتباط فروشنده و خریدار بخش مهمی از تجربه آن است.</h2></div></div>
+<div class="definition-card big"><p>در چنین سرویسی، کاربران درباره کالا، محل تقریبی، شماره تماس یا چت با هم ارتباط می‌گیرند. همین ارتباط باعث می‌شود فیشینگ با پوشش «خریدار»، «پرداخت» یا «تأیید آگهی» برای مجرمان جذاب باشد.</p><p>در سال ۱۳۹۹ دیوار رخدادی را درباره نسخه متنی بخشی از مکالمات مرکز تماس تأیید کرد که برای آزمایش سرویس تبدیل صدا به متن استفاده شده بود. هم‌زمان شایعات و ادعاهای دیگری هم درباره دیتابیس اصلی مطرح شد که نباید با بخش تأییدشده قاطی شوند.</p><p>این پرونده نمونه خوبی است برای یادگیری تفاوت «رخداد واقعی» و «روایت بزرگ‌شده پیرامون رخداد».</p><a class="source-link" href="https://sakhtafzarmag.com/%D8%A7%D8%B9%D8%AA%D8%B1%D8%A7%D9%81-%D8%A8%D9%87-%D9%87%DA%A9-%D9%86%D8%B3%D8%AE%D9%87-%D9%85%D8%AA%D9%86%DB%8C-%D9%85%DA%A9%D8%A7%D9%84%D9%85%D8%A7%D8%AA-%D8%AF%DB%8C%D9%88%D8%A7%D8%B1/" rel="noopener" target="_blank">گزارش رخداد ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>وقتی یک شرکت حادثه‌ای را تأیید می‌کند، دقیقاً همان چیزی را نقل کن که تأیید شده؛ نه بیشتر.</strong></div>
+</div></section><section class="slide visual-slide" data-short="DIVAR" data-title="نمونه ایرانی" id="divar-case">
+<div class="slide-inner media-split">
+<figure class="evidence-frame tall">
+<img alt="نمونه واقعی پیامک فیشینگ مرتبط با آگهی دیوار که در گزارش رسانه‌ای سال ۱۳۹۹ منتشر شد" data-critical-image="" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://sakhtafzarmag.com/wp-content/uploads/2020/09/56262.jpeg.webp"/>
+<figcaption><b>تصویر واقعی گزارش</b> — نمونه پیامک فیشینگ منتشرشده در گزارش رسانه‌ای سال ۱۳۹۹. تصویر: سخت‌افزارمگ.</figcaption>
+</figure>
+<div class="media-copy">
+<span class="case-tag">ایران • دیوار • ۱۳۹۹</span>
+<h2>یک رخداد تأییدشده؛ و یک ادعای جدا که نباید با آن قاطی شود.</h2>
+<p>دیوار در سال ۱۳۹۹ تأیید کرد که <strong>نسخه متنی چند ساعت از مکالمات مرکز تماس</strong> که برای آزمایش یک سرویس تبدیل صدا به متن بارگذاری شده بود، مورد حمله قرار گرفته است. طبق توضیح منتشرشده از طرف دیوار، متن‌ها ناشناس، یک‌طرفه و بدون شماره تماس کاربران بودند.</p>
+<p>هم‌زمان گزارش‌هایی درباره پیامک‌های فیشینگ و احتمال دسترسی به دیتابیس اصلی مطرح شد؛ اما همان گزارش رسانه‌ای نیز این بخش را در حد <strong>احتمال و پرسش</strong> مطرح می‌کرد، نه یک رخنه تأییدشده به دیتابیس اصلی.</p>
+<div class="fact-badge"><b>درس مهم:</b><span>در امنیت سایبری، «تأییدشده»، «ادعا شده» و «اثبات‌نشده» را از هم جدا کن.</span></div>
+<a class="source-link" href="https://sakhtafzarmag.com/%D8%A7%D8%B9%D8%AA%D8%B1%D8%A7%D9%81-%D8%A8%D9%87-%D9%87%DA%A9-%D9%86%D8%B3%D8%AE%D9%87-%D9%85%D8%AA%D9%86%DB%8C-%D9%85%DA%A9%D8%A7%D9%84%D9%85%D8%A7%D8%AA-%D8%AF%DB%8C%D9%88%D8%A7%D8%B1/" rel="noopener" target="_blank">گزارش و بازنشر بیانیه دیوار ↗</a>
+</div>
+<div class="real-image-grid two compact-gallery">
+<figure><img alt="تصویر دیوار در گزارش رخداد ۱۳۹۹" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://sakhtafzarmag.com/wp-content/uploads/2020/09/jliOWI2NzEyN-960x540.jpg.webp"/><figcaption>تصویر همراه گزارش رسانه‌ای رخداد متن مکالمات مرکز تماس دیوار.</figcaption></figure>
+<figure><img alt="اسکرین شات پیامک فیشینگ منتسب به کاربران دیوار" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://sakhtafzarmag.com/wp-content/uploads/2020/09/56262.jpeg.webp"/><figcaption>نمونه پیامک فیشینگ گزارش‌شده برای کاربران؛ این تصویر به‌تنهایی اثبات‌کننده نفوذ به دیتابیس اصلی نیست.</figcaption></figure>
+</div>
+<div class="takeaway full"><b>نکته:</b> <strong>در رخداد امنیتی، دقت در واژه‌ها مهم است؛ شایعه «دیتابیس هک شد» نباید جای واقعیت تأییدشده را بگیرد.</strong></div>
+</div>
+</section>
+<!-- 14 -->
+<section class="slide" data-short="DIGIKALA" data-title="دیجی‌کالا چیست و چرا این مثال فرق دارد؟" id="digikala-context"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">95</span><div><small>قبل از ادعای هک ۱۴۰۱</small><h2>اینجا پرونده درباره یک «هک تأییدشده» نیست؛ درباره راستی‌آزمایی ادعای هک است.</h2></div></div><div class="definition-card big"><p>دیجی‌کالا یک فروشگاه اینترنتی بزرگ ایرانی است و طبیعی است ادعای نشت اطلاعات کاربرانش خیلی سریع توجه جلب کند. در دی ۱۴۰۱ یک حساب منتسب به گروه هکری اعلام کرد به اطلاعات دیجی‌کالا دسترسی پیدا کرده است.</p><p>اما شرکت این ادعا را رد کرد و گفت داده‌ها و ساختارهایی که به‌عنوان مدرک منتشر شده‌اند با دیتابیس واقعی شرکت هم‌خوانی ندارند؛ بخشی از مواد منتشرشده هم داده نمونه آموزشی یا اطلاعات عمومی محصولات و نظرات بوده است.</p><p>برای همین این مثال را کنار «نشت‌های واقعی» گذاشته‌ایم تا یک مهارت دیگر را تمرین کنیم: هر اسکرین‌شات و هر ادعای مهاجم را فوراً واقعیت فرض نکنیم.</p><a class="source-link" href="https://digiato.com/article/2023/01/14/digikala-has-not-been-hacked" rel="noopener" target="_blank">دیجیاتو ↗</a></div><div class="takeaway"><b>نکته:</b> <strong>امنیت سایبری فقط کشف رخنه نیست؛ تشخیص ادعای اثبات‌نشده هم بخشی از سواد امنیتی است.</strong></div></div></section><section class="slide" data-short="DIGIKALA" data-title="راستی‌آزمایی ادعای هک" id="digikala-case">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no red">96</span>
+<div><small>ایران • ۱۴۰۱</small><h2>دیجی‌کالا: هر اسکرین‌شات دیتابیس، مدرک هک نیست.</h2></div>
+</div>
+<div class="factcheck-layout">
+<div class="claim-card">
+<span class="claim-label">CLAIM</span>
+<h3>«دیجی‌کالا هک شده و دیتابیس کاربران در اختیار مهاجم است.»</h3>
+<div aria-hidden="true" class="db-art"><i></i><i></i><i></i><i></i></div>
+</div>
+<div class="fact-arrow">→</div>
+<div class="fact-card">
+<span class="fact-label">CHECK</span>
+<p>مدیر ارتباطات دیجی‌کالا این ادعا را تکذیب کرد و گفت تصاویر منتشرشده با ساختار دیتابیس‌های دیجی‌کالا همخوانی نداشته و بخشی از داده‌ها نیز نمونه آموزشی یا اطلاعات عمومی محصولات و نظرات بوده‌اند.</p>
+<p>تا زمانی که شواهد مستقل و قابل راستی‌آزمایی وجود نداشته باشد، درست نیست یک ادعای هک را به‌عنوان رخداد قطعی بازگو کنیم.</p>
+<a class="source-link" href="https://www.iictf.ir/media/%D8%AF%DB%8C%D8%AC%DB%8C%E2%80%8C%DA%A9%D8%A7%D9%84%D8%A7-%D9%87%DA%A9-%D9%86%D8%B4%D8%AF%D9%87%E2%80%8C%D8%A7%D8%B3%D8%AA/" rel="noopener" target="_blank">گزارش فدراسیون فاوا ↗</a>
+</div>
+</div>
+<div class="verification-questions">
+<b>وقتی خبر «هک بزرگ» دیدی، سه سؤال:</b>
+<span>منبع اولیه کیست؟</span><span>چه داده‌ای واقعاً منتشر شده؟</span><span>شرکت یا نهاد مستقل چه چیزی را تأیید کرده؟</span>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>هیجان خبر امنیتی نباید جای راستی‌آزمایی را بگیرد؛ یک ادعای دروغ هم می‌تواند به اعتبار سازمان آسیب بزند.</strong></div>
+</div>
+</section>
+<!-- 15 -->
+<section class="slide" data-short="23ANDME" data-title="23andMe چیست؟" id="23andme-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">97</span><div><small>قبل از رخداد ۲۰۲۳</small><h2>23andMe یک شرکت آزمایش ژنتیک مصرف‌کننده است؛ داده‌هایش با یک فروشگاه آنلاین فرق دارد.</h2></div></div>
+<div class="definition-card big"><p>کاربر نمونه بزاق می‌فرستد و سرویس اطلاعات ژنتیکی، نسبت‌های خانوادگی و گزارش‌های مرتبط ارائه می‌کند. بنابراین حساب کاربری فقط نام و ایمیل ندارد؛ ممکن است به داده‌ای وصل باشد که بسیار شخصی و عملاً غیرقابل‌تغییر است.</p><p>در رخداد ۲۰۲۳، مهاجمان با credential stuffing وارد بخشی از حساب‌ها شدند. از طریق قابلیت‌های ارتباط خانوادگی، دامنه داده‌های در معرض قرارگرفته از تعداد اولیه حساب‌های تصاحب‌شده بسیار بزرگ‌تر شد.</p><p>این ماجرا نشان می‌دهد طراحی قابلیت‌های اشتراک و ارتباط هم روی «شعاع انفجار» یک حساب تصاحب‌شده اثر می‌گذارد.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>برای داده ژنتیکی گزینه «رمز را عوض کن و تمام» وجود ندارد؛ حساسیت داده باید از ابتدا در طراحی سرویس دیده شود.</strong></div>
+</div></section><section class="slide" data-short="23ANDME" data-title="نشت داده بزرگ" id="23andme">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no red">98</span>
+<div><small>پرونده واقعی • ۲۰۲۳</small><h2>23andMe: وقتی یک رمز تکراری، به داده ژنتیکی وصل می‌شود.</h2></div>
+</div>
+<div class="number-case">
+<div class="huge-stat"><strong>≈ 7M</strong><span>کاربر تحت تأثیر</span></div>
+<div class="number-copy">
+<p>دادستانی کالیفرنیا در سال ۲۰۲۶ درباره رخداد ۲۰۲۳ اعلام کرد مهاجم ابتدا با <strong>Credential Stuffing</strong> به حدود ۱۴ هزار حساب دسترسی پیدا کرد و سپس از قابلیت‌های مرتبط با ارتباطات خانوادگی برای دستیابی به داده‌های نزدیک به هفت میلیون کاربر استفاده شد.</p>
+<p>حالا سؤال این است: اگر رمزت لو برود، می‌توانی آن را عوض کنی؛ اما اگر داده‌ای مثل <strong>اطلاعات ژنتیکی، نسبت‌های خانوادگی یا بخشی از مشخصات هویتی</strong> بیرون برود، دقیقاً چه چیزی را می‌توانی reset کنی؟</p>
+<a class="source-link" href="https://www.oag.ca.gov/news/press-releases/attorney-general-bonta-sues-chrome-holding-co-formerly-known-23andme-over-2023" rel="noopener" target="_blank">California DOJ ↗</a>
+</div>
+</div>
+<div class="case-photo-inline"><img alt="تابلوی 23andMe" decoding="async" loading="eager" referrerpolicy="no-referrer" src="https://media.cnn.com/api/v1/images/stellar/prod/231009162845-23andme-logo-file.jpg?c=16x9&amp;q=h_833,w_1480,c_fill"/><span>تصویر آرشیوی برند؛ رخداد ۲۰۲۳ با credential stuffing آغاز شد.</span></div>
+<div class="credential-demo">
+<div><span>سرویس A</span><b>user@example.com</b><code>SamePassword!</code></div>
+<i>نشت قدیمی →</i>
+<div><span>سرویس B</span><b>user@example.com</b><code>SamePassword!</code></div>
+<i>→</i><strong>Credential Stuffing</strong>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>رمز تکراری یعنی رخنه یک سایت می‌تواند تبدیل به کلید ورود به سایت دیگری شود. Password Manager + MFA این زنجیره را می‌شکند.</strong></div>
+</div>
+</section><section class="slide" data-short="EQUIFAX" data-title="Equifax چیست؟" id="equifax-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">99</span><div><small>قبل از رخداد ۲۰۱۷</small><h2>Equifax یکی از شرکت‌های بزرگ گزارش اعتبار مالی در آمریکاست و حجم زیادی از اطلاعات هویتی نگه می‌دارد.</h2></div></div>
+<div class="definition-card big"><p>شرکت‌های اعتبارسنجی برای ارزیابی سابقه مالی، داده‌هایی درباره هویت و فعالیت اعتباری افراد جمع می‌کنند. یعنی حتی ممکن است فرد هر روز مستقیم با آن شرکت کار نکند، اما داده‌اش در سامانه وجود داشته باشد.</p><p>در ۲۰۱۷ رخنه Equifax اطلاعات حدود ۱۴۷ میلیون نفر را تحت تأثیر قرار داد. نام، تاریخ تولد، شماره‌های هویتی و اطلاعات دیگر در بین داده‌های درگیر گزارش شدند.</p><p>به همین خاطر این پرونده به نماد نشت «داده غیرقابل‌تغییر» تبدیل شد؛ چیزی که پیامدش می‌تواند سال‌ها باقی بماند.</p><a class="source-link" href="https://www.ftc.gov/news-events/news/press-releases/2019/07/equifax-pay-575-million-part-settlement-ftc-cfpb-states-related-2017-data-breach" rel="noopener" target="_blank">FTC ↗</a></div>
+<div class="takeaway"><b>نکته:</b> <strong>هرچه داده دیرتر تغییر کند، خسارت بالقوه نشت آن طولانی‌تر است.</strong></div>
+</div></section><section class="slide" data-short="EQUIFAX" data-title="Equifax 2017" id="equifax-case"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">100</span><div><small>پرونده واقعی • ۲۰۱۷</small><h2>Equifax: وقتی داده‌ای نشت می‌کند که نمی‌توانی عوضش کنی.</h2></div></div><div class="case-layout"><div class="case-narrative"><p>FTC اعلام کرد نشت Equifax حدود <strong>۱۴۷ میلیون نفر</strong> را تحت تأثیر قرار داد و داده‌هایی مانند نام، تاریخ تولد، شماره Social Security و آدرس در معرض قرار گرفت.</p><p>فرق این داده‌ها با رمز چیست؟ رمز را می‌توانی عوض کنی؛ تاریخ تولد یا شماره هویتی معمولاً ثابت است. به همین دلیل پیامد بعضی نشت‌ها ممکن است سال‌ها ادامه پیدا کند.</p><p>توافق حقوقی بعدی حداقل ۵۷۵ میلیون دلار و تا ۷۰۰ میلیون دلار را دربر می‌گرفت.</p><a class="source-link" href="https://www.ftc.gov/news-events/news/press-releases/2019/07/equifax-pay-575-million-part-settlement-ftc-cfpb-states-related-2017-data-breach" rel="noopener" target="_blank">FTC ↗</a></div><div class="attack-timeline"><div><span>01</span><b>آسیب‌پذیری</b><small>وب‌اپلیکیشن</small></div><i>↓</i><div><span>02</span><b>دسترسی طولانی</b><small>ماه‌ها</small></div><i>↓</i><div><span>03</span><b>PII حساس</b><small>هویت و آدرس</small></div><i>↓</i><div class="danger-node"><span>04</span><b>ریسک ماندگار</b><small>جعل هویت</small></div></div></div><div class="takeaway"><b>نکته:</b> <strong>هرچه داده سخت‌تر قابل تغییر باشد، مسئولیت حفاظت از آن بیشتر است.</strong></div></div></section><section class="slide" data-short="COLONIAL" data-title="Colonial Pipeline چیست؟" id="colonial-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">101</span><div><small>قبل از رخداد ۲۰۲۱</small><h2>Colonial Pipeline یک اپ نیست؛ بخشی از زیرساخت انتقال سوخت در آمریکاست.</h2></div></div>
+<div class="definition-card big"><p>این شرکت شبکه خط لوله بزرگی را اداره می‌کند که سوخت را به بخش‌های مختلف شرق آمریکا منتقل می‌کند. بنابراین اختلال در سامانه‌های کسب‌وکار آن می‌تواند تصمیم‌های عملیاتی و زنجیره تأمین واقعی را تحت فشار بگذارد.</p><p>در مه ۲۰۲۱ یک حمله باج‌افزاری باعث شد شرکت برای مهار وضعیت فعالیت خط لوله را موقتاً متوقف کند. بعداً گزارش‌ها به یک حساب VPN قدیمی بدون MFA و رمز به‌خطر‌افتاده به‌عنوان مسیر ورود اشاره کردند.</p><p>پرونده Colonial نشان می‌دهد یک حساب کوچک و قدیمی می‌تواند به پیامدی برسد که مردم آن را در پمپ‌بنزین احساس کنند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>حساب قدیمی فقط «آشغال دیجیتال» نیست؛ اگر دسترسی دارد، هنوز یک در فعال است.</strong></div>
+</div></section><section class="slide visual-slide" data-short="COLONIAL" data-title="Colonial Pipeline 2021" id="colonial-case"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">102</span><div><small>پرونده واقعی • ۲۰۲۱</small><h2>یک حساب قدیمی؛ اثر واقعی روی سوخت.</h2></div></div><div class="definition-card big"><p>حمله باج‌افزاری Colonial Pipeline نشان داد یک رخداد IT می‌تواند اثر فیزیکی و اقتصادی داشته باشد. گزارش‌های رسمی سنای آمریکا به این نکته اشاره کردند که دسترسی با یک <strong>رمز به‌خطر‌افتاده برای حساب VPN قدیمی</strong> مرتبط بود و آن حساب MFA نداشت.</p><p>شرکت برای مهار وضعیت، عملیات خط لوله را موقتاً متوقف کرد؛ نتیجه در بخش‌هایی از آمریکا به نگرانی و کمبود سوخت انجامید.</p><a class="source-link" href="https://www.rpc.senate.gov/policy-papers/infrastructure-cybersecurity-pipelines" rel="noopener" target="_blank">گزارش سنای آمریکا ↗</a></div><div class="question-pause">یک سؤال برای سازمان خودت: <b>چند حساب قدیمی هنوز وجود دارند چون «شاید یک روز لازم شوند»؟</b></div><div class="takeaway"><b>نکته:</b> <strong>حساب بلااستفاده هم سطح حمله است؛ مخصوصاً اگر MFA نداشته باشد.</strong></div></div></section><section class="slide" data-short="SOLARWINDS" data-title="SolarWinds چیست؟" id="solarwinds-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">103</span><div><small>قبل از حمله زنجیره تأمین</small><h2>SolarWinds نرم‌افزار مدیریت و پایش شبکه می‌سازد و محصولاتش در سازمان‌های زیادی نصب بود.</h2></div></div>
+<div class="definition-card big"><p>محصول Orion برای مانیتورینگ شبکه در سازمان‌ها استفاده می‌شد. یعنی نرم‌افزار مورد اعتماد، دسترسی و دید زیادی در محیط مشتری داشت.</p><p>در رخداد ۲۰۲۰، مهاجمان زنجیره ساخت یا توزیع نرم‌افزار را هدف گرفتند و کد مخرب از مسیر به‌روزرسانی معتبر به برخی مشتریان رسید. این همان چیزی است که حمله زنجیره تأمین را ترسناک می‌کند: چیزی که طبق روال امن نصب می‌کنی، خودش حامل مشکل شده است.</p><p>این نوع حمله دفاع را از «آیا فایل از منبع معتبر است؟» یک مرحله جلوتر می‌برد: آیا خود منبع و فرایند تولیدش قابل اعتماد مانده است؟</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>اعتماد فنی باید قابل سنجش، محدود و قابل بازبینی باشد؛ حتی برای vendor معتبر.</strong></div>
+</div></section><section class="slide" data-short="SOLARWINDS" data-title="SolarWinds و زنجیره تأمین" id="solarwinds-case"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">104</span><div><small>پرونده واقعی • ۲۰۲۰</small><h2>اگر نرم‌افزار مورداعتماد آلوده شود، اعتماد خودش تبدیل به مسیر حمله می‌شود.</h2></div></div><div class="definition-grid"><article class="definition-card big"><p>در رخداد SolarWinds، CISA از <strong>compromise زنجیره تأمین نرم‌افزار Orion</strong> صحبت کرد. ایده حمله نگران‌کننده بود: به‌جای حمله مستقیم به تک‌تک سازمان‌ها، زنجیره نرم‌افزاری مورداعتماد هدف قرار گرفت.</p><p>این پرونده مفهوم «Supply Chain Attack» را برای بسیاری از مدیران ملموس کرد. نصب به‌روزرسانی امضاشده معمولاً رفتار امن است؛ اما اگر خود زنجیره ساخت یا توزیع آسیب ببیند، همین اعتماد می‌تواند سوءاستفاده شود.</p><a class="source-link" href="https://www.cisa.gov/news-events/alerts/2020/12/23/cisa-releases-cisa-insights-and-creates-webpage-ongoing-apt-cyber-activity" rel="noopener" target="_blank">CISA ↗</a></article><div class="everyday-chain"><div><span>تأمین‌کننده</span><b>نرم‌افزار معتبر</b><small>اعتماد سازمان</small></div><div><span>زنجیره</span><b>به‌روزرسانی</b><small>مسیر توزیع</small></div><div><span>مشتری</span><b>نصب عادی</b><small>بدون هشدار ظاهری</small></div><div class="result"><span>پیامد</span><b>دسترسی گسترده</b><small>چند سازمان</small></div></div></div><div class="takeaway"><b>نکته:</b> <strong>اعتماد به vendor باید مدیریت شود، نه اینکه نامحدود فرض شود.</strong></div></div></section><section class="slide" data-short="RESPONSE" data-title="بعد از نشت چه کنیم؟" id="breach-response"><div class="slide-inner"><div class="slide-head"><span class="chapter-no green">105</span><div><small>برای کاربر عادی</small><h2>خبر نشت را دیدی؛ حالا دقیقاً چه کار کنی؟</h2></div></div><div class="protocol-grid"><div><span>01</span><b>منبع را چک کن</b><p>بیانیه رسمی و گزارش معتبر.</p></div><div><span>02</span><b>نوع داده را بفهم</b><p>رمز؟ آدرس؟ اطلاعات هویتی؟</p></div><div><span>03</span><b>رمز تکراری را عوض کن</b><p>فقط همان سایت کافی نیست.</p></div><div><span>04</span><b>MFA را فعال کن</b><p>ترجیحاً روش مقاوم‌تر در دسترس.</p></div><div><span>05</span><b>فیشینگ را انتظار داشته باش</b><p>پیام‌ها دقیق‌تر می‌شوند.</p></div><div><span>06</span><b>نشست‌ها را ببند</b><p>در صورت توصیه سرویس.</p></div><div><span>07</span><b>حساب‌ها را پایش کن</b><p>ورود و تراکنش غیرعادی.</p></div></div><div class="takeaway"><b>نکته:</b> <strong>واکنش درست به نشت، وحشت نیست؛ کاهش سریع سطح سوءاستفاده است.</strong></div></div></section>
+<!-- 16 -->
+<section class="slide" data-short="AFTERMATH" data-title="بعد از نشت" id="breach-aftermath">
+<div class="slide-inner narrow">
+<div class="slide-head">
+<span class="chapter-no">106</span>
+<div><small>پیامد</small><h2>داده لو رفته معمولاً تنها نمی‌ماند.</h2></div>
+</div>
+<div class="identity-build">
+<div class="leak-source"><b>نشت فروشگاه</b><span>نام + موبایل + آدرس</span></div>
+<div class="leak-source"><b>نشت قدیمی ایمیل</b><span>ایمیل + رمز قدیمی</span></div>
+<div class="leak-source"><b>شبکه اجتماعی</b><span>شغل + عکس + دوستان</span></div>
+<div class="combine-sign">＋</div>
+<div class="profile-result"><span>پروفایل نهایی</span><b>یک پیام فیشینگ دقیق و شخصی‌سازی‌شده</b><p>«سلام، سفارش شما برای آدرس ... مشکل دارد. برای اصلاح شماره ... کلیک کنید.»</p></div>
+</div>
+<div class="fear-quote"><span>؟</span><p><strong>اگر یک فایل نشت‌کرده با شبکه اجتماعی، آگهی‌های قدیمی و یک نشت دیگر ترکیب شود، هنوز هم فکر می‌کنی «فقط شماره موبایلم لو رفته»؟</strong></p><span>؟</span></div>
+<div class="takeaway"><b>نکته:</b> <strong>بعد از رخنه، به پیام‌هایی که «بیش از حد دقیق» هستند بیشتر شک کن؛ دانستن نام و اطلاعات تو اثبات هویت فرستنده نیست.</strong></div>
+</div>
+</section><section class="slide" data-short="IR PHISH" data-title="فیشینگ بومی" id="iran-phishing-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">107</span><div><small>وقتی پیام با زندگی محلی هماهنگ می‌شود</small><h2>فیشینگ موفق معمولاً از سرویس‌ها و دغدغه‌هایی استفاده می‌کند که مردم واقعاً می‌شناسند.</h2></div></div>
+<div class="definition-card big"><p>در ایران، پیام‌های جعلی با پوشش ابلاغ قضایی، یارانه، بسته پستی، رجیستری، جریمه یا خدمات بانکی بارها گزارش شده‌اند. دلیل اثرگذاری ساده است: این موضوع‌ها برای کاربر واقعی و آشنا هستند.</p><p>مهاجم لازم نیست داستان عجیب بسازد. کافی است یک پیام کوتاه بسازد که احتمال بدهد بخشی از مخاطبان دقیقاً همان روز منتظر چنین چیزی‌اند.</p><p>برای همین راه دفاع «حفظ کردن همه متن‌های جعلی» نیست. باید یاد بگیریم سرویس حساس را از مسیر رسمی خودمان باز کنیم و روی لینک پیام تکیه نکنیم.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>فیشینگ محلی با فرهنگ و سرویس‌های واقعی قاطی می‌شود؛ قاعده دفاع باید مستقل از متن پیام باشد.</strong></div>
+</div></section><section class="slide" data-short="IR PHISH" data-title="فیشینگ ثنا در ایران" id="iran-phishing"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">108</span><div><small>نمونه ایرانی • هشدارهای پلیس فتا</small><h2>«ابلاغیه قضایی» دقیقاً روی اضطراب کاربر حساب می‌کند.</h2></div></div><div class="case-layout"><div class="case-narrative"><p>در هشدارهای منتشرشده از پلیس فتا در سال ۱۴۰۵، درباره پیام‌های جعلی با عنوان‌هایی مثل «ثبت شکایت» یا «ابلاغیه ثنا» هشدار داده شد. الگو روشن است: پیام رسمی به نظر می‌رسد، اضطراب می‌سازد و قربانی را به لینک جعلی می‌برد.</p><p>در یک پرونده گزارش‌شده در اصفهان نیز پلیس از شناسایی باندی خبر داد که با پیامک جعلی ثنا شهروندان را به درگاه‌های تقلبی هدایت می‌کرد.</p><p>چیزی که این سناریو را قوی می‌کند، <strong>ترس از مسئله قضایی</strong> است؛ قربانی قبل از اینکه دامنه را بخواند می‌خواهد بداند «چه شکایتی؟».</p><a class="source-link" href="https://tasnimnews.ir/fa/news/1405/04/25/3648797/" rel="noopener" target="_blank">گزارش هشدار پلیس فتا ↗</a></div><div class="phone-card"><div class="phone-top"><span>پیام مشکوک</span><time>09:18</time></div><p>«ابلاغیه جدید برای شما ثبت شده. برای مشاهده پرونده از لینک زیر اقدام کنید...»</p><div class="fake-link">سؤال: چرا لینک را از پیام باز کنیم وقتی مسیر رسمی را می‌شناسیم؟</div></div></div><div class="takeaway"><b>نکته:</b> <strong>نام یک نهاد رسمی داخل پیام، پیام را رسمی نمی‌کند. سامانه را خودت از مسیر شناخته‌شده باز کن.</strong></div></div></section>
+<!-- 17 -->
+<section class="slide" data-short="QR" data-title="QR Code چیست؟" id="qr-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">109</span><div><small>قبل از Quishing</small><h2>QR یک روش کدگذاری اطلاعات است؛ خودش نه امن است نه ناامن.</h2></div></div>
+<div class="definition-card big"><p>یک QR می‌تواند متن، URL، اطلاعات تماس یا داده‌های دیگر را داخل الگوی مربعی ذخیره کند. دوربین یا اپ آن را می‌خواند و معمولاً قبل از بازکردن مقصد، یک لینک یا عمل پیشنهادی نشان می‌دهد.</p><p>مشکل زمانی است که کاربر به‌خاطر ظاهر فیزیکی QR تصور کند مقصد حتماً معتبر است. برچسب جعلی می‌تواند روی QR اصلی پارکینگ، منو یا دستگاه پرداخت چسبانده شود.</p><p>پس QR را مثل یک لینک کوتاه ببین: تا وقتی مقصد را ندیده‌ای، نمی‌دانی دقیقاً کجا می‌روی.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>اسکن QR فقط خواندن داده است؛ خطر اصلی معمولاً در کاری است که بعد از اسکن انجام می‌دهی.</strong></div>
+</div></section><section class="slide" data-short="QR" data-title="QR / Quishing" id="qr">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no">110</span>
+<div><small>تعریف</small><h2>QR Code فقط مقصد را پنهان می‌کند؛ مقصد را امن نمی‌کند.</h2></div>
+</div>
+<div class="qr-stage">
+<div class="qr-poster">
+<div aria-hidden="true" class="qr-pattern"></div>
+<b>FREE WIFI</b><span>Scan to connect</span>
+</div>
+<div class="qr-copy">
+<p><strong>Quishing</strong> یعنی استفاده از QR Code برای هدایت قربانی به صفحه جعلی، پرداخت تقلبی یا فرایند فریبنده. FBI درباره QRهای دستکاری‌شده هشدار داده است.</p>
+<p>خود QR «جادویی» نیست. معمولاً QR یک URL، متن یا فرمان ساده را در خود دارد. خطر زمانی شروع می‌شود که کاربر مقصد را بررسی نکند و در صفحه بعدی اطلاعات حساس وارد کند یا فایل ناشناس نصب کند.</p>
+<div class="truth-grid">
+<div><span>ممکن است</span><b>صفحه جعلی باز کند</b></div>
+<div><span>ممکن است</span><b>به پرداخت تقلبی ببرد</b></div>
+<div><span>ممکن است</span><b>به دانلود فایل ترغیب کند</b></div>
+<div class="safe"><span>دفاع</span><b>دامنه را قبل از ورود اطلاعات بخوان</b></div>
+</div>
+<a class="source-link" href="https://www.fbi.gov/contact-us/field-offices/elpaso/news/fbi-tech-tuesday-building-a-digital-defense-against-qr-code-scams" rel="noopener" target="_blank">هشدار FBI ↗</a>
+</div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>QR را مثل لینک ناشناس ببین؛ اگر روی پوستر یا دستگاه چسبانده شده، دستکاری فیزیکی را هم بررسی کن.</strong></div>
+</div>
+</section><section class="slide question-slide" data-short="SCAN?" data-title="قبل از اسکن QR" id="qr-question"><div class="slide-inner narrow"><div class="slide-head"><span class="chapter-no red">111</span><div><small>QR فقط یک روش نمایش لینک است</small><h2>وقتی QR را اسکن می‌کنی، قبل از بازشدن صفحه مقصد را نگاه می‌کنی؟</h2></div></div><div class="question-stack"><p>برچسب QR روی میز، پارکینگ یا پوستر ممکن است روی برچسب اصلی چسبانده شده باشد؟</p><p>اگر صفحه بعدی از تو رمز، اطلاعات کارت یا نصب اپ بخواهد، چه چیزی اصالتش را ثابت می‌کند؟</p><p>اگر QR مربوط به پرداخت است، نام پذیرنده و مبلغ را قبل از تأیید می‌خوانی؟</p></div><div class="question-pause"><b>خودِ QR جادویی نیست؛ مشکل این است که مقصد لینک را قبل از اسکن نمی‌بینی.</b></div></div></section><section class="slide" data-short="WI-FI" data-title="وای‌فای عمومی امروز چه خطری دارد؟" id="wifi-myth">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">112</span><div><small>بدون اغراق</small><h2>HTTPS خیلی از شنودهای ساده قدیمی را سخت‌تر کرده، اما وای‌فای عمومی بی‌خطر نشده است.</h2></div></div>
+<div class="definition-card big"><p>سال‌ها قبل مثال کلاسیک وای‌فای عمومی این بود که هرکسی می‌تواند رمزها را در شبکه بخواند. امروز بیشتر وب‌سایت‌های مهم از HTTPS استفاده می‌کنند و این سناریو به آن سادگی گذشته نیست.</p><p>اما ریسک‌های دیگری باقی‌اند: شبکه جعلی با نام مشابه، صفحه captive portal فریبنده، هشدار گواهی که کاربر نادیده می‌گیرد، اشتراک فایل محلی یا دستگاهی که به‌روز نیست.</p><p>پس پیام درست این نیست که «هر وای‌فای عمومی هک می‌کند». پیام درست این است که در شبکه‌ای که مالک و پیکربندی‌اش را نمی‌شناسی، تصمیم‌های حساس را با احتیاط بیشتری انجام بده.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>امنیت خوب با اغراق قوی‌تر نمی‌شود؛ با توضیح دقیق ریسک قوی‌تر می‌شود.</strong></div>
+</div></section><section class="slide" data-short="PUBLIC WIFI" data-title="Wi‑Fi عمومی" id="public-wifi"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">113</span><div><small>کافه، فرودگاه، هتل</small><h2>اسم شبکه را دیدی؛ از کجا فهمیدی مال همان کافه است؟</h2></div></div><div class="definition-card big"><p>یکی از سناریوهای رایج، ساخت شبکه‌ای با نام مشابه شبکه واقعی است؛ چیزی که معمولاً با عنوان <strong>Evil Twin</strong> توضیح داده می‌شود. کاربر فقط نام آشنا را می‌بیند و وصل می‌شود.</p><p>HTTPS امروزه بخش زیادی از خطر شنود ساده را کم کرده، اما شبکه عمومی هنوز جای مناسبی برای ورود بی‌احتیاط به پنل‌های حساس، قبول‌کردن certificate warning یا نصب پروفایل و نرم‌افزار ناشناس نیست.</p><p>اگر کار حساس داری، شبکه شخصی یا VPN سازمانیِ مورد تأیید انتخاب منطقی‌تری است.</p></div><div class="question-pause">آخرین بار که به Wi‑Fi هتل وصل شدی، <b>اسم دقیق شبکه را از کارکنان پرسیدی یا اولین گزینه شبیه نام هتل را زدی؟</b></div><div class="takeaway"><b>نکته:</b> <strong>نام Wi‑Fi هویت شبکه نیست.</strong></div></div></section><section class="slide" data-short="SESSION" data-title="Session چیست؟" id="session-what">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">114</span><div><small>چرا هر صفحه دوباره رمز نمی‌خواهد؟</small><h2>بعد از ورود، سرویس باید راهی داشته باشد که درخواست‌های بعدی را به همان کاربر وصل کند.</h2></div></div>
+<div class="definition-card big"><p>وقتی وارد یک وب‌سایت می‌شوی، سرور معمولاً یک شناسه یا توکن نشست ایجاد می‌کند. مرورگر آن را در درخواست‌های بعدی می‌فرستد تا سایت بداند قبلاً احراز هویت شده‌ای.</p><p>به همین دلیل اگر نشست معتبر در شرایط خاص سرقت شود، مهاجم ممکن است مدتی بتواند بدون دانستن رمز از همان نشست استفاده کند. البته سرویس‌ها کنترل‌های مختلفی مثل انقضا، اتصال به دستگاه یا بازبینی ریسک دارند.</p><p>برای کاربر، نتیجه عملی روشن است: امنیت حساب فقط به پیچیدگی رمز بستگی ندارد؛ سلامت مرورگر، دستگاه و نشست‌های فعال هم مهم است.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>«رمز قوی» فقط یکی از لایه‌هاست؛ حساب واردشده روی دستگاه آلوده هنوز می‌تواند مشکل داشته باشد.</strong></div>
+</div></section><section class="slide" data-short="SESSION" data-title="Session Cookie" id="session-cookie"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">115</span><div><small>چرا رمز قوی همیشه کافی نیست؟</small><h2>بعد از ورود، مرورگر یک «نشانه ورود» نگه می‌دارد.</h2></div></div><div class="definition-grid"><article class="definition-card big"><p>وقتی وارد یک سایت می‌شوی، معمولاً لازم نیست برای هر کلیک دوباره رمز بزنی. مرورگر یک <strong>session cookie/token</strong> نگه می‌دارد تا سرویس بداند همان کاربر قبلی هستی.</p><p>اگر مهاجم بتواند نشست معتبر را بدزدد، در بعضی سناریوها ممکن است بدون دانستن رمز از همان نشست استفاده کند. به همین دلیل خروج از دستگاه‌های ناشناس، به‌روزرسانی مرورگر و احتیاط در برابر بدافزار اهمیت دارد.</p><p>این توضیح به معنی «کوکی همیشه رمز است» نیست؛ مکانیزم‌ها و کنترل‌های سرویس‌ها متفاوت‌اند.</p></article><div class="everyday-chain"><div><span>LOGIN</span><b>رمز + MFA</b><small>احراز هویت</small></div><div><span>SESSION</span><b>توکن نشست</b><small>حفظ ورود</small></div><div><span>THEFT</span><b>سرقت نشست</b><small>سناریوی حمله</small></div><div class="result"><span>RISK</span><b>دسترسی موقت</b><small>بسته به سرویس</small></div></div></div><div class="takeaway"><b>نکته:</b> <strong>امنیت حساب فقط «رمز» نیست؛ امنیت دستگاه و نشست فعال هم مهم است.</strong></div></div></section><section class="slide" data-short="PHONE" data-title="چرا شماره تلفن مهم است؟" id="sim-swap-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">116</span><div><small>قبل از SIM Swap</small><h2>شماره موبایل برای بسیاری از سرویس‌ها هم شناسه است، هم کانال بازیابی و هم عامل دوم.</h2></div></div>
+<div class="definition-card big"><p>اگر رمز را فراموش کنی، خیلی از سرویس‌ها لینک یا کد بازیابی را به شماره تلفن می‌فرستند. بعضی بانک‌ها و حساب‌ها هم برای ورود یا تراکنش به SMS تکیه دارند.</p><p>این یعنی کنترل شماره می‌تواند به مهاجم کمک کند کنترل حساب‌های دیگری را هم امتحان کند. SIM Swap دقیقاً از همین وابستگی استفاده می‌کند: انتقال شماره به سیم‌کارت تحت کنترل مهاجم از طریق سوءاستفاده از فرایند اپراتور.</p><p>همه کاربران قربانی SIM Swap نمی‌شوند، اما ارزش مفهوم در این است که نشان می‌دهد یک «زیرساخت اعتماد» چطور به چند حساب وصل شده است.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>برای حساب‌های خیلی مهم، اگر سرویس اجازه می‌دهد فقط به SMS به‌عنوان عامل دوم تکیه نکن.</strong></div>
+</div></section><section class="slide" data-short="SIM SWAP" data-title="SIM Swap" id="sim-swap"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">117</span><div><small>وقتی شماره تلفن تبدیل به کلید بازیابی می‌شود</small><h2>اگر کنترل سیم‌کارتت دست فرد دیگری بیفتد، چه حساب‌هایی به آن وصل‌اند؟</h2></div></div><div class="definition-card big"><p>در <strong>SIM Swap</strong> یا سوءاستفاده مشابه از فرایند اپراتور، مهاجم تلاش می‌کند شماره قربانی را روی سیم‌کارت تحت کنترل خودش منتقل کند. آن‌وقت پیامک‌ها و بعضی تماس‌ها به دستگاه او می‌رسد.</p><p>خطر وقتی بیشتر می‌شود که SMS تنها روش بازیابی یا MFA برای حساب‌های مهم باشد. اپ‌های احراز هویت یا کلیدهای امنیتی، در سرویس‌هایی که پشتیبانی می‌کنند، معمولاً وابستگی به سیم‌کارت را کمتر می‌کنند.</p></div><div class="question-pause">اگر همین الان شماره‌ات از دسترس خارج شود، <b>کدام حساب‌ها را فقط با همان شماره می‌توان بازیابی کرد؟</b></div><div class="takeaway"><b>نکته:</b> <strong>شماره تلفن را تنها ریشه اعتمادِ حساب‌های مهم نکن.</strong></div></div></section>
+<!-- 18 -->
+<section class="slide" data-short="DEEPFAKE" data-title="ورود به جعل رسانه" id="deepfake-transition">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">118</span><div><small>وقتی دیدن و شنیدن هم کافی نیست</small><h2>سال‌ها به ما گفته می‌شد «اگر مطمئن نیستی تماس ویدئویی بگیر». حالا این کنترل به‌تنهایی کافی نیست.</h2></div></div>
+<div class="definition-card big"><p>تولید صوت و تصویر مصنوعی پیشرفت کرده و ساخت محتوای شبیه فرد واقعی ساده‌تر شده است. این فناوری کاربردهای مشروع زیادی دارد، اما در مهندسی اجتماعی هم قابل سوءاستفاده است.</p><p>مسئله فقط این نیست که آیا می‌توانیم جعلی بودن ویدئو را با چشم تشخیص دهیم. اگر فرایند مالی سازمان فقط روی «دیدن مدیر» تکیه کند، حتی یک جعل نه‌چندان کامل هم ممکن است کافی باشد.</p><p>پس دفاع باید از تشخیص رسانه فراتر برود و به تأیید مستقل، سقف پرداخت و کنترل نفر دوم برسد.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>فرایند خوب باید حتی وقتی صدا و تصویر کاملاً قانع‌کننده‌اند هم امن بماند.</strong></div>
+</div></section><section class="slide" data-short="DEFINITION" data-title="Deepfake چیست؟" id="deepfake-what-is">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">119</span><div><small>تعریف ساده</small><h2>Deepfake به محتوای مصنوعی یا دستکاری‌شده‌ای گفته می‌شود که چهره، صدا یا رفتار فرد را به‌شکل باورپذیر تقلید می‌کند.</h2></div></div>
+<div class="definition-card big"><p>مدل‌های یادگیری ماشین می‌توانند از نمونه‌های صوتی، صدایی شبیه فرد بسازند یا چهره او را در ویدئو بازسازی کنند. کیفیت خروجی به داده، ابزار و شرایط بستگی دارد؛ همه Deepfakeها بی‌نقص نیستند.</p><p>در کلاهبرداری، حتی چند ثانیه صدای شبیه مدیر ممکن است برای ساخت پیام صوتی کافی باشد. اگر مهاجم از قبل درباره ساختار شرکت، نام همکارها و یک معامله واقعی اطلاعات داشته باشد، جعل رسانه فقط یک لایه اعتماد دیگر اضافه می‌کند.</p><p>برای همین OSINT، مهندسی اجتماعی و AI می‌توانند در یک حمله به هم برسند.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>Deepfake معمولاً جای مهندسی اجتماعی را نمی‌گیرد؛ آن را باورپذیرتر می‌کند.</strong></div>
+</div></section><section class="slide" data-short="DEEPFAKE" data-title="Deepfake" id="deepfake">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no red">120</span>
+<div><small>پرونده واقعی • هنگ‌کنگ</small><h2>وقتی «دیدن مدیر» هم دیگر کافی نیست.</h2></div>
+</div>
+<div class="deepfake-layout">
+<div aria-hidden="true" class="video-call-art">
+<div class="call-main"><span class="face"></span><b>CFO</b><small>LIVE</small></div>
+<div class="call-small"><span class="face"></span><b>Colleague</b></div>
+<div class="call-small"><span class="face"></span><b>Manager</b></div>
+<div class="call-small"><span class="face"></span><b>Finance</b></div>
+<div class="deepfake-stamp">SYNTHETIC</div>
+</div>
+<div class="deepfake-copy">
+<p>پلیس هنگ‌کنگ گزارش کرده در سال ۲۰۲۴ پرونده‌هایی از کلاهبرداری با استفاده از ویدئوی ازپیش‌ضبط‌شده و فناوری deepfake ثبت شده است. در یکی از پرونده‌های مشهور، کارمند مالی تصور کرد در جلسه ویدئویی با مدیران شرکت حضور دارد و در نهایت انتقال‌های مالی بزرگی انجام شد.</p>
+<p>در این مدل حمله، مشکل این نیست که کاربر «چهره را ندیده»؛ مشکل این است که <strong>فرایند سازمان، دیدن چهره و شنیدن صدا را معادل احراز هویت در نظر گرفته است.</strong></p>
+<div class="verification-box"><b>کنترل درست</b><span>درخواست مالی حساس = تماس برگشتی از شماره معتبر + تأیید نفر دوم + کنترل فرایندی</span></div>
+<a class="source-link" href="https://www.police.gov.hk/info/doc/fcq/2026/sfc_e.pdf" rel="noopener" target="_blank">Hong Kong Police Force ↗</a>
+</div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>شباهت صدا و تصویر یک سرنخ است، نه اثبات هویت. فرایند باید حتی در برابر جعل کامل رسانه هم دوام بیاورد.</strong></div>
+</div>
+</section><section class="slide" data-short="AI PHISH" data-title="هوش مصنوعی و فیشینگ" id="ai-phishing"><div class="slide-inner"><div class="slide-head"><span class="chapter-no">121</span><div><small>چه چیزی عوض شده؟</small><h2>فیشینگ دیگر لازم نیست بد نوشته شده باشد.</h2></div></div><div class="definition-card big"><p>ابزارهای مولد می‌توانند متن روان، ترجمه خوب و لحن متناسب با نقش سازمانی بسازند. بنابراین علامت‌های قدیمی مثل «غلط املایی زیاد» یا «فارسی شکسته» دیگر فیلتر قابل اعتمادی نیستند.</p><p>در عوض باید روی چیزهایی تمرکز کنیم که جعلشان سخت‌تر است: <strong>فرایند تأیید، کانال دوم، حداقل دسترسی و کنترل پرداخت</strong>.</p><p>هوش مصنوعی همچنین سرعت شخصی‌سازی پیام را بالا می‌برد: مهاجم می‌تواند اطلاعات عمومی را به متنی تبدیل کند که انگار توسط فردی آشنا نوشته شده است.</p></div><div class="question-pause">اگر فردا یک پیام جعلی بدون هیچ غلط و دقیقاً با لحن مدیرت برسد، <b>چه کنترل دیگری غیر از «حس متن» داری؟</b></div><div class="takeaway"><b>نکته:</b> <strong>تشخیص حمله را از کیفیت نگارش جدا کن؛ فرآیند را معیار قرار بده.</strong></div></div></section><section class="slide" data-short="HK CASE" data-title="پرونده هنگ‌کنگ چه بود؟" id="deepfake-hk-context">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">122</span><div><small>قبل از جزئیات</small><h2>کارمند مالی فکر می‌کرد در یک جلسه ویدئویی عادی با همکارانش شرکت کرده است.</h2></div></div>
+<div class="definition-card big"><p>پلیس هنگ‌کنگ در ۲۰۲۴ درباره پرونده‌ای گفت که در آن کارمند مالی یک شرکت چندملیتی ابتدا پیام مربوط به یک تراکنش محرمانه دریافت کرد. او در شروع شک داشت، اما بعد در یک جلسه ویدئویی چهره‌ها و صداهایی شبیه مدیر مالی و همکاران دید.</p><p>پس از جلسه، چند انتقال مالی انجام شد که مجموع آن‌ها بسیار بزرگ بود. بعدتر مشخص شد افراد حاضر در تماس واقعی نبوده‌اند و از محتوای مصنوعی استفاده شده است.</p><p>نقطه ضعف اصلی «تشخیص ندادن Deepfake» نبود؛ این بود که یک تراکنش بزرگ می‌توانست فقط با اعتبار یک تماس ویدئویی پیش برود.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>برای درخواست مالی غیرمعمول، تأیید از کانال دوم و نفر دوم باید مستقل از ویدئو و صدا باشد.</strong></div>
+</div></section><section class="slide" data-short="HK DEEPFAKE" data-title="کلاهبرداری Deepfake در هنگ‌کنگ" id="deepfake-hk"><div class="slide-inner"><div class="slide-head"><span class="chapter-no red">123</span><div><small>پرونده واقعی • هنگ‌کنگ</small><h2>وقتی چهره و صدا هر دو آشنا باشند، باز هم باید تأیید کنی.</h2></div></div><div class="definition-card big"><p>پلیس هنگ‌کنگ در سال ۲۰۲۴ درباره پرونده‌هایی گزارش داد که در آن‌ها از ویدئوی ازپیش‌ضبط‌شده و Deepfake برای جعل مدیران استفاده شده بود. در یکی از پرونده‌های مشهور، کارمند مالی پس از جلسه ویدئویی جعلی انتقال‌های مالی بزرگی انجام داد.</p><p>درس مهم این پرونده این است که «دیدن چهره» و «شنیدن صدا» دیگر نباید به‌تنهایی کنترل مالی باشند. یک فرایند خوب حتی اگر رسانه کاملاً واقعی به نظر برسد، هنوز <strong>callback، تأیید نفر دوم یا کنترل بانکی</strong> دارد.</p><a class="source-link" href="https://www.police.gov.hk/info/doc/fcq/2026/sfc_e.pdf" rel="noopener" target="_blank">Hong Kong Police Force ↗</a></div><div class="takeaway"><b>نکته:</b> <strong>Deepfake مشکل «تشخیص تصویر جعلی» نیست فقط؛ مشکل اصلی طراحی فرایندی است که به تصویر بیش از حد اعتماد کرده.</strong></div></div></section><section class="slide question-slide" data-short="PROCESS" data-title="تمرین نهایی تصمیم" id="defense-scenario"><div class="slide-inner narrow"><div class="slide-head"><span class="chapter-no red">124</span><div><small>همه چیز با هم</small><h2>مدیرت در تماس تصویری می‌گوید یک فایل محرمانه را همین الان بفرست. چه می‌کنی؟</h2></div></div><div class="question-stack"><p>صدا درست است. تصویر درست است. نام پروژه را هم می‌داند.</p><p>اما درخواست خارج از روال است و می‌گوید «به کسی نگو چون موضوع حساس است».</p><p>آیا «واقعی به نظر رسیدن» را با «تأیید هویت و مجوز» یکی می‌گیری؟</p><p>کانال دوم تو چیست؟ شماره رسمی؟ سامانه سازمانی؟ تأیید نفر دوم؟</p></div><div class="question-pause"><b>کارگاه اگر فقط یک عادت بسازد، همین باشد: درخواست حساس را مستقل تأیید کن.</b></div></div></section>
+<!-- Q-DEEPFAKE -->
+<section class="slide question-slide" data-short="VOICE ≠ ID" data-title="سؤال جعل صدا" id="deepfake-questions">
+<div class="slide-inner narrow">
+<div class="slide-head"><span class="chapter-no red">125</span><div><small>صدایی که می‌شناسی، دیگر مدرک کافی نیست</small><h2>اگر صدای مدیرت پشت تلفن باشد، چه چیزی را واقعاً تأیید کرده‌ای؟</h2></div></div>
+<div class="question-stack">
+<p>اگر همان صدا از تو بخواهد <strong>OTP، پول، فایل یا اطلاعات محرمانه</strong> بفرستی، کانال دوم تأیید داری؟</p>
+<p>آیا در تیم شما برای درخواست‌های حساس یک <strong>عبارت توافقی یا callback به شماره رسمی</strong> تعریف شده؟</p>
+<p>اگر تصویر و صدا هر دو درست به نظر برسند، آیا فرایند شما هنوز بدون یک تأیید مستقل ادامه پیدا می‌کند؟</p>
+</div>
+<div class="question-pause">در عصر Deepfake، <b>«من صدایش را شناختم» یک روش احراز هویت نیست.</b></div>
+</div>
+</section>
+<!-- 19 -->
+<section class="slide" data-short="RESPONSE" data-title="وقتی شک کردی چه کار کنی؟" id="incident-response-basics">
+<div class="slide-inner">
+<div class="slide-head"><span class="chapter-no">126</span><div><small>امنیت فقط پیشگیری نیست</small><h2>گاهی کاربر کلیک کرده، فایل را باز کرده یا کد را گفته است؛ واکنش بعدی هم بخشی از امنیت است.</h2></div></div>
+<div class="definition-card big"><p>اولین کار پنهان‌کردن اشتباه نیست. اگر حساب سازمانی است، سریع به تیم IT یا امنیت خبر بده. اگر حساب شخصی است، از دستگاه امن رمز را تغییر بده، نشست‌های فعال را ببند و MFA را بررسی کن.</p><p>اگر اطلاعات مالی یا بانکی درگیر شده، با کانال رسمی بانک یا سرویس تماس بگیر. اگر فایل ناشناس اجرا شده، فقط پاک‌کردن فایل لزوماً کافی نیست و ممکن است بررسی تخصصی لازم باشد.</p><p>در سازمان‌ها ثبت زمان، پیام‌ها و اقداماتی که انجام شده به تیم پاسخ به رخداد کمک می‌کند. این اطلاعات برای سرزنش نیست؛ برای محدودکردن خسارت است.</p></div>
+<div class="takeaway"><b>نکته:</b> <strong>بعد از اشتباه، سرعت گزارش از «ظاهر خوب داشتن» مهم‌تر است.</strong></div>
+</div></section><section class="slide" data-short="DEFENSE" data-title="پروتکل دفاع" id="defense">
+<div class="slide-inner">
+<div class="slide-head">
+<span class="chapter-no green">127</span>
+<div><small>جمع‌بندی عملی</small><h2>هفت قدم ساده قبل از اینکه روی یک درخواست مشکوک عمل کنی</h2></div>
+</div>
+<div class="protocol-grid">
+<div><span>01</span><b>STOP</b><p>چند ثانیه تصمیم را متوقف کن.</p></div>
+<div><span>02</span><b>READ</b><p>دامنه، شماره، فرستنده و متن را دقیق بخوان.</p></div>
+<div><span>03</span><b>QUESTION</b><p>چرا فوری؟ چرا محرمانه؟ چرا روش معمول عوض شده؟</p></div>
+<div><span>04</span><b>VERIFY</b><p>از یک کانال مستقل هویت را تأیید کن.</p></div>
+<div><span>05</span><b>LIMIT</b><p>کمترین اطلاعات و دسترسی لازم را بده.</p></div>
+<div><span>06</span><b>REPORT</b><p>مورد مشکوک را سریع گزارش کن.</p></div>
+<div><span>07</span><b>LEARN</b><p>رخداد را به درس سازمانی تبدیل کن.</p></div>
+</div>
+<div class="takeaway"><b>نکته:</b> <strong>هدف آموزش امنیت این نیست که به همه‌چیز شک کنی؛ هدف این است که برای تصمیم‌های پرریسک، یک روال ثابت داشته باشی.</strong></div>
+</div>
+</section><section class="slide" data-short="10 RULES" data-title="ده عادت امنیتی" id="ten-rules"><div class="slide-inner"><div class="slide-head"><span class="chapter-no green">128</span><div><small>چیزهایی که از فردا قابل اجراست</small><h2>ده عادت کوچک، از صد توصیه حفظی بهترند.</h2></div></div><div class="opsec-cards"><div><b>۱. رمز یکتا</b><span>برای هر سرویس رمز جدا.</span></div><div><b>۲. Password Manager</b><span>حفظ‌کردن را به ابزار بسپار.</span></div><div><b>۳. MFA</b><span>ورودی که شروع نکردی تأیید نکن.</span></div><div><b>۴. Callback</b><span>درخواست حساس را مستقل چک کن.</span></div><div><b>۵. لینک</b><span>سرویس مهم را خودت باز کن.</span></div><div><b>۶. انتشار با تأخیر</b><span>موقعیت زنده را کم کن.</span></div><div><b>۷. عکس</b><span>پس‌زمینه و metadata را ببین.</span></div><div><b>۸. آپدیت</b><span>سیستم و مرورگر را عقب نینداز.</span></div><div><b>۹. گزارش سریع</b><span>اشتباه را پنهان نکن.</span></div><div><b>۱۰. شک سالم</b><span>نه بدبین؛ فقط راستی‌آزما.</span></div></div><div class="takeaway"><b>نکته:</b> <strong>امنیت خوب بیشتر از اینکه «دانستن» باشد، مجموعه‌ای از عادت‌های تکرارشونده است.</strong></div></div></section>
+<!-- 20 -->
+<section class="slide final-slide" data-short="CHECKLIST" data-title="پایان" id="final">
+<div class="slide-inner final-inner">
+<div class="final-title"><small>قبل از کلیک، ارسال، پرداخت یا انتشار</small><h2>پنج سؤال.</h2></div>
+<div class="final-checklist" id="finalChecklist">
+<label><input type="checkbox"/><span><b>فرستنده را مستقل تأیید کردم؟</b><small>نه از همان شماره یا لینکی که پیام را فرستاده.</small></span></label>
+<label><input type="checkbox"/><span><b>دامنه و مقصد را خواندم؟</b><small>ظاهر صفحه به‌تنهایی کافی نیست.</small></span></label>
+<label><input type="checkbox"/><span><b>درخواست غیرعادی یا فوری است؟</b><small>فشار زمانی می‌تواند بخشی از فریب باشد.</small></span></label>
+<label><input type="checkbox"/><span><b>اطلاعاتی که می‌فرستم واقعاً لازم است؟</b><small>رمز، OTP، موقعیت، سند و فایل حساس.</small></span></label>
+<label><input type="checkbox"/><span><b>اگر اشتباه کنم، پیامد چیست؟</b><small>قبل از اقدام، بدترین حالت را یک‌بار مرور کن.</small></span></label>
+</div>
+<button class="btn primary" id="checkBtn">ارزیابی</button>
+<div class="check-result" id="checkResult">هنوز ارزیابی نشده.</div>
+<div class="final-advice">
+<p><strong>رمزهای تکراری را کنار بگذار؛ از Password Manager و MFA استفاده کن.</strong></p>
+<p><strong>برای درخواست‌های حساس، تأیید از کانال دوم را به عادت تبدیل کن.</strong></p>
+<p><strong>قبل از انتشار عکس و فایل، پس‌زمینه، metadata و اطلاعات مکانی را بررسی کن.</strong></p>
+<p><strong>هر خبر «هک شد» را قبل از بازنشر راستی‌آزمایی کن.</strong></p>
+<p><strong>اگر اشتباه کردی، سریع گزارش کن؛ تأخیر معمولاً خسارت را بیشتر می‌کند.</strong></p>
+</div>
+</div>
+</section>
+</main>
+<div aria-label="کنترل ارائه" class="deck-controls">
+<button id="prevBtn" title="قبلی">→</button>
+<button id="presentBtn" title="تمام صفحه">⛶</button>
+<button id="nextBtn" title="بعدی">←</button>
+</div>
+<div aria-hidden="true" class="source-modal" id="sourceModal">
+<div class="source-panel">
+<div class="source-head"><div><small>REFERENCES</small><h2>منابع پرونده‌ها</h2></div><button id="sourceClose">×</button></div>
+<div class="source-list">
+<a href="https://www.justice.gov/archives/opa/pr/three-individuals-charged-alleged-roles-twitter-hack" rel="noopener" target="_blank"><b>Twitter — 2020</b><span>DOJ: social engineering and unauthorized access.</span></a>
+<a href="https://redditinc.com/news/sharing-our-findings-around-a-data-security-incident" rel="noopener" target="_blank"><b>Reddit — 2023</b><span>Official incident note: targeted phishing, one employee credential.</span></a>
+<a href="https://www.sec.gov/Archives/edgar/data/789570/000078957024000005/mgm-20231231.htm" rel="noopener" target="_blank"><b>MGM Resorts — 2023</b><span>SEC filing: operational disruption and customer information accessed.</span></a>
+<a href="https://digiato.com/iran-technology-news/snappfood-second-statement-unauthorized-access-to-data" rel="noopener" target="_blank"><b>اسنپ‌فود — ۱۴۰۲</b><span>بیانیه تکمیلی و توضیح درباره داده‌های متاثر و کنترل‌های بعدی.</span></a>
+<a href="https://digiato.com/articles/new-hack-tapsi-1402" rel="noopener" target="_blank"><b>تپسی — ۱۴۰۲</b><span>اعلام مدیرعامل درباره دسترسی غیرمجاز و اخاذی؛ تفکیک ادعاهای تاییدنشده.</span></a>
+<a href="https://www.sec.gov/Archives/edgar/data/1590895/000119312523235015/d537840d8k.htm" rel="noopener" target="_blank"><b>Caesars Entertainment — 2023</b><span>SEC filing: social engineering against outsourced IT support vendor.</span></a>
+<a href="https://www.theguardian.com/world/2018/jan/28/fitness-tracking-app-gives-away-location-of-secret-us-army-bases" rel="noopener" target="_blank"><b>Strava Heatmap — 2018</b><span>The Guardian / Strava heatmap.</span></a>
+<a href="https://www.bellingcat.com/resources/case-studies/2014/11/08/geolocating-the-russian-buk-convoy-in-millerovo/" rel="noopener" target="_blank"><b>Geolocating MH17 Buk Convoy</b><span>Bellingcat case study.</span></a>
+<a href="https://www.bellingcat.com/news/2014/11/08/origin-of-the-separatists-buk-a-bellingcat-investigation/" rel="noopener" target="_blank"><b>Origin of the Separatists' Buk</b><span>Bellingcat investigation; 16 social-media videos and route reconstruction.</span></a>
+<a href="https://www.bellingcat.com/news/2016/06/22/new-google-earth-satellite-update-confirms-presence-of-buk-in-eastern-ukraine/" rel="noopener" target="_blank"><b>Satellite verification of Buk convoy</b><span>Bellingcat / Google Earth historical imagery.</span></a>
+<a href="https://www.theguardian.com/world/2019/oct/11/japanese-assault-suspect-tracked-down-pop-star-via-eye-reflection-in-selfie" rel="noopener" target="_blank"><b>Selfie reflection case — 2019</b><span>The Guardian.</span></a>
+<a href="https://www.vice.com/en/article/on-the-lam-with-john-mcafee/" rel="noopener" target="_blank"><b>John McAfee metadata — 2012</b><span>VICE.</span></a>
+<a href="https://sakhtafzarmag.com/%D8%A7%D8%B9%D8%AA%D8%B1%D8%A7%D9%81-%D8%A8%D9%87-%D9%87%DA%A9-%D9%86%D8%B3%D8%AE%D9%87-%D9%85%D8%AA%D9%86%DB%8C-%D9%85%DA%A9%D8%A7%D9%84%D9%85%D8%A7%D8%AA-%D8%AF%DB%8C%D9%88%D8%A7%D8%B1/" rel="noopener" target="_blank"><b>دیوار — ۱۳۹۹</b><span>بازنشر توضیح دیوار درباره رخداد متن مکالمات مرکز تماس و گزارش پیامک‌های فیشینگ.</span></a>
+<a href="https://www.iictf.ir/media/%D8%AF%DB%8C%D8%AC%DB%8C%E2%80%8C%DA%A9%D8%A7%D9%84%D8%A7-%D9%87%DA%A9-%D9%86%D8%B4%D8%AF%D9%87%E2%80%8C%D8%A7%D8%B3%D8%AA/" rel="noopener" target="_blank"><b>دیجی‌کالا — ۱۴۰۱</b><span>گزارش فدراسیون فاوا از تکذیب ادعای هک.</span></a>
+<a href="https://www.oag.ca.gov/news/press-releases/attorney-general-bonta-sues-chrome-holding-co-formerly-known-23andme-over-2023" rel="noopener" target="_blank"><b>23andMe — 2023 breach</b><span>California Department of Justice.</span></a>
+<a href="https://www.fbi.gov/contact-us/field-offices/elpaso/news/fbi-tech-tuesday-building-a-digital-defense-against-qr-code-scams" rel="noopener" target="_blank"><b>QR Code scams</b><span>FBI.</span></a>
+<a href="https://www.police.gov.hk/info/doc/fcq/2026/sfc_e.pdf" rel="noopener" target="_blank"><b>Deepfake fraud cases</b><span>Hong Kong Police Force.</span></a>
+<a href="https://www.uber.com/cr/es/newsroom/actualizacion-de-seguridad/" rel="noopener" target="_blank"><b>Uber — 2022</b><span>به‌روزرسانی رسمی شرکت درباره رخداد امنیتی و ابزارهای داخلی.</span></a><a href="https://krebsonsecurity.com/2014/02/target-hackers-broke-in-via-hvac-company/" rel="noopener" target="_blank"><b>Target — 2013</b><span>گزارش درباره ورود اولیه از طریق اعتبار پیمانکار HVAC.</span></a><a href="https://www.ftc.gov/news-events/news/press-releases/2019/07/equifax-pay-575-million-part-settlement-ftc-cfpb-states-related-2017-data-breach" rel="noopener" target="_blank"><b>Equifax — 2017</b><span>FTC: حدود ۱۴۷ میلیون فرد متاثر و توافق حقوقی بعدی.</span></a><a href="https://www.rpc.senate.gov/policy-papers/infrastructure-cybersecurity-pipelines" rel="noopener" target="_blank"><b>Colonial Pipeline — 2021</b><span>گزارش سنای آمریکا درباره حساب VPN و نبود MFA.</span></a><a href="https://www.cisa.gov/news-events/alerts/2020/12/23/cisa-releases-cisa-insights-and-creates-webpage-ongoing-apt-cyber-activity" rel="noopener" target="_blank"><b>SolarWinds — 2020</b><span>CISA: compromise زنجیره تأمین SolarWinds Orion.</span></a><a href="https://haveibeenpwned.com/Passwords" rel="noopener" target="_blank"><b>Have I Been Pwned</b><span>توضیح خطر password reuse و credential stuffing.</span></a><a href="https://tasnimnews.ir/fa/news/1405/04/25/3648797/" rel="noopener" target="_blank"><b>فیشینگ ثنا — ایران</b><span>هشدار پلیس فتا درباره لینک‌های جعلی با پوشش ابلاغ قضایی و وام.</span></a><a href="https://www.prosecutionservice.nl/topics/m/mh17-plane-crash" rel="noopener" target="_blank"><b>MH17 — دادستانی هلند</b><span>زمینه پرونده، تحقیقات JIT و نتیجه دادرسی.</span></a><a href="https://www.prosecutionservice.nl/latest/news/2018/05/24/update-in-criminal-investigation-mh17-disaster" rel="noopener" target="_blank"><b>JIT MH17 — 2018</b><span>نتیجه تحقیق درباره منشأ Buk و تیپ ۵۳ پدافند هوایی.</span></a><a href="https://support.strava.com/en-us/articles/15402118-what-is-strava" rel="noopener" target="_blank"><b>Strava — معرفی رسمی</b><span>تعریف سرویس و کارکرد اجتماعی/ورزشی.</span></a><a href="https://ithistory.org/honoree/john-david-mcafee" rel="noopener" target="_blank"><b>John McAfee — IT History Society</b><span>زمینه تاریخی درباره بنیان‌گذار McAfee Associates.</span></a><a href="https://www.fbi.gov/news/stories/business-e-mail-compromise" rel="noopener" target="_blank"><b>FBI — BEC</b><span>نمونه واقعی کلاهبرداری ایمیلی سازمانی و تأیید پرداخت.</span></a></div>
+<p class="source-note">تصاویر واقعی پرونده‌ها از URL مستقیم رسانه/منبعی که آن تصویر را منتشر کرده بارگذاری می‌شوند و زیر هر تصویر توضیح داده شده که «تصویر رخداد»، «تصویر آرشیوی» یا «ادعای مهاجم» است. برای بازنشر تجاری، شرایط مجوز هر منبع را جداگانه بررسی کنید.</p>
+</div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
